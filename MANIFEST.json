@@ -1,0 +1,82 @@
+[
+  {
+    "path": "AGENTS.md",
+    "bytes": 8434,
+    "sha256": "b22c92fca06723a8366e459942af4e100874f3b90638aa51147fdd26fb4dbf04"
+  },
+  {
+    "path": "CHANGELOG.md",
+    "bytes": 1055,
+    "sha256": "1770a9e0af2d3fc18c5e1a6ad13eceee8de88bcf426060d995da77fb1f9ee97a"
+  },
+  {
+    "path": "README_SUPPORTING_DOCUMENTS.md",
+    "bytes": 3913,
+    "sha256": "2efae8aed89a8b51e2c61157c08bf64e79b14e4e1989b1e3c5694d22e7858b09"
+  },
+  {
+    "path": "docs/agent/CURRENT_STATE.md",
+    "bytes": 2794,
+    "sha256": "4389f927be0da9b91ac1ca0ef5406b74e12be1e5ebcda3cc47cd642d87ac7aa6"
+  },
+  {
+    "path": "docs/agent/DECISION_LOG.md",
+    "bytes": 13141,
+    "sha256": "8a33055f8e202f68fdf375e9f579b0d92d2465f0c2fe6072b42e60e880cc376d"
+  },
+  {
+    "path": "docs/agent/PHASE_LOG_TEMPLATE.md",
+    "bytes": 3070,
+    "sha256": "89f9c49e2ffd11187b93106a81e05d5af8d7f5d580233cf97bb675cc29c586e3"
+  },
+  {
+    "path": "docs/agent/PROGRESS.md",
+    "bytes": 4898,
+    "sha256": "7fd0d8ebf13b3ae170192ab3d9b72f2611b887e266705cc5fe659bf309f6f424"
+  },
+  {
+    "path": "docs/agent/REQUIREMENTS_TRACEABILITY.md",
+    "bytes": 6716,
+    "sha256": "597038e2ad98dc7b3af85a69bc3abae4f150ff140665cf1c7886fc457f37f217"
+  },
+  {
+    "path": "docs/ai/PROVIDER_AND_MODEL_ROUTING.md",
+    "bytes": 8136,
+    "sha256": "c6a75aa5977a957e42a4c6e499668b20b063c7e32558be2258e44f7f653bfb12"
+  },
+  {
+    "path": "docs/architecture/DATA_MODEL.md",
+    "bytes": 11665,
+    "sha256": "542e35de15fde3890884014da62b55310cfd0c421859963a3a8d4d4d2ff84422"
+  },
+  {
+    "path": "docs/architecture/SYSTEM_ARCHITECTURE.md",
+    "bytes": 8812,
+    "sha256": "d9e65c1d6a1f7c5fe371ecec299e97ae011a854a5534c6186a41280db51afd15"
+  },
+  {
+    "path": "docs/data/EVENT_AND_TRAINING_PIPELINE.md",
+    "bytes": 9093,
+    "sha256": "3f46e9b44a081ed6ca667a48b51e884073cfbbe274bd8b067bfe008bd3221001"
+  },
+  {
+    "path": "docs/operations/DEPLOYMENT_AND_RECOVERY.md",
+    "bytes": 6582,
+    "sha256": "74ed124fdbbe0ec923d461a1da3310d10704a8cf8d8621f9ce34bda522250123"
+  },
+  {
+    "path": "docs/operations/LOCAL_DEVELOPMENT.md",
+    "bytes": 3869,
+    "sha256": "186629b9c86d6fd240b3aa5782a9d28d9b8beb68099a2eeab7df7a9c488d3de4"
+  },
+  {
+    "path": "docs/security/SECURITY_AND_PRIVACY.md",
+    "bytes": 9087,
+    "sha256": "4058de51e0369589251ad3ae30bd4298a89ee59bc1356b8ef8de355512da1bc7"
+  },
+  {
+    "path": "docs/testing/TEST_STRATEGY.md",
+    "bytes": 7245,
+    "sha256": "ef9dbd65ec3b91005aee45754407118462d2d9230b8371b6959eaa02393d9818"
+  }
+]
