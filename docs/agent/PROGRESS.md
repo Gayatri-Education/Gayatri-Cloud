@@ -2,16 +2,16 @@
 
 **Last updated:** 2026-10-24  
 **Truth source:** repository state + phase logs + verified test evidence, not chat memory.  
-**Current phase:** P03 — Authentication and account lifecycle  
+**Current phase:** P04 — Organizations, memberships, roles and tenant isolation  
 **Overall status:** `IN_PROGRESS`
 
 ## Current checkpoint
 
-- Last GREEN phase: P02 — Persistence, schema and migrations.
-- Active phase: P03 — Authentication and account lifecycle.
-- Implementation status: P02 completed with all 8 criteria GREEN (SQLAlchemy 2.0 async schema models across 6 domains, connection-pooled session manager, BaseTenantRepository with isolation enforcement, Alembic baseline migration 001_initial_schema, synthetic seed fixtures, 16 passing tests). Ready for P03 Authentication and account lifecycle.
-- Blocking decisions: None blocking P03.
-- Next action: Plan and execute Phase P03.
+- Last GREEN phase: P03 — Authentication and account lifecycle.
+- Active phase: P04 — Organizations, memberships, roles and tenant isolation.
+- Implementation status: P03 completed with all 8 criteria GREEN (PBKDF2 password hashing, JWT tokens with HS256, User registration/login/refresh/logout/profile API endpoints, session rotation and replay protection, user enumeration resistance, 23 passing tests). Ready for P04 Multi-tenancy and RBAC.
+- Blocking decisions: None blocking P04.
+- Next action: Plan and execute Phase P04.
 
 ## Phase ledger
 
@@ -20,7 +20,8 @@
 | P00 | Repository discovery and decision freeze | `GREEN` | 5 defined | 5 | 0 | `docs/agent/phase-logs/P00.md` |
 | P01 | Local project foundation and CI | `GREEN` | 9 defined | 9 | 0 | `docs/agent/phase-logs/P01.md` |
 | P02 | Persistence, schema and migrations | `GREEN` | 8 defined | 8 | 0 | `docs/agent/phase-logs/P02.md` |
-| P03 | Authentication and account lifecycle | `NOT_STARTED` | TBD in phase log | 0 | TBD | `docs/agent/phase-logs/P03.md` |
+| P03 | Authentication and account lifecycle | `GREEN` | 8 defined | 8 | 0 | `docs/agent/phase-logs/P03.md` |
+| P04 | Organizations, memberships, roles and tenant isolation | `NOT_STARTED` | TBD in phase log | 0 | TBD | `docs/agent/phase-logs/P04.md` |
 | P01 | Local project foundation and CI | `NOT_STARTED` | TBD in phase log | 0 | TBD | `docs/agent/phase-logs/P01.md` |
 | P02 | Persistence, schema and migrations | `NOT_STARTED` | TBD in phase log | 0 | TBD | `docs/agent/phase-logs/P02.md` |
 | P03 | Authentication and account lifecycle | `NOT_STARTED` | TBD in phase log | 0 | TBD | `docs/agent/phase-logs/P03.md` |

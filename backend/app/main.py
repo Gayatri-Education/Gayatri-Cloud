@@ -13,6 +13,7 @@ from fastapi import FastAPI, Request, Response, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
+from app.api.v1 import api_v1_router
 from app.core.config import settings
 
 # Configure structured logging
@@ -42,6 +43,9 @@ app = FastAPI(
     docs_url="/docs" if not settings.is_production else None,
     redoc_url="/redoc" if not settings.is_production else None,
 )
+
+# Mount API v1
+app.include_router(api_v1_router, prefix=settings.API_V1_PREFIX)
 
 # CORS Middleware
 app.add_middleware(

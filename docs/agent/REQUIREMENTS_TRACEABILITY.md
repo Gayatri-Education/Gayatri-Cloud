@@ -42,7 +42,7 @@
 | RQ-034 | No public deployment or paid resource creation without owner authorization | All | Agent process review and evidence | Verified for P00-P01 (local mocks only) |
 | RQ-035 | No silent test weakening; phase GREEN requires evidence | All | Phase log and CI review | Verified for P00-P01 (all tests executed and passing) |
 | RQ-036 | Admin config: users, organizations, courses, AI policy, privacy, fees, analytics and branding | P15, P16 | Admin permission and workflow E2E tests | Planned |
-| RQ-037 | Emails/password verification, privileged MFA, session/device controls, recovery | P03, P18 | Auth/abuse/recovery tests | Planned |
+| RQ-037 | Emails/password verification, privileged MFA, session/device controls, recovery | P03, P18 | Auth/abuse/recovery tests | Verified for P03 baseline (`backend/tests/test_auth.py`) |
 | RQ-038 | Responsive browser UI for desktop and mobile | P12–P17, P20 | Responsive/accessibility checks | Planned |
 | RQ-039 | Feature-complete scope cannot be silently reduced | All | Traceability review at each phase and release | Always applicable |
 

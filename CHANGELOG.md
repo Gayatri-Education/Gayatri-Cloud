@@ -2,6 +2,34 @@
 
 All notable project changes should be recorded here. This file starts as a planning baseline; it must not imply code has been implemented.
 
+## [P03] — Authentication and Account Lifecycle — 2026-10-24
+
+### Added
+- Cryptographic security engine in `backend/app/core/security.py`:
+  - PBKDF2-HMAC-SHA256 password hashing with random 32-byte salt and constant-time verification.
+  - JWT token generation, signature validation, and expiration enforcement for access and refresh tokens.
+  - SHA-256 token hashing for secure persistence of session devices in database.
+- Authentication Domain Service in `backend/app/domain/auth.py`:
+  - User registration with normalized email and password strength validation.
+  - Constant-time authentication with user enumeration resistance.
+  - Session device creation, refresh token rotation, and replay attack prevention.
+  - Session revocation and logout.
+  - `get_current_user` FastAPI dependency verifying Bearer token and active account status.
+- Version 1 Authentication API in `backend/app/api/v1/auth.py`:
+  - `POST /api/v1/auth/register`
+  - `POST /api/v1/auth/login`
+  - `POST /api/v1/auth/refresh`
+  - `POST /api/v1/auth/logout`
+  - `GET /api/v1/auth/me`
+- Full test suite in `backend/tests/test_auth.py` verifying registration, duplicate prevention, enumeration resistance, token rotation, and revoked session rejection.
+
+### Verification
+- Phase: `P03` — status: `GREEN`
+- Acceptance criteria: 8/8 passed.
+- Tests: `python -m pytest backend/tests -v` (23 passed in 3.48s).
+- Linter: `ruff check` and `ruff format --check` (100% clean across 30 files).
+- Zero secrets committed.
+
 ## [P02] — Persistence, Schema and Migrations — 2026-10-24
 
 ### Added
