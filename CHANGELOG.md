@@ -2,6 +2,40 @@
 
 All notable project changes should be recorded here. This file starts as a planning baseline; it must not imply code has been implemented.
 
+## [P06] — Content Ingestion, Indexing and Course-Scoped RAG — 2026-10-24
+
+### Added
+- Architectural Decision Record in `docs/architecture/ADR-002-OCR-AND-RAG-STRATEGY.md` establishing hybrid retrieval (lexical BM25 + dense semantic embeddings), OCR confidence routing, and prompt injection defense boundaries.
+- Prompt-Injection Defense and Sanitizer in `backend/app/domain/ingestion/sanitizer.py`:
+  - `sanitize_document_text` neutralizing LLM control tokens (`<|im_start|>`, `<|endoftext|>`, `[INST]`) and instruction override patterns.
+  - `wrap_chunk_for_prompt` encapsulating retrieved text in XML-escaped `<document_chunk>` boundaries with page and section metadata.
+- Multi-Format Extractors in `backend/app/domain/ingestion/extractors.py`:
+  - `PDFExtractor` extracting page-by-page text streams using `pypdf`.
+  - `TextAndMarkdownExtractor` preserving section and markdown header hierarchy.
+  - `VTTTranscriptExtractor` parsing timestamped captions and cues into coherent spoken paragraphs.
+  - `PluggableOCRExtractor` interface with confidence scoring.
+- Chunking Engine in `backend/app/domain/ingestion/chunker.py`:
+  - `ContentChunker` with sliding window, natural sentence/paragraph boundary detection, and token estimations.
+- Hybrid Retrieval & Citation Engine in `backend/app/domain/rag/retrieval.py`:
+  - `MockEmbeddingAdapter` providing deterministic 64-dimensional normalized vectors for fast offline local testing without external API calls.
+  - `LexicalMatcher` providing BM25 scoring across chunks.
+  - `CourseRAGEngine` executing hybrid scoring ($\alpha \cdot \text{Score}_{\text{sem}} + (1 - \alpha) \cdot \text{Score}_{\text{lex}}$) with mandatory hard filtering on `course_version_id` and `organization_id`.
+  - Structured citation generation with source filename, chunk ID, page number, and section provenance.
+- Ingestion Domain Service in `backend/app/domain/ingestion/service.py`:
+  - Processes uploaded `ContentSource` records into indexed `ContentChunk` records, updating ingestion lifecycle status.
+- Version 1 RAG API in `backend/app/api/v1/rag.py`:
+  - `POST /api/v1/rag/courses/{course_id}/versions/{version_id}/ingest`
+  - `POST /api/v1/rag/courses/{course_id}/versions/{version_id}/query`
+- Comprehensive test suite in `backend/tests/test_rag.py` verifying sanitization, multi-format extraction, chunking, deterministic embeddings, BM25 matching, end-to-end ingestion/querying, and cross-tenant retrieval isolation.
+
+### Verification
+- Phase: `P06` — status: `GREEN`
+- Acceptance criteria: 8/8 passed.
+- Tests: `python -m pytest backend/tests -v` (44 passed in 8.21s).
+- Linter: `ruff check` and `ruff format --check` (100% clean across 45 files).
+- Frontend: `npm run lint` and `npm run test` (3/3 passing).
+- Zero secrets committed.
+
 ## [P05] — File Storage Abstraction and Course Lifecycle — 2026-10-24
 
 ### Added

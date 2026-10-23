@@ -7,11 +7,11 @@
 
 ## Current checkpoint
 
-- Last GREEN phase: P05 — File storage abstraction and course lifecycle.
-- Active phase: P06 — Content ingestion, indexing and course-scoped RAG.
-- Implementation status: P05 completed with all 8 criteria GREEN (Storage abstraction with local/S3 adapters, magic byte sniff verification, MIME spoofing & path traversal guards, immutable course version lifecycle, offering deployment, student enrollment, 36 passing tests). Ready for P06 Content ingestion, indexing and course-scoped RAG.
-- Blocking decisions: None blocking P06.
-- Next action: Plan and execute Phase P06.
+- Last GREEN phase: P06 — Content ingestion, indexing and course-scoped RAG.
+- Active phase: P07 — AI provider gateway, API credentials and model discovery.
+- Implementation status: P06 completed with all 8 criteria GREEN (ADR-002, multi-format extractors for PDF/markdown/VTT/OCR, prompt-injection defense sanitizer, sliding window chunker, hybrid BM25 + dense semantic retrieval, cross-tenant RAG query isolation, 44 passing tests). Ready for P07 AI provider gateway, API credentials and model discovery.
+- Blocking decisions: None blocking P07.
+- Next action: Plan and execute Phase P07.
 
 ## Phase ledger
 
@@ -23,7 +23,8 @@
 | P03 | Authentication and account lifecycle | `GREEN` | 8 defined | 8 | 0 | `docs/agent/phase-logs/P03.md` |
 | P04 | Organizations, memberships, roles and tenant isolation | `GREEN` | 8 defined | 8 | 0 | `docs/agent/phase-logs/P04.md` |
 | P05 | File storage abstraction and course lifecycle | `GREEN` | 8 defined | 8 | 0 | `docs/agent/phase-logs/P05.md` |
-| P06 | Content ingestion, indexing and course-scoped RAG | `NOT_STARTED` | TBD in phase log | 0 | TBD | `docs/agent/phase-logs/P06.md` |
+| P06 | Content ingestion, indexing and course-scoped RAG | `GREEN` | 8 defined | 8 | 0 | `docs/agent/phase-logs/P06.md` |
+| P07 | AI provider gateway, API credentials and model discovery | `NOT_STARTED` | TBD in phase log | 0 | TBD | `docs/agent/phase-logs/P07.md` |
 | P07 | AI provider gateway, API credentials and model discovery | `NOT_STARTED` | TBD in phase log | 0 | TBD | `docs/agent/phase-logs/P07.md` |
 | P08 | Tutoring benchmark, model eligibility and routing | `NOT_STARTED` | TBD in phase log | 0 | TBD | `docs/agent/phase-logs/P08.md` |
 | P09 | Tutor orchestration and adaptive learning engine | `NOT_STARTED` | TBD in phase log | 0 | TBD | `docs/agent/phase-logs/P09.md` |

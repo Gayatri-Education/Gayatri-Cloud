@@ -14,7 +14,7 @@
 | RQ-006 | Role-aware student/teacher/parent/admin portals | P12–P15 | Portal journey E2E tests | Planned |
 | RQ-007 | Course-independent curriculum/course-version model | P02, P05, P06, P09 | Multiple unrelated course fixtures | Verified course & immutable version lifecycle (`backend/tests/test_courses.py:test_course_creation_and_version_lifecycle`) |
 | RQ-008 | Upload PDF, scanned PDF, DOCX/PPTX/text, images, web sources, Q&A and lecture/video material | P05, P06 | Ingestion fixture tests; OCR/transcription dependencies isolated | Verified storage upload, MIME sniff validation & traversal guards (`backend/tests/test_courses.py`) |
-| RQ-009 | Course-scoped RAG, approved source provenance and version pinning | P06, P09 | Retrieval relevance, authorization and citation tests | Planned |
+| RQ-009 | Course-scoped RAG, approved source provenance and version pinning | P06, P09 | Retrieval relevance, authorization and citation tests | Verified hybrid RAG with citations, version-pinning and tenant negative isolation (`backend/tests/test_rag.py`) |
 | RQ-010 | Tutor teaching style configurable (Socratic, explain-first, practice-first, custom) | P09, P12, P13 | Method behavior/evaluation tests | Planned |
 | RQ-011 | Teacher instruction hierarchy applies correctly | P09, P13 | Precedence/conflict/expiry tests | Planned; hierarchy details must be documented |
 | RQ-012 | Learning state changes follow validated deterministic rules | P09, P10 | State invariant and adversarial tests | Planned |
