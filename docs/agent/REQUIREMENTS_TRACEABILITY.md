@@ -6,13 +6,13 @@
 
 | ID | Requirement | Phase(s) | Verification expected | State |
 |---|---|---|---|---|
-| RQ-001 | Personal and organization users use the same global account | P03, P04 | Identity/membership integration tests | Planned |
-| RQ-002 | One account can hold multiple organization memberships with context-specific roles | P04 | Membership, switching and isolation tests | Planned |
+| RQ-001 | Personal and organization users use the same global account | P02, P03, P04 | Identity/membership integration tests | Schema model verified (`backend/app/db/models/identity.py`, `organization.py`) |
+| RQ-002 | One account can hold multiple organization memberships with context-specific roles | P02, P04 | Membership, switching and isolation tests | Schema model verified (`backend/app/db/models/organization.py`) |
 | RQ-003 | Teacher + parent allowed; student + teacher prohibited | P04, P18 | Role compatibility matrix tests | Partly specified; other combinations open |
 | RQ-004 | Invitation, membership request, approval and optional verified-domain flows | P04, P15 | Workflow tests for valid/expired/revoked invitations | Planned; defaults open |
-| RQ-005 | Tenant boundaries on all records, file operations, RAG and analytics | P04, P06, P18, P20 | Cross-tenant negative tests on every interface | Planned |
+| RQ-005 | Tenant boundaries on all records, file operations, RAG and analytics | P02, P04, P06, P18, P20 | Cross-tenant negative tests on every interface | Verified at query layer (`backend/tests/test_repositories.py`) |
 | RQ-006 | Role-aware student/teacher/parent/admin portals | P12–P15 | Portal journey E2E tests | Planned |
-| RQ-007 | Course-independent curriculum/course-version model | P05, P06, P09 | Multiple unrelated course fixtures | Planned |
+| RQ-007 | Course-independent curriculum/course-version model | P02, P05, P06, P09 | Multiple unrelated course fixtures | Verified schema (`backend/app/db/models/course.py`) |
 | RQ-008 | Upload PDF, scanned PDF, DOCX/PPTX/text, images, web sources, Q&A and lecture/video material | P05, P06 | Ingestion fixture tests; OCR/transcription dependencies isolated | Planned |
 | RQ-009 | Course-scoped RAG, approved source provenance and version pinning | P06, P09 | Retrieval relevance, authorization and citation tests | Planned |
 | RQ-010 | Tutor teaching style configurable (Socratic, explain-first, practice-first, custom) | P09, P12, P13 | Method behavior/evaluation tests | Planned |
@@ -29,7 +29,7 @@
 | RQ-021 | Complete chat/session/product events captured reliably | P11, P19 | Replay, deduplication, outage and archive reconciliation tests | Planned |
 | RQ-022 | Raw event storage separated from technical operational logs | P11, P18 | Access-control and log-redaction tests | Planned |
 | RQ-023 | Event-to-training dataset requires eligibility checks, provenance and quality validation | P11, P18 | Deny-by-default governance tests and dataset lineage checks | Blocked by DEC-011/012 for real data |
-| RQ-024 | Canonical learning state, assessment and session changes are recoverable | P02, P09–P11, P19 | Transaction/compensation/failure injection tests | Planned |
+| RQ-024 | Canonical learning state, assessment and session changes are recoverable | P02, P09–P11, P19 | Transaction/compensation/failure injection tests | Transaction rollback verified (`backend/tests/test_database.py`) |
 | RQ-025 | Parent view uses school policy; no universal raw transcript exposure | P14, P18 | Privacy tier matrix tests | Planned |
 | RQ-026 | Teacher transcript access limited to assigned learners and audit logged | P13, P18 | Access-control and audit tests | Planned |
 | RQ-027 | Data ownership/export/deletion support with retention-aware workflow | P02, P15, P18 | Export, deletion propagation and retention tests | Planned; periods open |

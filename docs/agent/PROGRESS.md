@@ -2,16 +2,16 @@
 
 **Last updated:** 2026-10-24  
 **Truth source:** repository state + phase logs + verified test evidence, not chat memory.  
-**Current phase:** P02 — Persistence, schema and migrations  
+**Current phase:** P03 — Authentication and account lifecycle  
 **Overall status:** `IN_PROGRESS`
 
 ## Current checkpoint
 
-- Last GREEN phase: P01 — Local project foundation and CI.
-- Active phase: P02 — Persistence, schema and migrations.
-- Implementation status: P01 completed with all 9 criteria GREEN (FastAPI backend scaffold, Next.js frontend scaffold, ADR-001, /health and /ready probes, configuration, CI workflow, 8 passing tests). Ready for P02 schema and persistence design.
-- Blocking decisions: None blocking P02 (DEC-001 approved: PostgreSQL + pgvector + S3).
-- Next action: Plan and execute Phase P02.
+- Last GREEN phase: P02 — Persistence, schema and migrations.
+- Active phase: P03 — Authentication and account lifecycle.
+- Implementation status: P02 completed with all 8 criteria GREEN (SQLAlchemy 2.0 async schema models across 6 domains, connection-pooled session manager, BaseTenantRepository with isolation enforcement, Alembic baseline migration 001_initial_schema, synthetic seed fixtures, 16 passing tests). Ready for P03 Authentication and account lifecycle.
+- Blocking decisions: None blocking P03.
+- Next action: Plan and execute Phase P03.
 
 ## Phase ledger
 
@@ -19,7 +19,8 @@
 |---|---|---|---|---:|---:|---|
 | P00 | Repository discovery and decision freeze | `GREEN` | 5 defined | 5 | 0 | `docs/agent/phase-logs/P00.md` |
 | P01 | Local project foundation and CI | `GREEN` | 9 defined | 9 | 0 | `docs/agent/phase-logs/P01.md` |
-| P02 | Persistence, schema and migrations | `NOT_STARTED` | TBD in phase log | 0 | TBD | `docs/agent/phase-logs/P02.md` |
+| P02 | Persistence, schema and migrations | `GREEN` | 8 defined | 8 | 0 | `docs/agent/phase-logs/P02.md` |
+| P03 | Authentication and account lifecycle | `NOT_STARTED` | TBD in phase log | 0 | TBD | `docs/agent/phase-logs/P03.md` |
 | P01 | Local project foundation and CI | `NOT_STARTED` | TBD in phase log | 0 | TBD | `docs/agent/phase-logs/P01.md` |
 | P02 | Persistence, schema and migrations | `NOT_STARTED` | TBD in phase log | 0 | TBD | `docs/agent/phase-logs/P02.md` |
 | P03 | Authentication and account lifecycle | `NOT_STARTED` | TBD in phase log | 0 | TBD | `docs/agent/phase-logs/P03.md` |

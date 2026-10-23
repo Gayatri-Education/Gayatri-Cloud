@@ -2,6 +2,29 @@
 
 All notable project changes should be recorded here. This file starts as a planning baseline; it must not imply code has been implemented.
 
+## [P02] — Persistence, Schema and Migrations — 2026-10-24
+
+### Added
+- Complete SQLAlchemy 2.0 async declarative schema across 6 core domains:
+  - Identity: `UserAccount`, `AuthIdentity`, `SessionDevice`
+  - Organization: `Organization`, `OrganizationDomain`, `Membership`, `RoleAssignment`, `Invitation`, `GuardianRelationship`
+  - Academic & Content: `Course`, `CourseVersion`, `CourseOffering`, `ClassGroup`, `CourseEnrollment`, `TeachingAssignment`, `TeacherInstruction`, `ContentSource`, `ContentChunk`
+  - Tutoring & Assessment: `TutorSession`, `ConversationTurn`, `Assessment`, `AssessmentAttempt`, `AssessmentResponse`, `LearningEvent`, `CanonicalLearningState`, `MisconceptionRecord`
+  - AI & Usage: `ProviderConnection`, `ProviderModelSnapshot`, `ModelPolicy`, `AIExecutionUsage`
+  - Events & Outbox: `ApplicationEvent`, `EventOutbox`
+- Asynchronous database engine and session factory with connection pooling and dialect compatibility (`backend/app/db/session.py`).
+- Tenant-scoped repository base (`BaseTenantRepository`) enforcing organization-boundary predicates on all queries and mutations.
+- Synthetic seed fixtures (`seed_synthetic_tenants`) for reproducible, isolated test environments.
+- Alembic migration environment and baseline migration script (`backend/alembic/versions/001_initial_schema.py`).
+- Test suites verifying table constraints, soft-delete lifecycle, transaction rollback safety, and cross-tenant isolation.
+
+### Verification
+- Phase: `P02` — status: `GREEN`
+- Acceptance criteria: 8/8 passed.
+- Tests: `python -m pytest backend/tests -v` (16 passed in 5.17s).
+- Linter: `ruff check` and `ruff format --check` (100% clean across 25 files).
+- Zero secrets committed.
+
 ## [P01] — Local Project Foundation and CI — 2026-10-24
 
 ### Added
