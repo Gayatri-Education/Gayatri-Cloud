@@ -7,11 +7,11 @@
 
 ## Current checkpoint
 
-- Last GREEN phase: P03 — Authentication and account lifecycle.
-- Active phase: P04 — Organizations, memberships, roles and tenant isolation.
-- Implementation status: P03 completed with all 8 criteria GREEN (PBKDF2 password hashing, JWT tokens with HS256, User registration/login/refresh/logout/profile API endpoints, session rotation and replay protection, user enumeration resistance, 23 passing tests). Ready for P04 Multi-tenancy and RBAC.
-- Blocking decisions: None blocking P04.
-- Next action: Plan and execute Phase P04.
+- Last GREEN phase: P04 — Organizations, memberships, roles and tenant isolation.
+- Active phase: P05 — File storage abstraction and course lifecycle.
+- Implementation status: P04 completed with all 8 criteria GREEN (Organization registration, RBAC matrix with Student != Teacher invariant, multi-tenant isolation, invitation lifecycle, guardian linkage, 28 passing tests). Ready for P05 File storage abstraction and course lifecycle.
+- Blocking decisions: None blocking P05.
+- Next action: Plan and execute Phase P05.
 
 ## Phase ledger
 
@@ -21,11 +21,7 @@
 | P01 | Local project foundation and CI | `GREEN` | 9 defined | 9 | 0 | `docs/agent/phase-logs/P01.md` |
 | P02 | Persistence, schema and migrations | `GREEN` | 8 defined | 8 | 0 | `docs/agent/phase-logs/P02.md` |
 | P03 | Authentication and account lifecycle | `GREEN` | 8 defined | 8 | 0 | `docs/agent/phase-logs/P03.md` |
-| P04 | Organizations, memberships, roles and tenant isolation | `NOT_STARTED` | TBD in phase log | 0 | TBD | `docs/agent/phase-logs/P04.md` |
-| P01 | Local project foundation and CI | `NOT_STARTED` | TBD in phase log | 0 | TBD | `docs/agent/phase-logs/P01.md` |
-| P02 | Persistence, schema and migrations | `NOT_STARTED` | TBD in phase log | 0 | TBD | `docs/agent/phase-logs/P02.md` |
-| P03 | Authentication and account lifecycle | `NOT_STARTED` | TBD in phase log | 0 | TBD | `docs/agent/phase-logs/P03.md` |
-| P04 | Organizations, memberships, roles and tenant isolation | `NOT_STARTED` | TBD in phase log | 0 | TBD | `docs/agent/phase-logs/P04.md` |
+| P04 | Organizations, memberships, roles and tenant isolation | `GREEN` | 8 defined | 8 | 0 | `docs/agent/phase-logs/P04.md` |
 | P05 | File storage abstraction and course lifecycle | `NOT_STARTED` | TBD in phase log | 0 | TBD | `docs/agent/phase-logs/P05.md` |
 | P06 | Content ingestion, indexing and course-scoped RAG | `NOT_STARTED` | TBD in phase log | 0 | TBD | `docs/agent/phase-logs/P06.md` |
 | P07 | AI provider gateway, API credentials and model discovery | `NOT_STARTED` | TBD in phase log | 0 | TBD | `docs/agent/phase-logs/P07.md` |

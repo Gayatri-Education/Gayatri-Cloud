@@ -2,6 +2,39 @@
 
 All notable project changes should be recorded here. This file starts as a planning baseline; it must not imply code has been implemented.
 
+## [P04] — Organizations, Memberships, Roles and Tenant Isolation — 2026-10-24
+
+### Added
+- Multi-Tenant Role-Based Access Control (RBAC) and context dependencies in `backend/app/core/rbac.py`:
+  - `TenantContext` data structure tracking resolved user, organization ID, and organization-scoped roles.
+  - `resolve_tenant_context` dependency extracting `X-Organization-ID` header, verifying active membership, assigning roles, with Super Admin bypass.
+  - `require_roles` dependency factory enforcing granular role permissions.
+- Organization Domain Service in `backend/app/domain/organization.py`:
+  - Organization provisioning with slug generation and automatic creator `ORG_ADMIN` assignment.
+  - Cryptographic invitation workflow with expiry tracking and single-use redemption.
+  - Invariant enforcement: strictly prohibits `STUDENT` and `TEACHER` roles on the same account within an organization (DEC-C03), while permitting `TEACHER` + `PARENT`.
+  - Guardian-to-student verification and relationship linkage.
+- Version 1 Organization Endpoints in `backend/app/api/v1/organizations.py`:
+  - `POST /api/v1/organizations`
+  - `GET /api/v1/organizations/me`
+  - `POST /api/v1/organizations/{organization_id}/invitations`
+  - `POST /api/v1/organizations/invitations/accept`
+  - `GET /api/v1/organizations/{organization_id}/members`
+  - `POST /api/v1/organizations/{organization_id}/guardians`
+- Comprehensive integration test suite in `backend/tests/test_organizations.py`:
+  - Organization creation and admin role verification.
+  - Cross-tenant access isolation (IDOR protection).
+  - Invitation creation, expiration, and redemption.
+  - Strict role incompatibility enforcement (`STUDENT` vs `TEACHER`).
+  - Parent/guardian access boundary validation.
+
+### Verification
+- Phase: `P04` — status: `GREEN`
+- Acceptance criteria: 8/8 passed.
+- Tests: `python -m pytest backend/tests -v` (28 passed in 8.25s).
+- Linter: `ruff check` and `ruff format --check` (100% clean across 34 files).
+- Zero secrets committed.
+
 ## [P03] — Authentication and Account Lifecycle — 2026-10-24
 
 ### Added

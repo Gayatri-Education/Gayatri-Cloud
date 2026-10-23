@@ -6,11 +6,11 @@
 
 | ID | Requirement | Phase(s) | Verification expected | State |
 |---|---|---|---|---|
-| RQ-001 | Personal and organization users use the same global account | P02, P03, P04 | Identity/membership integration tests | Schema model verified (`backend/app/db/models/identity.py`, `organization.py`) |
-| RQ-002 | One account can hold multiple organization memberships with context-specific roles | P02, P04 | Membership, switching and isolation tests | Schema model verified (`backend/app/db/models/organization.py`) |
-| RQ-003 | Teacher + parent allowed; student + teacher prohibited | P04, P18 | Role compatibility matrix tests | Partly specified; other combinations open |
-| RQ-004 | Invitation, membership request, approval and optional verified-domain flows | P04, P15 | Workflow tests for valid/expired/revoked invitations | Planned; defaults open |
-| RQ-005 | Tenant boundaries on all records, file operations, RAG and analytics | P02, P04, P06, P18, P20 | Cross-tenant negative tests on every interface | Verified at query layer (`backend/tests/test_repositories.py`) |
+| RQ-001 | Personal and organization users use the same global account | P02, P03, P04 | Identity/membership integration tests | Verified (`backend/tests/test_auth.py`, `backend/tests/test_organizations.py`) |
+| RQ-002 | One account can hold multiple organization memberships with context-specific roles | P02, P04 | Membership, switching and isolation tests | Verified (`backend/tests/test_organizations.py`) |
+| RQ-003 | Teacher + parent allowed; student + teacher prohibited | P04, P18 | Role compatibility matrix tests | Verified (`backend/tests/test_organizations.py:test_role_incompatibility_enforcement`) |
+| RQ-004 | Invitation, membership request, approval and optional verified-domain flows | P04, P15 | Workflow tests for valid/expired/revoked invitations | Verified for invitation lifecycle (`backend/tests/test_organizations.py:test_invitation_lifecycle_and_acceptance`) |
+| RQ-005 | Tenant boundaries on all records, file operations, RAG and analytics | P02, P04, P06, P18, P20 | Cross-tenant negative tests on every interface | Verified at query and API layer (`backend/tests/test_repositories.py`, `backend/tests/test_organizations.py:test_cross_tenant_access_denied`) |
 | RQ-006 | Role-aware student/teacher/parent/admin portals | P12–P15 | Portal journey E2E tests | Planned |
 | RQ-007 | Course-independent curriculum/course-version model | P02, P05, P06, P09 | Multiple unrelated course fixtures | Verified schema (`backend/app/db/models/course.py`) |
 | RQ-008 | Upload PDF, scanned PDF, DOCX/PPTX/text, images, web sources, Q&A and lecture/video material | P05, P06 | Ingestion fixture tests; OCR/transcription dependencies isolated | Planned |
