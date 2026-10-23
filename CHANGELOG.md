@@ -2,6 +2,44 @@
 
 All notable project changes should be recorded here. This file starts as a planning baseline; it must not imply code has been implemented.
 
+## [P05] — File Storage Abstraction and Course Lifecycle — 2026-10-24
+
+### Added
+- Storage Abstraction Layer in `backend/app/core/storage.py`:
+  - `StorageService` abstract base class with local filesystem (`LocalStorageAdapter`) and AWS S3 (`S3StorageAdapter`) implementations.
+  - Strict path traversal guards preventing directory escape attacks (`_resolve_safe_path`).
+  - Deep MIME type sniffing and magic byte verification protecting against MIME spoofing for PDFs, images, Office documents, and text files.
+  - File size bounds enforcement (50MB maximum).
+  - Sanitization of user-provided filenames to prevent filesystem corruption.
+- Course and Curriculum Lifecycle Service in `backend/app/domain/course.py`:
+  - Course creation supporting organization scoping and platform-wide global courses.
+  - Snapshot versioning (`CourseVersion`) starting at `v1.0.0` draft.
+  - Immutability enforcement: published course versions reject adding, editing, or deleting curriculum sources.
+  - Course offering cohort deployment strictly gated on published course versions.
+  - Active student enrollment verification requiring valid organization membership and `STUDENT` role.
+  - Authorized presigned download URL generator with cross-tenant access denial.
+- Version 1 Course Management API in `backend/app/api/v1/courses.py`:
+  - `POST /api/v1/courses`
+  - `GET /api/v1/courses`
+  - `GET /api/v1/courses/{course_id}`
+  - `POST /api/v1/courses/{course_id}/versions`
+  - `GET /api/v1/courses/{course_id}/versions`
+  - `POST /api/v1/courses/{course_id}/versions/{version_id}/publish`
+  - `POST /api/v1/courses/{course_id}/versions/{version_id}/sources`
+  - `GET /api/v1/courses/{course_id}/versions/{version_id}/sources`
+  - `GET /api/v1/courses/{course_id}/versions/{version_id}/sources/{source_id}/download`
+  - `POST /api/v1/courses/offerings`
+  - `POST /api/v1/courses/offerings/{offering_id}/enroll`
+- Full test suite in `backend/tests/test_courses.py` verifying storage adapters, traversal guards, MIME spoofing checks, version immutability, offering rules, and IDOR isolation.
+
+### Verification
+- Phase: `P05` — status: `GREEN`
+- Acceptance criteria: 8/8 passed.
+- Tests: `python -m pytest backend/tests -v` (36 passed in 7.78s).
+- Linter: `ruff check` and `ruff format --check` (100% clean across 38 files).
+- Frontend: `npm run lint` and `npm run test` (3/3 passing).
+- Zero secrets committed.
+
 ## [P04] — Organizations, Memberships, Roles and Tenant Isolation — 2026-10-24
 
 ### Added

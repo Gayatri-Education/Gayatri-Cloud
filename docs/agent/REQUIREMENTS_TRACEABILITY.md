@@ -12,8 +12,8 @@
 | RQ-004 | Invitation, membership request, approval and optional verified-domain flows | P04, P15 | Workflow tests for valid/expired/revoked invitations | Verified for invitation lifecycle (`backend/tests/test_organizations.py:test_invitation_lifecycle_and_acceptance`) |
 | RQ-005 | Tenant boundaries on all records, file operations, RAG and analytics | P02, P04, P06, P18, P20 | Cross-tenant negative tests on every interface | Verified at query and API layer (`backend/tests/test_repositories.py`, `backend/tests/test_organizations.py:test_cross_tenant_access_denied`) |
 | RQ-006 | Role-aware student/teacher/parent/admin portals | P12–P15 | Portal journey E2E tests | Planned |
-| RQ-007 | Course-independent curriculum/course-version model | P02, P05, P06, P09 | Multiple unrelated course fixtures | Verified schema (`backend/app/db/models/course.py`) |
-| RQ-008 | Upload PDF, scanned PDF, DOCX/PPTX/text, images, web sources, Q&A and lecture/video material | P05, P06 | Ingestion fixture tests; OCR/transcription dependencies isolated | Planned |
+| RQ-007 | Course-independent curriculum/course-version model | P02, P05, P06, P09 | Multiple unrelated course fixtures | Verified course & immutable version lifecycle (`backend/tests/test_courses.py:test_course_creation_and_version_lifecycle`) |
+| RQ-008 | Upload PDF, scanned PDF, DOCX/PPTX/text, images, web sources, Q&A and lecture/video material | P05, P06 | Ingestion fixture tests; OCR/transcription dependencies isolated | Verified storage upload, MIME sniff validation & traversal guards (`backend/tests/test_courses.py`) |
 | RQ-009 | Course-scoped RAG, approved source provenance and version pinning | P06, P09 | Retrieval relevance, authorization and citation tests | Planned |
 | RQ-010 | Tutor teaching style configurable (Socratic, explain-first, practice-first, custom) | P09, P12, P13 | Method behavior/evaluation tests | Planned |
 | RQ-011 | Teacher instruction hierarchy applies correctly | P09, P13 | Precedence/conflict/expiry tests | Planned; hierarchy details must be documented |

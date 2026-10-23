@@ -7,11 +7,11 @@
 
 ## Current checkpoint
 
-- Last GREEN phase: P04 — Organizations, memberships, roles and tenant isolation.
-- Active phase: P05 — File storage abstraction and course lifecycle.
-- Implementation status: P04 completed with all 8 criteria GREEN (Organization registration, RBAC matrix with Student != Teacher invariant, multi-tenant isolation, invitation lifecycle, guardian linkage, 28 passing tests). Ready for P05 File storage abstraction and course lifecycle.
-- Blocking decisions: None blocking P05.
-- Next action: Plan and execute Phase P05.
+- Last GREEN phase: P05 — File storage abstraction and course lifecycle.
+- Active phase: P06 — Content ingestion, indexing and course-scoped RAG.
+- Implementation status: P05 completed with all 8 criteria GREEN (Storage abstraction with local/S3 adapters, magic byte sniff verification, MIME spoofing & path traversal guards, immutable course version lifecycle, offering deployment, student enrollment, 36 passing tests). Ready for P06 Content ingestion, indexing and course-scoped RAG.
+- Blocking decisions: None blocking P06.
+- Next action: Plan and execute Phase P06.
 
 ## Phase ledger
 
@@ -22,7 +22,7 @@
 | P02 | Persistence, schema and migrations | `GREEN` | 8 defined | 8 | 0 | `docs/agent/phase-logs/P02.md` |
 | P03 | Authentication and account lifecycle | `GREEN` | 8 defined | 8 | 0 | `docs/agent/phase-logs/P03.md` |
 | P04 | Organizations, memberships, roles and tenant isolation | `GREEN` | 8 defined | 8 | 0 | `docs/agent/phase-logs/P04.md` |
-| P05 | File storage abstraction and course lifecycle | `NOT_STARTED` | TBD in phase log | 0 | TBD | `docs/agent/phase-logs/P05.md` |
+| P05 | File storage abstraction and course lifecycle | `GREEN` | 8 defined | 8 | 0 | `docs/agent/phase-logs/P05.md` |
 | P06 | Content ingestion, indexing and course-scoped RAG | `NOT_STARTED` | TBD in phase log | 0 | TBD | `docs/agent/phase-logs/P06.md` |
 | P07 | AI provider gateway, API credentials and model discovery | `NOT_STARTED` | TBD in phase log | 0 | TBD | `docs/agent/phase-logs/P07.md` |
 | P08 | Tutoring benchmark, model eligibility and routing | `NOT_STARTED` | TBD in phase log | 0 | TBD | `docs/agent/phase-logs/P08.md` |
