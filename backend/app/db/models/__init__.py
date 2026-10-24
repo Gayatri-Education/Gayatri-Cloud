@@ -37,6 +37,7 @@ from app.db.models.organization import (
     OrganizationDomain,
     RoleAssignment,
 )
+from app.db.models.security import AccountDeletionRequest, SecurityAuditLog
 from app.db.models.teacher import ClassAnnouncement, TeacherIntervention
 from app.db.models.tutoring import (
     Assessment,
@@ -95,4 +96,6 @@ __all__ = [
     "FeePayment",
     "PaymentTransaction",
     "InvoiceReceipt",
+    "AccountDeletionRequest",
+    "SecurityAuditLog",
 ]

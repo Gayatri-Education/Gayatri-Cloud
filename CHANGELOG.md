@@ -2,6 +2,35 @@
 
 All notable project changes should be recorded here. This file starts as a planning baseline; it must not imply code has been implemented.
 
+## [P18] — Security, Privacy, Retention and Deletion Hardening — 2026-10-24
+
+### Added
+- Threat Defense & SSRF Protection in `backend/app/domain/security/ssrf_guard.py`:
+  - `validate_outbound_url`: Strict validation of external URLs (custom AI endpoints, provider webhooks). Blocks AWS cloud metadata IP (`169.254.169.254`), loopback addresses (`127.0.0.0/8`, `::1`), link-local IPs, multicast, and RFC-1918 private subnets (`10.0.0.0/8`, `172.16.0.0/12`, `192.168.0.0/16`).
+  - `sanitize_storage_key`: Defense against path traversal (`..`), absolute root overrides, and null byte injections in file storage keys.
+- OWASP Defensive Security Headers in `backend/app/main.py`:
+  - Injected into all API responses: `X-Content-Type-Options: nosniff`, `X-Frame-Options: DENY`, `X-XSS-Protection: 1; mode=block`, `Referrer-Policy: strict-origin-when-cross-origin`, `Content-Security-Policy: default-src 'self'; frame-ancestors 'none';`, `Permissions-Policy: camera=(), microphone=(), geolocation=()`, and `Strict-Transport-Security: max-age=31536000; includeSubDomains`.
+- Data Subject Rights & Deletion Engine in `backend/app/domain/security/deletion.py`:
+  - `AccountDeletionRequest` & `SecurityAuditLog` database models in `backend/app/db/models/security.py`.
+  - `DeletionService.generate_user_data_export`: Generates machine-readable JSON archive of user account data (profile, memberships, enrollments, assessment attempts, tutoring history) with SHA-256 integrity checksum (GDPR Art. 20).
+  - `DeletionService.request_account_deletion`: Handles 7-day grace period, invalidates active device sessions immediately, and sets user inactive.
+  - `DeletionService.cancel_deletion_request`: Re-activates account during grace period.
+  - Statutory Legal Hold Retention (RQ-027, P16): Retains required tax invoices and fee payment accounting records when accounts are deleted, pseudonymizing user PII into `deleted_<id>@anonymized.internal`.
+  - Cross-user and cross-tenant access denial (`403 Forbidden`).
+- REST API Endpoints in `backend/app/api/v1/security.py`:
+  - Mounted at `/api/v1/security`: `/validate-url`, `/export`, `/deletion-request`, and `/audit`.
+- Frontend Security & Privacy UI:
+  - `frontend/src/lib/types/security.ts`: TypeScript contracts for exports, deletion status, and audit entries.
+  - `frontend/src/lib/api-client.ts`: 5 typed security methods.
+  - `frontend/src/components/security/DataExportCard.tsx`: One-click JSON data download with SHA-256 badge.
+  - `frontend/src/components/security/AccountDeletionModal.tsx`: Two-step deletion modal with grace period and statutory retention notice.
+  - `frontend/src/components/security/SecurityAuditCard.tsx`: Immutable security log table.
+  - `frontend/src/app/settings/privacy/page.tsx`: Privacy settings page with DEC-011 training governance disclaimer.
+- Automated Test Suite:
+  - `backend/tests/test_security_hardening.py`: 7 tests passing covering SSRF blocks, path traversal sanitization, GDPR data export with SHA-256, deletion grace period, financial hold retention, cross-user denial, and OWASP security headers.
+  - `frontend/tests/security-privacy.test.ts`: 5 vitest tests passing covering data export parsing, deletion request lifecycle, status polling, cancellation, and security audit logs.
+  - Full regression: 116 backend pytest tests and 54 frontend vitest tests passing; Next.js production build compiling 30/30 routes cleanly with zero lint warnings.
+
 ## [P17] — Localization, Accessibility and Offline Reading — 2026-10-24
 
 ### Added

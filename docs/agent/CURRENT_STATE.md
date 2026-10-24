@@ -4,12 +4,12 @@
 
 **Checkpoint created:** 2026-10-24  
 **Timezone:** Asia/Kolkata  
-**Current phase:** P18 — Security, privacy, retention and deletion hardening  
+**Current phase:** P19 — Observability, reliability and recovery  
 **Phase status:** `NOT_STARTED`  
-**Last verified GREEN phase:** P17 — Localization, accessibility and offline reading  
+**Last verified GREEN phase:** P18 — Security, privacy, retention and deletion hardening  
 **Branch / commit:** `main`  
-**Repository status:** P00 through P17 are GREEN. 109 passing backend tests and 49 passing frontend tests. Delivered localization domain registry (`TranslationRegistry`), REST APIs, and client catalogs for 8 platform languages (`en`, `hi`, `sa`, `ta`, `te`, `kn`, `mr`, `bn`) with native scripts, parameter interpolation, and strict English fallback. Built decoupled server-side AI prompt language directives. Built offline course packager (`OfflineService`) generating portable, version-pinned lesson bundles with SHA-256 verification and online staleness detection. Built Next.js 14 offline course reader with high contrast toggle, dynamic font scaling, offline status indicator banner, and guardrails disabling live cloud actions (exams, AI turns, payments) while disconnected. Clean lint, 29 compiled Next.js routes, and zero open defects.  
-**Tests run:** `Push-Location backend ; python -m pytest ; Pop-Location` (109 passed in 28.72s), `Push-Location frontend ; npm run test ; Pop-Location` (49 passed in 1.57s), `npm run lint` (pass, 0 warnings), `npm run build` (compiled successfully, 29/29 routes static/dynamic).
+**Repository status:** P00 through P18 are GREEN. 116 passing backend tests and 54 passing frontend tests. Delivered security hardening layer: SSRF perimeter guard blocking AWS cloud metadata (`169.254.169.254`), loopback, and private RFC-1918 subnets; path traversal protection against `..` and null bytes; OWASP defensive security headers middleware (HSTS, CSP, X-Frame-Options, X-Content-Type-Options, Permissions-Policy); Data Subject Rights service (`DeletionService`) generating machine-readable JSON exports with SHA-256 verification (GDPR Art. 20); account deletion lifecycle with 7-day grace period, immediate session invalidation, and statutory accounting legal hold retention on billing records with user PII pseudonymization (`deleted_<id>@anonymized.internal`). Delivered Next.js 14 Privacy & Security Settings portal (`/settings/privacy`), one-click export download, deletion modal, and immutable security audit log. Clean lint, 30 compiled Next.js routes, and zero open defects.  
+**Tests run:** `Push-Location backend ; python -m pytest ; Pop-Location` (116 passed in 35.71s), `Push-Location frontend ; npm run test ; Pop-Location` (54 passed in 3.01s), `npm run lint` (pass, 0 warnings), `npm run build` (compiled successfully, 30/30 routes static/dynamic).
 
 ## Confirmed direction
 
@@ -32,6 +32,7 @@
 - Admin portal with operational telemetry, member role lifecycle (RQ-003), domain proofs, AI model policy, and audit trail.
 - Billing portal with freemium tier checkout, institutional fees, idempotent webhooks, and receipts.
 - Localization in 8 languages, offline lesson bundles with SHA-256 checksums and staleness detection, accessibility controls.
+- Security hardening: SSRF guard, OWASP headers, machine-readable data export, deletion grace period, statutory financial legal hold retention with PII pseudonymization.
 - Remote repository: `https://github.com/Gayatri-Education/Gayatri-Cloud.git`.
 
 ## Open blockers / decision references
@@ -42,4 +43,4 @@
 
 ## Exact next action
 
-Execute Phase P18: Security, privacy, retention and deletion hardening.
+Execute Phase P19: Observability, reliability and recovery.

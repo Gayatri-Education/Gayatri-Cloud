@@ -2,16 +2,16 @@
 
 **Last updated:** 2026-10-24  
 **Truth source:** repository state + phase logs + verified test evidence, not chat memory.  
-**Current phase:** P18 — Security, privacy, retention and deletion hardening  
+**Current phase:** P19 — Observability, reliability and recovery  
 **Overall status:** `IN_PROGRESS`
 
 ## Current checkpoint
 
-- Last GREEN phase: P17 — Localization, accessibility and offline reading.
-- Active phase: P18 — Security, privacy, retention and deletion hardening.
-- Implementation status: P17 completed with all 10 criteria GREEN (Eight verified platform languages: en, hi, sa, ta, te, kn, mr, bn with native scripts; authoritative translation registry with English fallback and parameter interpolation; decoupled AI prompt language instructions; offline course bundle packager with SHA-256 verification and online staleness detection; Next.js 14 accessible offline course reader with contrast and font scaling toggles, sticky offline status banner, and offline guardrails preventing live exam/turn submissions; 7 targeted pytest tests, 109 regression pytest tests, 49 frontend vitest tests, and clean 29-route Next.js production build).
-- Blocking decisions: None blocking P18.
-- Next action: Plan and execute Phase P18.
+- Last GREEN phase: P18 — Security, privacy, retention and deletion hardening.
+- Active phase: P19 — Observability, reliability and recovery.
+- Implementation status: P18 completed with all 10 criteria GREEN (SSRF protection against AWS metadata 169.254.169.254, loopback, and private RFC-1918 networks; path traversal and null-byte defenses; OWASP defensive security headers; GDPR Art. 20 machine-readable data export archive with SHA-256 verification; 7-day deletion grace period with immediate session revocation; statutory legal hold retaining tax invoices and fee payments with user PII pseudonymization; Next.js 14 Privacy & Security Settings UI; 7 targeted pytest tests, 116 regression pytest tests, 54 frontend vitest tests, and clean 30-route Next.js production build).
+- Blocking decisions: None blocking P19.
+- Next action: Plan and execute Phase P19.
 
 ## Phase ledger
 
@@ -35,7 +35,7 @@
 | P15 | Super-admin and organization-admin portal | `GREEN` | 10 defined | 10 | 0 | `docs/agent/phase-logs/P15.md` |
 | P16 | Billing, subscriptions, entitlements and institution fees | `GREEN` | 10 defined | 10 | 0 | `docs/agent/phase-logs/P16.md` |
 | P17 | Localization, accessibility and offline reading | `GREEN` | 10 defined | 10 | 0 | `docs/agent/phase-logs/P17.md` |
-| P18 | Security, privacy, retention and deletion hardening | `NOT_STARTED` | TBD in phase log | 0 | TBD | `docs/agent/phase-logs/P18.md` |
+| P18 | Security, privacy, retention and deletion hardening | `GREEN` | 10 defined | 10 | 0 | `docs/agent/phase-logs/P18.md` |
 | P19 | Observability, reliability and recovery | `NOT_STARTED` | TBD in phase log | 0 | TBD | `docs/agent/phase-logs/P19.md` |
 | P20 | Integrated verification, end-to-end and load testing | `NOT_STARTED` | TBD in phase log | 0 | TBD | `docs/agent/phase-logs/P20.md` |
 | P21 | Release packaging and deployment readiness | `NOT_STARTED` | TBD in phase log | 0 | TBD | `docs/agent/phase-logs/P21.md` |

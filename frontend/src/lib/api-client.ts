@@ -48,6 +48,11 @@ import {
   StudentFeePayment,
   InvoiceReceiptItem,
 } from './types/billing';
+import {
+  UserDataExport,
+  DeletionRequestStatus,
+  SecurityAuditEntry,
+} from './types/security';
 
 export class ApiError extends Error {
   public status: number;
@@ -699,6 +704,64 @@ export class ApiClient {
         localVersionTag
       )}`
     );
+  }
+
+  // ---------------------------------------------------------------------------
+  // P18: Security, Privacy, Retention & Deletion Hardening
+  // ---------------------------------------------------------------------------
+
+  public async getDataExport(userId?: string): Promise<UserDataExport> {
+    const query = userId ? `?user_id=${userId}` : '';
+    return this.request<UserDataExport>(`/api/v1/security/export${query}`);
+  }
+
+  public async requestAccountDeletion(
+    reason?: string,
+    immediate?: boolean,
+    userId?: string
+  ): Promise<{
+    request_id: string;
+    status: string;
+    message: string;
+    grace_period_expires_at: string;
+    legal_hold_retained_records?: string | null;
+  }> {
+    const query = userId ? `?user_id=${userId}` : '';
+    return this.request<{
+      request_id: string;
+      status: string;
+      message: string;
+      grace_period_expires_at: string;
+      legal_hold_retained_records?: string | null;
+    }>(`/api/v1/security/deletion-request${query}`, {
+      method: 'POST',
+      body: JSON.stringify({ reason, immediate: immediate ?? false }),
+    });
+  }
+
+  public async getDeletionStatus(userId?: string): Promise<DeletionRequestStatus> {
+    const query = userId ? `?user_id=${userId}` : '';
+    return this.request<DeletionRequestStatus>(`/api/v1/security/deletion-request${query}`);
+  }
+
+  public async cancelDeletionRequest(userId?: string): Promise<{
+    request_id: string;
+    status: string;
+    message: string;
+  }> {
+    const query = userId ? `?user_id=${userId}` : '';
+    return this.request<{
+      request_id: string;
+      status: string;
+      message: string;
+    }>(`/api/v1/security/deletion-request/cancel${query}`, {
+      method: 'POST',
+    });
+  }
+
+  public async getSecurityAudit(userId?: string): Promise<SecurityAuditEntry[]> {
+    const query = userId ? `?user_id=${userId}` : '';
+    return this.request<SecurityAuditEntry[]>(`/api/v1/security/audit${query}`);
   }
 }
 
