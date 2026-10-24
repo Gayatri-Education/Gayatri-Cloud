@@ -15,6 +15,7 @@ export default function DomainVerificationPanel({
   onAddDomain,
   onVerifyDomain,
 }: DomainVerificationPanelProps) {
+  const safeDomains = Array.isArray(domains) ? domains : [];
   const [newDomain, setNewDomain] = useState('');
   const [adding, setAdding] = useState(false);
   const [verifyingId, setVerifyingId] = useState<string | null>(null);
@@ -98,7 +99,7 @@ export default function DomainVerificationPanel({
 
       {/* Domains List */}
       <div className="space-y-3" data-testid="domains-list">
-        {domains.map((dom) => (
+        {safeDomains.map((dom) => (
           <div
             key={dom.id}
             className="flex flex-col sm:flex-row sm:items-center sm:justify-between rounded-2xl border border-slate-200 bg-white p-4 shadow-sm gap-3"

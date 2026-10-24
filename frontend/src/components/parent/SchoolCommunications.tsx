@@ -10,6 +10,8 @@ interface SchoolCommunicationsProps {
 }
 
 export default function SchoolCommunications({ communications }: SchoolCommunicationsProps) {
+  const safeComms = Array.isArray(communications) ? communications : [];
+
   return (
     <div className="space-y-4" data-testid="school-communications">
       <div className="flex items-center justify-between">
@@ -20,11 +22,11 @@ export default function SchoolCommunications({ communications }: SchoolCommunica
           </h3>
         </div>
         <span className="text-xs text-slate-400">
-          {communications.length} {communications.length === 1 ? 'notice' : 'notices'} posted
+          {safeComms.length} {safeComms.length === 1 ? 'notice' : 'notices'} posted
         </span>
       </div>
 
-      {communications.length === 0 ? (
+      {safeComms.length === 0 ? (
         <EmptyState
           icon={<MessageSquare className="h-8 w-8 text-slate-400" />}
           title="No School Notices"
@@ -32,7 +34,7 @@ export default function SchoolCommunications({ communications }: SchoolCommunica
         />
       ) : (
         <div className="space-y-3" data-testid="communications-list">
-          {communications.map((item) => (
+          {safeComms.map((item) => (
             <div
               key={item.id}
               className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm hover:border-slate-300 transition space-y-2"

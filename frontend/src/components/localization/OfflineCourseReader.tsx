@@ -96,7 +96,7 @@ export default function OfflineCourseReader({ bundle, onRemove }: Props) {
         </button>
 
         <div className="flex items-center gap-1">
-          {bundle.lessons.map((_, idx) => (
+          {(Array.isArray(bundle?.lessons) ? bundle.lessons : []).map((_, idx) => (
             <button
               key={idx}
               onClick={() => setCurrentLessonIndex(idx)}

@@ -22,6 +22,7 @@ export default function InstructionEditor({
   onCreateInstruction,
   onDeactivateInstruction,
 }: InstructionEditorProps) {
+  const safeInstructions = Array.isArray(instructions) ? instructions : [];
   const [tier, setTier] = useState<'ORG' | 'COURSE' | 'CLASS' | 'STUDENT' | 'SESSION'>('COURSE');
   const [directiveText, setDirectiveText] = useState('');
   const [priority, setPriority] = useState<number>(3);
@@ -174,11 +175,11 @@ export default function InstructionEditor({
         <h4 className="text-sm font-semibold text-slate-800 flex items-center gap-2">
           <span>Active Instruction Cascade</span>
           <span className="rounded-full bg-slate-100 px-2 py-0.5 text-xs font-semibold text-slate-600">
-            {instructions.length}
+            {safeInstructions.length}
           </span>
         </h4>
 
-        {instructions.length === 0 ? (
+        {safeInstructions.length === 0 ? (
           <EmptyState
             icon={<Zap className="h-8 w-8 text-slate-400" />}
             title="No Active Directives"
@@ -186,7 +187,7 @@ export default function InstructionEditor({
           />
         ) : (
           <div className="space-y-2.5" data-testid="instructions-list">
-            {instructions.map((inst) => (
+            {safeInstructions.map((inst) => (
               <div
                 key={inst.id}
                 className="flex items-start justify-between rounded-xl border border-slate-200 bg-white p-4 shadow-sm hover:border-slate-300 transition"

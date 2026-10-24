@@ -156,7 +156,7 @@ export default function AssessmentRunner({
 
       {/* Question Stepper Indicator */}
       <div className="flex border-b border-slate-100 bg-slate-50/30 px-6 py-2.5 gap-1.5 overflow-x-auto">
-        {questions.map((q, idx) => {
+        {(Array.isArray(questions) ? questions : []).map((q, idx) => {
           const isAnswered = answers[q.id] !== undefined && answers[q.id] !== '';
           const isCurrent = idx === currentIndex;
           return (
@@ -196,7 +196,7 @@ export default function AssessmentRunner({
             </h3>
 
             {/* MCQ Question Renderer */}
-            {activeQuestion.type === 'mcq' && activeQuestion.options && (
+            {activeQuestion.type === 'mcq' && Array.isArray(activeQuestion.options) && (
               <div className="space-y-3" data-testid="mcq-options-group">
                 {activeQuestion.options.map((option, optIdx) => {
                   const isSelected = answers[activeQuestion.id] === option;

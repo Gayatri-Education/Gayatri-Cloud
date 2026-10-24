@@ -129,7 +129,7 @@ export default function TeacherAssessmentsPage() {
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-100">
-            {submissions.map((sub) => {
+            {(Array.isArray(submissions) ? submissions : []).map((sub) => {
               const isEditing = editingId === sub.id;
               const pct = Math.round((sub.score / sub.max_score) * 100);
 

@@ -29,6 +29,9 @@ export default function MasteryRoadmap({
   misconceptions,
   spacedReviews,
 }: MasteryRoadmapProps) {
+  const safeMasteries = Array.isArray(masteries) ? masteries : [];
+  const safeMisconceptions = Array.isArray(misconceptions) ? misconceptions : [];
+  const safeReviews = Array.isArray(spacedReviews) ? spacedReviews : [];
   const getStatusBadge = (status: MasteryStatus) => {
     switch (status) {
       case 'master':
@@ -92,14 +95,14 @@ export default function MasteryRoadmap({
       </div>
 
       {/* Spaced Review Reminders Queue */}
-      {spacedReviews.length > 0 && (
+      {safeReviews.length > 0 && (
         <div className="rounded-2xl border border-purple-200 bg-purple-50/50 p-6">
           <div className="flex items-center gap-2 text-sm font-bold text-purple-900 mb-3">
             <Calendar className="h-4 w-4 text-purple-600" />
             <span>Spaced Review Schedule</span>
           </div>
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-            {spacedReviews.map((rev, idx) => (
+            {safeReviews.map((rev, idx) => (
               <div
                 key={idx}
                 className="flex items-center justify-between rounded-xl border border-purple-100 bg-white p-3.5 shadow-sm text-xs"
@@ -130,7 +133,7 @@ export default function MasteryRoadmap({
         </h3>
 
         <div className="space-y-4">
-          {masteries.map((m) => {
+          {safeMasteries.map((m) => {
             const pct = Math.round(m.mastery_score * 100);
             return (
               <div
@@ -195,14 +198,14 @@ export default function MasteryRoadmap({
           <span>Identified Misconceptions & Diagnostics</span>
         </h3>
 
-        {misconceptions.length === 0 ? (
+        {safeMisconceptions.length === 0 ? (
           <div className="rounded-xl bg-emerald-50 border border-emerald-100 p-4 text-xs text-emerald-800 flex items-center gap-2">
             <CheckCircle2 className="h-4 w-4 text-emerald-600" />
             <span>No active misconceptions recorded! Great job maintaining conceptual accuracy.</span>
           </div>
         ) : (
           <div className="space-y-3">
-            {misconceptions.map((mis) => (
+            {safeMisconceptions.map((mis) => (
               <div
                 key={mis.id}
                 className={`rounded-xl border p-4 text-xs ${

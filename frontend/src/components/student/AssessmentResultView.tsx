@@ -109,7 +109,7 @@ export default function AssessmentResultView({
       </div>
 
       {/* Misconceptions Alert Panel (if any detected) */}
-      {result.misconceptions_detected && result.misconceptions_detected.length > 0 && (
+      {Array.isArray(result.misconceptions_detected) && result.misconceptions_detected.length > 0 && (
         <div
           className="rounded-2xl border border-rose-200 bg-rose-50/70 p-6"
           data-testid="detected-misconceptions-panel"
@@ -162,7 +162,7 @@ export default function AssessmentResultView({
               </div>
 
               {/* Rubric criteria breakdown if present */}
-              {qRes.criteria && qRes.criteria.length > 0 && (
+              {Array.isArray(qRes.criteria) && qRes.criteria.length > 0 && (
                 <div className="mt-3 pt-3 border-t border-slate-100 space-y-1.5">
                   <div className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
                     Rubric Criteria Breakdown

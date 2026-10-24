@@ -16,6 +16,7 @@ interface InstitutionFeeManagerProps {
 }
 
 export default function InstitutionFeeManager({ fees, onCreateFee }: InstitutionFeeManagerProps) {
+  const safeFees = Array.isArray(fees) ? fees : [];
   const [showModal, setShowModal] = useState(false);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -93,14 +94,14 @@ export default function InstitutionFeeManager({ fees, onCreateFee }: Institution
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-100">
-            {fees.length === 0 ? (
+            {safeFees.length === 0 ? (
               <tr>
                 <td colSpan={4} className="px-5 py-8 text-center text-xs text-slate-400">
                   No institutional fee schedules configured yet.
                 </td>
               </tr>
             ) : (
-              fees.map((fee) => (
+              safeFees.map((fee) => (
                 <tr key={fee.id} className="hover:bg-slate-50/75 transition" data-testid={`fee-row-${fee.id}`}>
                   <td className="px-5 py-4 font-semibold text-slate-900">{fee.title}</td>
                   <td className="px-5 py-4 text-xs text-slate-500">{fee.description || '—'}</td>

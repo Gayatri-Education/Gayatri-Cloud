@@ -10,6 +10,8 @@ interface ChildAssessmentListProps {
 }
 
 export default function ChildAssessmentList({ assessments }: ChildAssessmentListProps) {
+  const safeAssessments = Array.isArray(assessments) ? assessments : [];
+
   return (
     <div className="space-y-4" data-testid="child-assessments-list">
       <div className="flex items-center justify-between">
@@ -20,11 +22,11 @@ export default function ChildAssessmentList({ assessments }: ChildAssessmentList
           </h3>
         </div>
         <span className="text-xs text-slate-400">
-          {assessments.length} {assessments.length === 1 ? 'assessment' : 'assessments'} on record
+          {safeAssessments.length} {safeAssessments.length === 1 ? 'assessment' : 'assessments'} on record
         </span>
       </div>
 
-      {assessments.length === 0 ? (
+      {safeAssessments.length === 0 ? (
         <EmptyState
           icon={<Award className="h-8 w-8 text-slate-400" />}
           title="No Assessment Records"
@@ -43,7 +45,7 @@ export default function ChildAssessmentList({ assessments }: ChildAssessmentList
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
-              {assessments.map((asm) => (
+              {safeAssessments.map((asm) => (
                 <tr key={asm.attempt_id} className="hover:bg-slate-50/75 transition" data-testid={`assessment-row-${asm.attempt_id}`}>
                   <td className="px-5 py-4 font-semibold text-slate-900">
                     {asm.title}

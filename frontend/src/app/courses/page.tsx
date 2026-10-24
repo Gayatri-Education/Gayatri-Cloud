@@ -79,12 +79,13 @@ export default function CoursesPage() {
     loadCourses();
   }, [loadCourses]);
 
-  const subjects = ['all', ...Array.from(new Set(courses.map((c) => c.subject)))];
+  const safeCourses = Array.isArray(courses) ? courses : [];
+  const subjects = ['all', ...Array.from(new Set(safeCourses.map((c) => c.subject).filter(Boolean)))];
 
-  const filteredCourses = courses.filter((c) => {
+  const filteredCourses = safeCourses.filter((c) => {
     const matchesSearch =
-      c.title.toLowerCase().includes(search.toLowerCase()) ||
-      c.description?.toLowerCase().includes(search.toLowerCase());
+      (c.title || '').toLowerCase().includes(search.toLowerCase()) ||
+      (c.description || '').toLowerCase().includes(search.toLowerCase());
     const matchesSubject = selectedSubject === 'all' || c.subject === selectedSubject;
     return matchesSearch && matchesSubject;
   });

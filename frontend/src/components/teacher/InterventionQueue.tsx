@@ -14,6 +14,7 @@ export default function InterventionQueue({
   interventions,
   onAcknowledge,
 }: InterventionQueueProps) {
+  const safeInterventions = Array.isArray(interventions) ? interventions : [];
   const [selectedIntervention, setSelectedIntervention] = useState<string | null>(null);
   const [notes, setNotes] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -57,11 +58,11 @@ export default function InterventionQueue({
           </h3>
         </div>
         <span className="rounded-full bg-rose-50 px-2.5 py-0.5 text-xs font-semibold text-rose-700 border border-rose-200">
-          {interventions.length} Pending
+          {safeInterventions.length} Pending
         </span>
       </div>
 
-      {interventions.length === 0 ? (
+      {safeInterventions.length === 0 ? (
         <EmptyState
           icon={<CheckCircle className="h-8 w-8 text-emerald-500" />}
           title="All Clear!"
@@ -69,7 +70,7 @@ export default function InterventionQueue({
         />
       ) : (
         <div className="space-y-3" data-testid="interventions-list">
-          {interventions.map((item) => (
+          {safeInterventions.map((item) => (
             <div
               key={item.id}
               className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm hover:border-slate-300 transition space-y-3"

@@ -61,7 +61,7 @@ export default function CircuitBreakerControls({ breakers, onRefresh }: Props) {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-        {breakers.map((b) => {
+        {(Array.isArray(breakers) ? breakers : []).map((b) => {
           const isOpen = b.state === 'OPEN';
           const isHalfOpen = b.state === 'HALF_OPEN';
           const isLoading = loadingProvider === b.name;

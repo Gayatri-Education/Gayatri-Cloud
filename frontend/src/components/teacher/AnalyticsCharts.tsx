@@ -9,22 +9,32 @@ interface AnalyticsChartsProps {
 }
 
 export default function AnalyticsCharts({ analytics }: AnalyticsChartsProps) {
-  const { total_students, average_mastery, mastery_distribution, hardest_concepts, misconception_clusters } =
-    analytics;
+  const total_students = analytics?.total_students || 0;
+  const average_mastery = analytics?.average_mastery || 0;
+  const hardestConcepts = Array.isArray(analytics?.hardest_concepts) ? analytics.hardest_concepts : [];
+  const misconceptionClusters = Array.isArray(analytics?.misconception_clusters) ? analytics.misconception_clusters : [];
+
+  const dist = analytics?.mastery_distribution || {
+    novice: 0,
+    developing: 0,
+    competent: 0,
+    proficient: 0,
+    master: 0,
+  };
 
   const totalBucketStudents =
-    mastery_distribution.novice +
-    mastery_distribution.developing +
-    mastery_distribution.competent +
-    mastery_distribution.proficient +
-    mastery_distribution.master;
+    (dist.novice || 0) +
+    (dist.developing || 0) +
+    (dist.competent || 0) +
+    (dist.proficient || 0) +
+    (dist.master || 0);
 
   const buckets = [
-    { label: 'Novice (<40%)', count: mastery_distribution.novice, color: 'bg-rose-500', barBg: 'bg-rose-100' },
-    { label: 'Developing (40-59%)', count: mastery_distribution.developing, color: 'bg-amber-500', barBg: 'bg-amber-100' },
-    { label: 'Competent (60-74%)', count: mastery_distribution.competent, color: 'bg-sky-500', barBg: 'bg-sky-100' },
-    { label: 'Proficient (75-89%)', count: mastery_distribution.proficient, color: 'bg-indigo-500', barBg: 'bg-indigo-100' },
-    { label: 'Master (90-100%)', count: mastery_distribution.master, color: 'bg-emerald-500', barBg: 'bg-emerald-100' },
+    { label: 'Novice (<40%)', count: dist.novice || 0, color: 'bg-rose-500', barBg: 'bg-rose-100' },
+    { label: 'Developing (40-59%)', count: dist.developing || 0, color: 'bg-amber-500', barBg: 'bg-amber-100' },
+    { label: 'Competent (60-74%)', count: dist.competent || 0, color: 'bg-sky-500', barBg: 'bg-sky-100' },
+    { label: 'Proficient (75-89%)', count: dist.proficient || 0, color: 'bg-indigo-500', barBg: 'bg-indigo-100' },
+    { label: 'Master (90-100%)', count: dist.master || 0, color: 'bg-emerald-500', barBg: 'bg-emerald-100' },
   ];
 
   return (
@@ -108,13 +118,13 @@ export default function AnalyticsCharts({ analytics }: AnalyticsChartsProps) {
             </h3>
           </div>
 
-          {hardest_concepts.length === 0 ? (
+          {hardestConcepts.length === 0 ? (
             <div className="text-sm text-slate-400 py-4 text-center">
               No concept difficulty metrics available yet.
             </div>
           ) : (
             <div className="space-y-2.5" data-testid="hardest-concepts-list">
-              {hardest_concepts.map((c) => (
+              {hardestConcepts.map((c) => (
                 <div
                   key={c.concept_id}
                   className="flex items-center justify-between rounded-lg border border-slate-100 bg-slate-50/70 p-3"
@@ -149,14 +159,14 @@ export default function AnalyticsCharts({ analytics }: AnalyticsChartsProps) {
             </h3>
           </div>
 
-          {misconception_clusters.length === 0 ? (
+          {misconceptionClusters.length === 0 ? (
             <div className="text-sm text-slate-400 py-4 text-center flex items-center justify-center gap-2">
               <CheckCircle2 className="h-4 w-4 text-emerald-500" />
               <span>No shared misconceptions detected across the cohort.</span>
             </div>
           ) : (
             <div className="space-y-2.5" data-testid="misconceptions-list">
-              {misconception_clusters.map((m, idx) => (
+              {misconceptionClusters.map((m, idx) => (
                 <div
                   key={idx}
                   className="rounded-lg border border-rose-100 bg-rose-50/50 p-3 space-y-1"

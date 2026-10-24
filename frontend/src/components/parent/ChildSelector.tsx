@@ -16,6 +16,8 @@ export default function ChildSelector({
   selectedStudentId,
   onSelectChild,
 }: ChildSelectorProps) {
+  const safeList = Array.isArray(childrenList) ? childrenList : [];
+
   return (
     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 p-4 rounded-2xl border border-slate-200 bg-white shadow-sm" data-testid="child-selector">
       <div className="flex items-center gap-2">
@@ -26,7 +28,7 @@ export default function ChildSelector({
       </div>
 
       <div className="flex flex-wrap items-center gap-2">
-        {childrenList.map((child) => {
+        {safeList.map((child) => {
           const isSelected = selectedStudentId === child.student_id;
           const isVerified = child.verification_status === 'verified';
 

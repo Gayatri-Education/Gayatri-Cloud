@@ -9,7 +9,9 @@ interface ChildProgressOverviewProps {
 }
 
 export default function ChildProgressOverview({ progress }: ChildProgressOverviewProps) {
-  const masteryPct = Math.round(progress.overall_mastery * 100);
+  const masteryPct = Math.round((progress?.overall_mastery || 0) * 100);
+  const topConcepts = Array.isArray(progress?.top_concepts) ? progress.top_concepts : [];
+  const enrolledCourses = Array.isArray(progress?.enrolled_courses) ? progress.enrolled_courses : [];
 
   return (
     <div className="space-y-6" data-testid="child-progress-overview">
@@ -94,13 +96,13 @@ export default function ChildProgressOverview({ progress }: ChildProgressOvervie
             Verified Concept Competencies
           </h3>
 
-          {progress.top_concepts.length === 0 ? (
+          {topConcepts.length === 0 ? (
             <div className="text-sm text-slate-400 py-4 text-center">
               No learning mastery recorded yet.
             </div>
           ) : (
             <div className="space-y-3" data-testid="top-concepts-list">
-              {progress.top_concepts.map((concept) => {
+              {topConcepts.map((concept) => {
                 const cPct = Math.round(concept.mastery_score * 100);
                 return (
                   <div key={concept.concept_id} className="space-y-1" data-testid={`concept-${concept.concept_id}`}>
@@ -135,13 +137,13 @@ export default function ChildProgressOverview({ progress }: ChildProgressOvervie
             Current Course Offerings
           </h3>
 
-          {progress.enrolled_courses.length === 0 ? (
+          {enrolledCourses.length === 0 ? (
             <div className="text-sm text-slate-400 py-4 text-center">
               Student is not currently enrolled in any class offerings.
             </div>
           ) : (
             <div className="space-y-2.5" data-testid="enrolled-courses-list">
-              {progress.enrolled_courses.map((course, idx) => (
+              {enrolledCourses.map((course, idx) => (
                 <div
                   key={idx}
                   className="flex items-center justify-between rounded-xl border border-slate-100 bg-slate-50 p-3"

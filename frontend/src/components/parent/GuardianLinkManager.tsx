@@ -16,6 +16,7 @@ export default function GuardianLinkManager({
   onRequestLink,
   onRevokeLink,
 }: GuardianLinkManagerProps) {
+  const safeChildrenList = Array.isArray(childrenList) ? childrenList : [];
   const [identifier, setIdentifier] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState<{ text: string; isError: boolean } | null>(null);
@@ -125,10 +126,10 @@ export default function GuardianLinkManager({
       {/* Linked Children List */}
       <div className="space-y-3">
         <h4 className="text-sm font-bold text-slate-900">
-          Guardian Relationships on Record ({childrenList.length})
+          Guardian Relationships on Record ({safeChildrenList.length})
         </h4>
 
-        {childrenList.length === 0 ? (
+        {safeChildrenList.length === 0 ? (
           <EmptyState
             icon={<Users className="h-8 w-8 text-slate-400" />}
             title="No Linked Learners"
@@ -136,7 +137,7 @@ export default function GuardianLinkManager({
           />
         ) : (
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2" data-testid="linked-children-grid">
-            {childrenList.map((child) => (
+            {safeChildrenList.map((child) => (
               <div
                 key={child.relationship_id}
                 className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm hover:border-slate-300 transition flex items-center justify-between"

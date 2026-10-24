@@ -116,10 +116,10 @@ export default function OfflineLibraryPage() {
           {/* Sidebar Course List */}
           <div className="lg:col-span-1 space-y-2">
             <h2 className="text-xs font-bold uppercase tracking-wider text-slate-400 px-1">
-              Downloaded Courses ({bundles.length})
+              Downloaded Courses ({(Array.isArray(bundles) ? bundles : []).length})
             </h2>
             <div className="space-y-1.5">
-              {bundles.map((b) => {
+              {(Array.isArray(bundles) ? bundles : []).map((b) => {
                 const isStale = stalenessMap[b.course_id];
                 const isSelected = b.course_id === selectedCourseId;
                 return (

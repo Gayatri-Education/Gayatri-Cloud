@@ -92,7 +92,7 @@ export default function AssessmentsListPage() {
         <ErrorState message={error} onRetry={loadAssessments} />
       ) : (
         <div className="space-y-4">
-          {assessments.map((asm) => (
+          {(Array.isArray(assessments) ? assessments : []).map((asm) => (
             <div
               key={asm.id}
               className="flex flex-col sm:flex-row items-start sm:items-center justify-between rounded-2xl border border-slate-200 bg-white p-6 shadow-sm gap-4"

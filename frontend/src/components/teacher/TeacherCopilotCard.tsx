@@ -29,7 +29,9 @@ export default function TeacherCopilotCard({
     }
   };
 
-  const confidencePct = Math.round(briefing.confidence_score * 100);
+  const confidencePct = Math.round((briefing?.confidence_score || 0) * 100);
+  const evidenceSources = Array.isArray(briefing?.evidence_sources) ? briefing.evidence_sources : [];
+  const suggestedActions = Array.isArray(briefing?.suggested_actions) ? briefing.suggested_actions : [];
 
   return (
     <div
@@ -85,10 +87,10 @@ export default function TeacherCopilotCard({
         {/* Evidence Sources */}
         <div className="space-y-2">
           <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500">
-            Verifiable Evidence Sources ({briefing.evidence_sources.length})
+            Verifiable Evidence Sources ({evidenceSources.length})
           </h4>
           <ul className="space-y-1.5" data-testid="evidence-sources-list">
-            {briefing.evidence_sources.map((src, i) => (
+            {evidenceSources.map((src, i) => (
               <li
                 key={i}
                 className="flex items-center gap-2 text-xs text-slate-700 rounded-lg bg-slate-50 border border-slate-200/60 px-2.5 py-1.5"
@@ -106,7 +108,7 @@ export default function TeacherCopilotCard({
             Recommended Interventions
           </h4>
           <div className="space-y-2" data-testid="suggested-actions-list">
-            {briefing.suggested_actions.map((act, i) => {
+            {suggestedActions.map((act, i) => {
               const isApplied = appliedActions.includes(act);
               return (
                 <div

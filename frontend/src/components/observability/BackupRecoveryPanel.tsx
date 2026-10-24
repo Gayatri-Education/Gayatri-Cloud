@@ -107,7 +107,7 @@ export default function BackupRecoveryPanel() {
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs text-slate-600 font-mono text-[11px]">
-            {Object.entries(snapshot.inventory).map(([table, count]) => (
+            {Object.entries(snapshot?.inventory || {}).map(([table, count]) => (
               <div key={table} className="rounded bg-white p-2 border border-slate-200">
                 <span className="text-slate-400 block text-[9px] uppercase">{table}</span>
                 <span className="font-bold text-slate-800">{count} rows</span>

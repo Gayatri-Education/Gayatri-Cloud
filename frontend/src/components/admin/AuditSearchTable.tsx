@@ -18,6 +18,7 @@ const CATEGORIES = [
 ];
 
 export default function AuditSearchTable({ logs, onSearch }: AuditSearchTableProps) {
+  const safeLogs = Array.isArray(logs) ? logs : [];
   const [selectedCategory, setSelectedCategory] = useState('');
   const [searching, setSearching] = useState(false);
 
@@ -77,14 +78,14 @@ export default function AuditSearchTable({ logs, onSearch }: AuditSearchTablePro
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-100">
-            {logs.length === 0 ? (
+            {safeLogs.length === 0 ? (
               <tr>
                 <td colSpan={4} className="px-5 py-8 text-center text-xs text-slate-400">
                   No immutable audit events found matching query.
                 </td>
               </tr>
             ) : (
-              logs.map((log) => (
+              safeLogs.map((log) => (
                 <tr key={log.event_id} className="hover:bg-slate-50/75 transition" data-testid={`audit-row-${log.event_id}`}>
                   <td className="px-5 py-4 font-mono font-semibold text-xs text-slate-900">
                     {log.event_type}

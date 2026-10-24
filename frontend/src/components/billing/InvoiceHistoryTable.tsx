@@ -9,6 +9,8 @@ interface InvoiceHistoryTableProps {
 }
 
 export default function InvoiceHistoryTable({ invoices }: InvoiceHistoryTableProps) {
+  const safeInvoices = Array.isArray(invoices) ? invoices : [];
+
   return (
     <div className="space-y-4" data-testid="invoice-history-panel">
       <div className="flex items-center justify-between">
@@ -18,7 +20,7 @@ export default function InvoiceHistoryTable({ invoices }: InvoiceHistoryTablePro
             Invoices & Payment Receipts
           </h3>
         </div>
-        <span className="text-xs text-slate-400">{invoices.length} receipts on record</span>
+        <span className="text-xs text-slate-400">{safeInvoices.length} receipts on record</span>
       </div>
 
       <div className="overflow-x-auto rounded-2xl border border-slate-200 bg-white shadow-sm">
@@ -33,14 +35,14 @@ export default function InvoiceHistoryTable({ invoices }: InvoiceHistoryTablePro
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-100">
-            {invoices.length === 0 ? (
+            {safeInvoices.length === 0 ? (
               <tr>
                 <td colSpan={5} className="px-5 py-8 text-center text-xs text-slate-400">
                   No payment receipts on record.
                 </td>
               </tr>
             ) : (
-              invoices.map((inv) => (
+              safeInvoices.map((inv) => (
                 <tr key={inv.invoice_number} className="hover:bg-slate-50/75 transition" data-testid={`invoice-row-${inv.invoice_number}`}>
                   <td className="px-5 py-4 font-mono font-semibold text-xs text-slate-900">
                     {inv.invoice_number}
@@ -52,7 +54,7 @@ export default function InvoiceHistoryTable({ invoices }: InvoiceHistoryTablePro
                     </div>
                   </td>
                   <td className="px-5 py-4 text-xs text-slate-600">
-                    {inv.line_items.map((li, idx) => (
+                    {(Array.isArray(inv.line_items) ? inv.line_items : []).map((li, idx) => (
                       <div key={idx}>
                         {li.description} {li.quantity > 1 ? `(x${li.quantity})` : ''}
                       </div>

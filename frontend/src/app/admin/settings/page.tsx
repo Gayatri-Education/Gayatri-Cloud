@@ -76,14 +76,14 @@ export default function AdminSettingsPage() {
 
   const handleAddDomain = async (domainName: string) => {
     const newDom = await api.addAdminDomain(orgId, domainName);
-    setDomains([...domains, newDom]);
+    setDomains([...(Array.isArray(domains) ? domains : []), newDom]);
     return newDom;
   };
 
   const handleVerifyDomain = async (domainId: string) => {
     await api.verifyAdminDomain(orgId, domainId);
     setDomains(
-      domains.map((d) => (d.id === domainId ? { ...d, is_verified: true } : d))
+      (Array.isArray(domains) ? domains : []).map((d) => (d.id === domainId ? { ...d, is_verified: true } : d))
     );
   };
 

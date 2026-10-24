@@ -10,6 +10,7 @@ interface StudentFeePaymentCardProps {
 }
 
 export default function StudentFeePaymentCard({ fees, onPayFee }: StudentFeePaymentCardProps) {
+  const safeFees = Array.isArray(fees) ? fees : [];
   const [payingFeeId, setPayingFeeId] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
@@ -44,13 +45,13 @@ export default function StudentFeePaymentCard({ fees, onPayFee }: StudentFeePaym
         </div>
       )}
 
-      {fees.length === 0 ? (
+      {safeFees.length === 0 ? (
         <div className="rounded-2xl border border-slate-200 bg-white p-8 text-center text-xs text-slate-400">
           No tuition or institutional fee obligations on record.
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {fees.map((f) => (
+          {safeFees.map((f) => (
             <div
               key={f.fee_id}
               className="flex flex-col justify-between rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"

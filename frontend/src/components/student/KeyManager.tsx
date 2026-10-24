@@ -10,7 +10,9 @@ interface KeyManagerProps {
 }
 
 export default function KeyManager({ initialConnections }: KeyManagerProps) {
-  const [connections, setConnections] = useState<ProviderConnection[]>(initialConnections);
+  const [connections, setConnections] = useState<ProviderConnection[]>(
+    Array.isArray(initialConnections) ? initialConnections : []
+  );
   const [showAddForm, setShowAddForm] = useState(false);
   const [selectedProvider, setSelectedProvider] = useState<ProviderType>('openai');
   const [label, setLabel] = useState('');
@@ -176,13 +178,13 @@ export default function KeyManager({ initialConnections }: KeyManagerProps) {
         )}
 
         {/* Existing Connections Table */}
-        {connections.length === 0 ? (
+        {(!Array.isArray(connections) || connections.length === 0) ? (
           <div className="text-center py-8 text-xs text-slate-500">
             No personal AI provider keys configured. The platform default router will be used.
           </div>
         ) : (
           <div className="space-y-3">
-            {connections.map((c) => (
+            {(Array.isArray(connections) ? connections : []).map((c) => (
               <div
                 key={c.id}
                 className="flex items-center justify-between rounded-xl border border-slate-200 p-4 text-xs"

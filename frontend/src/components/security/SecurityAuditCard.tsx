@@ -69,7 +69,7 @@ export default function SecurityAuditCard() {
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100 text-slate-700">
-              {logs.map((log) => (
+              {(Array.isArray(logs) ? logs : []).map((log) => (
                 <tr key={log.id} className="hover:bg-slate-50/60 transition">
                   <td className="py-2.5 font-bold flex items-center gap-1.5">
                     <Shield className="h-3 w-3 text-indigo-500 shrink-0" />

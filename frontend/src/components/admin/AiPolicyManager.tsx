@@ -26,10 +26,11 @@ const ROUTING_STRATEGIES = [
 ];
 
 export default function AiPolicyManager({ policy, onSavePolicy }: AiPolicyManagerProps) {
+  const allowed = Array.isArray(policy?.allowed_models) ? policy.allowed_models : [];
   const [selectedModels, setSelectedModels] = useState<string[]>(
-    policy.allowed_models.includes('*')
+    allowed.includes('*')
       ? SUPPORTED_MODELS.map((m) => m.id)
-      : policy.allowed_models
+      : allowed
   );
   const [strategy, setStrategy] = useState<string>(policy.routing_strategy || 'quality_first');
   const [saving, setSaving] = useState(false);
@@ -174,7 +175,7 @@ export default function AiPolicyManager({ policy, onSavePolicy }: AiPolicyManage
           <Key className="h-4 w-4 text-amber-600" />
           Configured Provider Connections
         </h4>
-        {policy.configured_providers && policy.configured_providers.length > 0 ? (
+        {Array.isArray(policy?.configured_providers) && policy.configured_providers.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
             {policy.configured_providers.map((cp) => (
               <div

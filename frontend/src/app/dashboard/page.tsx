@@ -41,9 +41,9 @@ export default function DashboardPage() {
         api.getConceptMasteries().catch(() => []),
       ]);
 
-      setCourses(coursesData);
-      setReviews(reviewsData);
-      setMasteries(masteriesData);
+      setCourses(Array.isArray(coursesData) ? coursesData : []);
+      setReviews(Array.isArray(reviewsData) ? reviewsData : []);
+      setMasteries(Array.isArray(masteriesData) ? masteriesData : []);
 
       // Default mock assessment if empty
       setAssessments([
@@ -170,7 +170,7 @@ export default function DashboardPage() {
             </Link>
           </div>
 
-          {courses.length === 0 ? (
+          {(!Array.isArray(courses) || courses.length === 0) ? (
             <EmptyState
               title="No courses enrolled yet"
               description="Explore the course catalog to start personalized adaptive tutoring."
@@ -179,7 +179,7 @@ export default function DashboardPage() {
             />
           ) : (
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-              {courses.map((course, idx) => (
+              {(Array.isArray(courses) ? courses : []).map((course, idx) => (
                 <CourseCard
                   key={course.id}
                   course={course}
@@ -200,11 +200,11 @@ export default function DashboardPage() {
               <span>Upcoming Assessments</span>
             </h3>
 
-            {assessments.length === 0 ? (
+            {(!Array.isArray(assessments) || assessments.length === 0) ? (
               <p className="text-xs text-slate-500">No pending assessments scheduled.</p>
             ) : (
               <div className="space-y-3">
-                {assessments.map((a) => (
+                {(Array.isArray(assessments) ? assessments : []).map((a) => (
                   <div
                     key={a.id}
                     className="rounded-xl border border-slate-100 bg-slate-50 p-4 text-xs"
@@ -236,11 +236,11 @@ export default function DashboardPage() {
               <span>Retention Review Queue</span>
             </h3>
 
-            {reviews.length === 0 ? (
+            {(!Array.isArray(reviews) || reviews.length === 0) ? (
               <p className="text-xs text-slate-500">All spaced review intervals are up to date.</p>
             ) : (
               <div className="space-y-2.5">
-                {reviews.map((r, i) => (
+                {(Array.isArray(reviews) ? reviews : []).map((r, i) => (
                   <div
                     key={i}
                     className="flex items-center justify-between rounded-xl border border-purple-100 bg-purple-50/40 p-3 text-xs"

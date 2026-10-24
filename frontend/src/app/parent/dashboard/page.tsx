@@ -54,8 +54,9 @@ export default function ParentDashboardPage() {
         },
       ]);
 
-      setChildrenList(childrenData);
-      const activeChild = childrenData.find((c) => c.verification_status === 'verified');
+      const safeList = Array.isArray(childrenData) ? childrenData : [];
+      setChildrenList(safeList);
+      const activeChild = safeList.find((c) => c.verification_status === 'verified');
       if (activeChild) {
         setSelectedStudentId(activeChild.student_id);
       }

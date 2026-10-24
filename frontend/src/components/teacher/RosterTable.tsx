@@ -23,10 +23,11 @@ export default function RosterTable({
   const [isEnrolling, setIsEnrolling] = useState(false);
   const [actionError, setActionError] = useState<string | null>(null);
 
-  const filteredStudents = students.filter(
+  const safeStudents = Array.isArray(students) ? students : [];
+  const filteredStudents = safeStudents.filter(
     (s) =>
-      s.student_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      s.email.toLowerCase().includes(searchTerm.toLowerCase())
+      (s.student_name || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (s.email || '').toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const handleEnroll = async (e: React.FormEvent) => {

@@ -113,7 +113,7 @@ export default function MemberManagementTable({
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-100">
-            {members.map((m) => (
+            {(Array.isArray(members) ? members : []).map((m) => (
               <tr key={m.membership_id} className="hover:bg-slate-50/75 transition" data-testid={`member-row-${m.membership_id}`}>
                 <td className="px-5 py-4">
                   <p className="font-semibold text-slate-900">{m.full_name}</p>
@@ -121,7 +121,7 @@ export default function MemberManagementTable({
                 </td>
                 <td className="px-5 py-4">
                   <div className="flex flex-wrap gap-1">
-                    {m.roles.map((r) => (
+                    {(Array.isArray(m?.roles) ? m.roles : []).map((r) => (
                       <span
                         key={r}
                         className={`inline-flex items-center gap-1 rounded-md px-2 py-0.5 text-xs font-medium ${

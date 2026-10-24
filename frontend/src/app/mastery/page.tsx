@@ -24,7 +24,7 @@ export default function MasteryPage() {
         api.getSpacedReviewSchedule().catch(() => []),
       ]);
 
-      if (mList && mList.length > 0) {
+      if (Array.isArray(mList) && mList.length > 0) {
         setMasteries(mList);
       } else {
         // Fallback demo mastery hierarchy
@@ -65,7 +65,7 @@ export default function MasteryPage() {
         ]);
       }
 
-      if (misList && misList.length > 0) {
+      if (Array.isArray(misList) && misList.length > 0) {
         setMisconceptions(misList);
       } else {
         setMisconceptions([
@@ -85,7 +85,7 @@ export default function MasteryPage() {
         ]);
       }
 
-      if (revList && revList.length > 0) {
+      if (Array.isArray(revList) && revList.length > 0) {
         setReviews(revList);
       } else {
         setReviews([
