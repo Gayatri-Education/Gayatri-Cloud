@@ -20,7 +20,12 @@ export default function ErrorState({
   actionLabel = 'Try Again',
 }: ErrorStateProps) {
   const isNetworkError = statusCode === 0 || message.toLowerCase().includes('network');
-  const isPermissionDenied = statusCode === 403 || statusCode === 401;
+  const isPermissionDenied =
+    statusCode === 403 ||
+    statusCode === 401 ||
+    message.toLowerCase().includes('credential') ||
+    message.toLowerCase().includes('unauthorized') ||
+    message.toLowerCase().includes('forbidden');
   const isModelUnavailable = message.toLowerCase().includes('model') || message.toLowerCase().includes('quota');
 
   const displayTitle =
@@ -28,7 +33,7 @@ export default function ErrorState({
     (isNetworkError
       ? 'Connection Interrupted'
       : isPermissionDenied
-      ? 'Access Restricted'
+      ? 'Authentication Required'
       : isModelUnavailable
       ? 'AI Model Unavailable'
       : 'Something Went Wrong');
@@ -73,6 +78,16 @@ export default function ErrorState({
             className="flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50 transition"
           >
             <span>Manage AI Keys</span>
+          </Link>
+        )}
+
+        {isPermissionDenied && (
+          <Link
+            href="/login"
+            className="flex items-center gap-2 rounded-lg bg-sky-600 px-4 py-2 text-xs font-semibold text-white hover:bg-sky-700 transition"
+          >
+            <ShieldAlert className="h-3.5 w-3.5" />
+            <span>Sign In / Switch Role</span>
           </Link>
         )}
 

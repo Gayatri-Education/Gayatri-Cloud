@@ -69,6 +69,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             isPersonal: false,
           });
         }
+      } else if (memberList && memberList.length > 0) {
+        const first = memberList[0];
+        api.setOrganizationId(first.organization_id);
+        setActiveContext({
+          organizationId: first.organization_id,
+          organizationName: first.organization_name,
+          role: first.role,
+          isPersonal: false,
+        });
       }
     } catch {
       // Token invalid or network issue
