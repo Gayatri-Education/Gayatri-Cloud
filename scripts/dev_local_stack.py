@@ -246,7 +246,9 @@ async def seed_local_database() -> None:
             description="Default free plan with standard tutoring limits",
             price_cents=0,
             currency="USD",
-            features_json=json.dumps({"tutoring_turns_per_month": 100, "byok_enabled": True}),
+            features_json=json.dumps(
+                ["tutoring:basic", "courses:public", "assessments:practice", "byok:enabled"]
+            ),
             is_active=True,
         )
         session.add(free_plan)

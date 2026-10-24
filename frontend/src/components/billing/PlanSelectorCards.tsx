@@ -72,7 +72,12 @@ export default function PlanSelectorCards({
 
               {/* Features list */}
               <ul className="mt-6 space-y-2.5 border-t border-slate-100 pt-4">
-                {p.features.map((f) => (
+                {(Array.isArray(p.features)
+                  ? p.features
+                  : typeof p.features === 'object' && p.features !== null
+                  ? Object.entries(p.features).map(([k, v]) => `${k.replace(/_/g, ' ')}: ${v}`)
+                  : []
+                ).map((f) => (
                   <li key={f} className="flex items-center gap-2 text-xs text-slate-700">
                     <Check className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
                     <span>{f.replace(':', ' — ')}</span>

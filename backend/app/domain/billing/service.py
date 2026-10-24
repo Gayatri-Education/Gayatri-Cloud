@@ -137,6 +137,25 @@ class BillingService:
         await self.session.commit()
         return created_or_found
 
+    @staticmethod
+    def _parse_features(features_raw: Any) -> list[str]:
+        """Safely parse features whether stored as JSON list, JSON dict, or plain text."""
+        if not features_raw:
+            return ["tutoring:basic", "courses:public", "assessments:practice"]
+        if isinstance(features_raw, str):
+            try:
+                parsed = json.loads(features_raw)
+            except Exception:
+                return [features_raw]
+        else:
+            parsed = features_raw
+
+        if isinstance(parsed, list):
+            return [str(x) for x in parsed]
+        if isinstance(parsed, dict):
+            return [f"{k.replace('_', ' ')}: {v}" for k, v in parsed.items()]
+        return [str(parsed)]
+
     async def list_plans(self) -> list[dict[str, Any]]:
         """List active subscription tiers and feature entitlements."""
         await self.ensure_default_plans()
@@ -157,7 +176,7 @@ class BillingService:
                 "currency": p.currency,
                 "billing_interval": p.billing_interval,
                 "seat_limit": p.seat_limit,
-                "features": json.loads(p.features_json),
+                "features": self._parse_features(p.features_json),
             }
             for p in plans
         ]
@@ -183,7 +202,7 @@ class BillingService:
         sub = res.scalar_one_or_none()
 
         if sub and sub.status in ("active", "trialing"):
-            features = json.loads(sub.plan.features_json)
+            features = self._parse_features(sub.plan.features_json)
             return {
                 "subscription_id": sub.id,
                 "status": sub.status,
@@ -213,9 +232,7 @@ class BillingService:
             "current_period_end": None,
             "cancel_at_period_end": False,
             "seat_limit": 1,
-            "entitlements": json.loads(free_plan.features_json)
-            if free_plan
-            else ["tutoring:basic"],
+            "entitlements": self._parse_features(free_plan.features_json if free_plan else None),
             "byok_disclaimer": "Third-party AI inference (BYOK) is billed directly by your AI provider and is not charged by Gayatri Cloud.",
         }
 

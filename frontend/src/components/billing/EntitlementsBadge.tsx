@@ -13,7 +13,13 @@ export default function EntitlementsBadge({
   subscription,
   onCancelSubscription,
 }: EntitlementsBadgeProps) {
-  const isFree = subscription.status === 'free_tier' || subscription.price_cents === 0;
+  const isFree = subscription?.status === 'free_tier' || subscription?.price_cents === 0;
+
+  const entitlementsList: string[] = Array.isArray(subscription?.entitlements)
+    ? subscription.entitlements
+    : typeof subscription?.entitlements === 'object' && subscription?.entitlements !== null
+    ? Object.entries(subscription.entitlements).map(([k, v]) => `${k.replace(/_/g, ' ')}: ${v}`)
+    : [];
 
   return (
     <div className="space-y-6" data-testid="entitlements-panel">
@@ -79,7 +85,7 @@ export default function EntitlementsBadge({
             Active Entitlements & Features
           </h4>
           <div className="flex flex-wrap gap-2" data-testid="entitlements-list">
-            {subscription.entitlements.map((feat) => (
+            {entitlementsList.map((feat) => (
               <span
                 key={feat}
                 className="inline-flex items-center gap-1.5 rounded-lg bg-slate-100 px-2.5 py-1 text-xs font-medium text-slate-800"
