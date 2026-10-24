@@ -2,6 +2,37 @@
 
 All notable project changes should be recorded here. This file starts as a planning baseline; it must not imply code has been implemented.
 
+## [P20] — Integrated Verification, End-to-End and Load Testing — 2026-10-24
+
+### Added
+- Integrated End-to-End System Journey Suite in `backend/tests/test_e2e_integrated_journey.py`:
+  - Single comprehensive lifecycle test exercising the complete 12-milestone journey across all platform subsystems:
+    1. User Registration & Identity Setup with PBKDF2 password hashing and verification.
+    2. Organization & Membership Lifecycle enforcing RQ-003 invariant (prohibiting simultaneous Student + Teacher roles within an organization).
+    3. Cross-Tenant Negative Isolation testing denying unauthorized admin mutations across tenant boundaries (`403 Forbidden`).
+    4. Course Authoring, Content Ingestion (PDF parsing, chunking), and Immutable Version Publishing (`v1.0.0`).
+    5. Cohort Offering Deployment & Student Enrollment.
+    6. 5-Tier Teacher Instruction hierarchy and query resolution.
+    7. Teacher Intervention Queue management (acknowledging and resolving student flags).
+    8. Parent Guardian Linking and Privacy-Filtered Progress Aggregation (`list_linked_children`).
+    9. Billing Freemium Subscriptions and Institutional Fee Schedules with idempotent student checkout.
+    10. Multilingual Translation Registry verifying all 8 platform languages (`en`, `hi`, `sa`, `ta`, `te`, `kn`, `mr`, `bn`) and parameter interpolation.
+    11. Offline Course Bundle Packaging with SHA-256 integrity verification.
+    12. GDPR Art. 20 Data Export Archive and Account Deletion with Statutory Accounting Legal Hold preserving payment records while scrubbing student PII.
+- Multi-User Concurrency and Load Testing Suite in `backend/tests/test_load_concurrency.py`:
+  - Simulates 50 concurrent virtual users executing concurrent database writes, reads, and translations against the connection pool.
+  - Verifies zero deadlocks, zero race conditions, and zero uncaught exceptions under high concurrency.
+  - Measures p50, p95 (< 500ms SLA target), and p99 request latencies, and verifies throughput (> 10 ops/sec).
+  - Validates metrics recording via `MetricsCollector`.
+- Frontend Integrated System Journey Test Suite in `frontend/tests/integrated-e2e-journey.test.ts`:
+  - Vitest suite (8 tests) validating client session token management and active tenant context switching (personal space vs institutional organization).
+  - Validates client API contracts across Student, Teacher, Parent, Admin, and Billing portals.
+  - Tests offline bundle persistence, SHA-256 verification, and multilingual translation dictionaries.
+- Verification Gates:
+  - 125/125 backend pytest tests passing cleanly.
+  - 67/67 frontend vitest tests passing cleanly.
+  - Next.js production build compiling 31/31 routes cleanly with 0 lint warnings.
+
 ## [P19] — Observability, Reliability and Recovery — 2026-10-24
 
 ### Added

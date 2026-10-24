@@ -2,16 +2,16 @@
 
 **Last updated:** 2026-10-24  
 **Truth source:** repository state + phase logs + verified test evidence, not chat memory.  
-**Current phase:** P20 — Integrated verification, end-to-end and load testing  
+**Current phase:** P21 — Release packaging and deployment readiness  
 **Overall status:** `IN_PROGRESS`
 
 ## Current checkpoint
 
-- Last GREEN phase: P19 — Observability, reliability and recovery.
-- Active phase: P20 — Integrated verification, end-to-end and load testing.
-- Implementation status: P19 completed with all 10 criteria GREEN (Prometheus metrics exposition; circuit breakers with emergency kill-switches and fast-fail behavior; deep health readiness probe inspecting DB, storage, outbox backlog, and circuit breakers; point-in-time database snapshot manifests with SHA-256 verification and simulated disaster recovery drills with zero data loss; Next.js 14 Admin Observability Portal; 7 targeted pytest tests, 123 regression pytest tests, 59 frontend vitest tests, and clean 31-route Next.js production build).
-- Blocking decisions: None blocking P20.
-- Next action: Plan and execute Phase P20.
+- Last GREEN phase: P20 — Integrated verification, end-to-end and load testing.
+- Active phase: P21 — Release packaging and deployment readiness.
+- Implementation status: P20 completed with all 10 criteria GREEN (End-to-end integration test validating the full 12-milestone journey across auth, organizations, courses, 5-tier teacher instructions, interventions, parent guardian link, billing, offline packaging, GDPR data export and account deletion with statutory accounting legal hold; multi-user concurrency load engine simulating 50 virtual users with p95 < 500ms and zero deadlocks; frontend vitest integrated cross-portal navigation suite; 125 backend pytest tests passing, 67 frontend vitest tests passing, Next.js 31 routes built cleanly).
+- Blocking decisions: None blocking P21.
+- Next action: Plan and execute Phase P21.
 
 ## Phase ledger
 
@@ -37,7 +37,7 @@
 | P17 | Localization, accessibility and offline reading | `GREEN` | 10 defined | 10 | 0 | `docs/agent/phase-logs/P17.md` |
 | P18 | Security, privacy, retention and deletion hardening | `GREEN` | 10 defined | 10 | 0 | `docs/agent/phase-logs/P18.md` |
 | P19 | Observability, reliability and recovery | `GREEN` | 10 defined | 10 | 0 | `docs/agent/phase-logs/P19.md` |
-| P20 | Integrated verification, end-to-end and load testing | `NOT_STARTED` | TBD in phase log | 0 | TBD | `docs/agent/phase-logs/P20.md` |
+| P20 | Integrated verification, end-to-end and load testing | `GREEN` | 10 defined | 10 | 0 | `docs/agent/phase-logs/P20.md` |
 | P21 | Release packaging and deployment readiness | `NOT_STARTED` | TBD in phase log | 0 | TBD | `docs/agent/phase-logs/P21.md` |
 
 ## Progress calculation
