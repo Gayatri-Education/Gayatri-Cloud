@@ -4,12 +4,12 @@
 
 **Checkpoint created:** 2026-10-24  
 **Timezone:** Asia/Kolkata  
-**Current phase:** P17 — Localization, accessibility and offline reading  
+**Current phase:** P18 — Security, privacy, retention and deletion hardening  
 **Phase status:** `NOT_STARTED`  
-**Last verified GREEN phase:** P16 — Billing, subscriptions, entitlements and institution fees  
+**Last verified GREEN phase:** P17 — Localization, accessibility and offline reading  
 **Branch / commit:** `main`  
-**Repository status:** P00 through P16 are GREEN. 102 passing backend tests and 43 passing frontend tests. Delivered billing domain service (BillingService) and REST APIs for freemium subscriptions (free, pro learner, institution standard, institution enterprise), server-side entitlement checks, idempotent checkout and plan switching preventing double-charging, payment gateway adapter with HMAC-SHA256 signature verification, idempotent webhook ingestion with replay defense, institutional fee schedule creation and student/guardian fee collections, clear BYOK third-party fee disclaimer separation, and cross-tenant fee isolation. Delivered Next.js 14 Billing Web UI: subscription overview, plan switcher, institutional fee manager, student fee payment card with online checkout, and immutable invoice receipts history. Clean lint, 28 compiled Next.js routes, and zero open defects.  
-**Tests run:** `Push-Location backend ; python -m pytest ; Pop-Location` (102 passed in 24.66s), `Push-Location frontend ; npm run test ; Pop-Location` (43 passed in 1.65s), `npm run lint` (pass, 0 warnings), `npm run build` (compiled successfully, 28/28 routes static/dynamic).
+**Repository status:** P00 through P17 are GREEN. 109 passing backend tests and 49 passing frontend tests. Delivered localization domain registry (`TranslationRegistry`), REST APIs, and client catalogs for 8 platform languages (`en`, `hi`, `sa`, `ta`, `te`, `kn`, `mr`, `bn`) with native scripts, parameter interpolation, and strict English fallback. Built decoupled server-side AI prompt language directives. Built offline course packager (`OfflineService`) generating portable, version-pinned lesson bundles with SHA-256 verification and online staleness detection. Built Next.js 14 offline course reader with high contrast toggle, dynamic font scaling, offline status indicator banner, and guardrails disabling live cloud actions (exams, AI turns, payments) while disconnected. Clean lint, 29 compiled Next.js routes, and zero open defects.  
+**Tests run:** `Push-Location backend ; python -m pytest ; Pop-Location` (109 passed in 28.72s), `Push-Location frontend ; npm run test ; Pop-Location` (49 passed in 1.57s), `npm run lint` (pass, 0 warnings), `npm run build` (compiled successfully, 29/29 routes static/dynamic).
 
 ## Confirmed direction
 
@@ -31,6 +31,7 @@
 - Parent portal with multi-child switcher, privacy-filtered progress, completed assessments, and notices.
 - Admin portal with operational telemetry, member role lifecycle (RQ-003), domain proofs, AI model policy, and audit trail.
 - Billing portal with freemium tier checkout, institutional fees, idempotent webhooks, and receipts.
+- Localization in 8 languages, offline lesson bundles with SHA-256 checksums and staleness detection, accessibility controls.
 - Remote repository: `https://github.com/Gayatri-Education/Gayatri-Cloud.git`.
 
 ## Open blockers / decision references
@@ -41,4 +42,4 @@
 
 ## Exact next action
 
-Execute Phase P17: Localization, accessibility and offline reading.
+Execute Phase P18: Security, privacy, retention and deletion hardening.

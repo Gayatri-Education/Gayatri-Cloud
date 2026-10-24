@@ -34,8 +34,8 @@
 | RQ-026 | Teacher transcript access limited to assigned learners and audit logged | P13, P18 | Access-control and audit tests | Verified for teacher roster and offerings tenant boundaries (`backend/tests/test_teacher.py`) |
 | RQ-027 | Data ownership/export/deletion support with retention-aware workflow | P02, P15, P18 | Export, deletion propagation and retention tests | Planned; periods open |
 | RQ-028 | Fee/accounting features and subscriptions | P16 | Invoice, payment, reconciliation and entitlement tests | Verified for P16: freemium plans, idempotent checkout, HMAC-SHA256 webhooks, institutional fees, student payments, and immutable receipts (`backend/tests/test_billing.py`, `frontend/tests/billing-portal.test.ts`) |
-| RQ-029 | Eight UI languages | P17 | Translation key completeness and language journey tests | Planned |
-| RQ-030 | Offline reading of previously cached course content | P17 | Network-loss/cache/sync tests | Planned |
+| RQ-029 | Eight UI languages | P17 | Translation key completeness and language journey tests | Verified for P17: en, hi, sa, ta, te, kn, mr, bn with native scripts, English fallback, parameter interpolation, and decoupled AI prompt directives (`backend/tests/test_localization.py`, `frontend/tests/localization.test.ts`) |
+| RQ-030 | Offline reading of previously cached course content | P17 | Network-loss/cache/sync tests | Verified for P17: version-pinned course bundle packaging with SHA-256 verification, online staleness detection, and Next.js offline reader with disconnected guardrails (`backend/tests/test_localization.py`, `frontend/tests/localization.test.ts`) |
 | RQ-031 | Observability with redacted diagnostics, correlation IDs and no swallowed failures | P01, P19 | Error contract/log correlation tests | Verified for P01 baseline (`backend/tests/test_health.py`) |
 | RQ-032 | Single EC2 pilot deployment and recovery procedures | P21 | Deployment smoke test, restore exercise and runbook review | Planned |
 | RQ-033 | 50–250 concurrent-user target validated by load test | P20 | Repeatable load test with service-level measures recorded | Planned; infrastructure sizing provisional |

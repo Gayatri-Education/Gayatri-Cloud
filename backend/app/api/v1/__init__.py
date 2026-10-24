@@ -10,6 +10,7 @@ from app.api.v1.benchmarks import router as benchmarks_router
 from app.api.v1.billing import router as billing_router
 from app.api.v1.courses import router as course_router
 from app.api.v1.events import router as events_router
+from app.api.v1.localization import router as localization_router
 from app.api.v1.organizations import router as org_router
 from app.api.v1.parent import router as parent_router
 from app.api.v1.rag import router as rag_router
@@ -30,5 +31,6 @@ api_v1_router.include_router(teacher_router, tags=["Teacher & Academic Administr
 api_v1_router.include_router(parent_router, tags=["Parent & Guardian Portal"])
 api_v1_router.include_router(admin_router, tags=["Administration Portal"])
 api_v1_router.include_router(billing_router, tags=["Billing & Subscriptions"])
+api_v1_router.include_router(localization_router, tags=["Localization & Accessibility"])
 
 __all__ = ["api_v1_router"]

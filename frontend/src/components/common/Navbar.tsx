@@ -3,6 +3,8 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useAuth } from '../../context/AuthContext';
+import LanguageSelector from '../localization/LanguageSelector';
+import AccessibilityControls from '../localization/AccessibilityControls';
 import {
   GraduationCap,
   BookOpen,
@@ -15,6 +17,7 @@ import {
   ChevronDown,
   Heart,
   CreditCard,
+  DownloadCloud,
 } from 'lucide-react';
 
 export default function Navbar() {
@@ -191,10 +194,21 @@ export default function Navbar() {
               Admin Portal
             </Link>
           )}
+          <Link
+            href="/offline"
+            className="flex items-center gap-1.5 rounded-lg px-3 py-2 hover:bg-slate-50 hover:text-slate-900 transition"
+            data-testid="nav-offline-library"
+          >
+            <DownloadCloud className="h-4 w-4" />
+            Offline
+          </Link>
         </nav>
 
-        {/* User / Logout */}
+        {/* Right Tools & User / Logout */}
         <div className="flex items-center gap-3">
+          <AccessibilityControls />
+          <LanguageSelector />
+
           {user ? (
             <div className="flex items-center gap-3">
               <span className="text-xs font-medium text-slate-700 hidden sm:inline">

@@ -2,6 +2,35 @@
 
 All notable project changes should be recorded here. This file starts as a planning baseline; it must not imply code has been implemented.
 
+## [P17] — Localization, Accessibility and Offline Reading — 2026-10-24
+
+### Added
+- Backend Localization Domain & Registry in `backend/app/domain/i18n/registry.py`:
+  - `LanguageCode` enum and `TranslationRegistry` covering 8 verified platform languages: English (`en`), Hindi (`hi`), Sanskrit (`sa`), Tamil (`ta`), Telugu (`te`), Kannada (`kn`), Marathi (`mr`), and Bengali (`bn`).
+  - Key-based dictionary lookup with `{param}` parameter interpolation.
+  - Strict fallback to English (`en`) for missing or partial translations.
+  - User language preference persistence.
+  - Decoupled server-side AI prompt language directives, ensuring AI response language can be specified independently of client UI locale.
+- Backend Offline Course Packager in `backend/app/domain/i18n/offline.py`:
+  - `OfflineService.package_course_bundle`: Serializes approved, published course version lessons into a deterministic JSON bundle, computing a SHA-256 integrity checksum. Enforces cross-tenant authorization (403 Forbidden).
+  - `OfflineService.check_bundle_staleness`: Detects whether a local cached version is stale when newer versions are published online.
+- REST API Endpoints in `backend/app/api/v1/localization.py`:
+  - Mounted at `/api/v1/localization`: `/languages`, `/translations/{lang_code}`, `/preference`, `/offline-bundle/{course_id}`, and `/offline-bundle/{course_id}/staleness`.
+- Frontend i18n & Accessibility Stack:
+  - `frontend/src/lib/i18n/catalogs.ts`: Translation dictionaries for all 8 platform languages with native scripts.
+  - `frontend/src/lib/i18n/I18nContext.tsx`: `I18nProvider`, `useI18n()` hook, `t()` translator, high-contrast mode toggle (`contrast-high`), and 3-step font scaling (`normal`, `large`, `xlarge`) persisted in `localStorage`.
+  - `frontend/src/lib/offline/offline-storage.ts`: `OfflineStorage` local cache CRUD and `useNetworkStatus()` window online/offline listener.
+  - `frontend/src/components/localization/LanguageSelector.tsx`: Accessible dropdown with native script labels and checkmark indicator.
+  - `frontend/src/components/localization/AccessibilityControls.tsx`: Contrast mode button and A/A+/A++ font scaling buttons.
+  - `frontend/src/components/localization/OfflineIndicatorBanner.tsx`: Top warning banner displayed when offline, warning of reading-only mode and linking to `/offline`.
+  - `frontend/src/components/localization/OfflineCourseReader.tsx`: Accessible lesson reader with keyboard navigation, section switcher, and SHA-256 package verification badge.
+  - `frontend/src/app/offline/page.tsx`: Offline Library for viewing downloaded courses and checking online update staleness.
+  - Integrated into `layout.tsx` and `Navbar.tsx`.
+- Automated Test Suite:
+  - `backend/tests/test_localization.py`: 7 tests passing covering 8 platform languages, English fallback, interpolation, decoupled AI prompts, bundle packaging with SHA-256, staleness detection, and cross-tenant download denial.
+  - `frontend/tests/localization.test.ts`: 6 vitest tests passing covering catalog completeness, parameter interpolation, offline local storage CRUD, and API client integration.
+  - Full regression: 109 backend pytest tests and 49 frontend vitest tests passing; Next.js production build compiling 29/29 routes cleanly with zero lint warnings.
+
 ## [P16] — Billing, Subscriptions, Entitlements and Institution Fees — 2026-10-24
 
 ### Added

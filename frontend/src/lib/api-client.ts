@@ -650,6 +650,56 @@ export class ApiClient {
     const query = organizationId ? `?organization_id=${organizationId}` : '';
     return this.request<InvoiceReceiptItem[]>(`/api/v1/billing/invoices${query}`);
   }
+
+  // ---------------------------------------------------------------------------
+  // P17: Localization, Accessibility & Offline Reading
+  // ---------------------------------------------------------------------------
+
+  public async getSupportedLanguages(): Promise<{ languages: Array<{ code: string; native_label: string; english_name: string; script: string }> }> {
+    return this.request<{ languages: Array<{ code: string; native_label: string; english_name: string; script: string }> }>(
+      '/api/v1/localization/languages'
+    );
+  }
+
+  public async getLanguagePreference(): Promise<{ language_code: string }> {
+    return this.request<{ language_code: string }>('/api/v1/localization/preference');
+  }
+
+  public async updateLanguagePreference(languageCode: string): Promise<{ language_code: string; message: string }> {
+    return this.request<{ language_code: string; message: string }>(
+      '/api/v1/localization/preference',
+      {
+        method: 'POST',
+        body: JSON.stringify({ language_code: languageCode }),
+      }
+    );
+  }
+
+  public async getOfflineBundle(courseId: string): Promise<any> {
+    return this.request<any>(`/api/v1/localization/offline-bundle/${courseId}`);
+  }
+
+  public async checkBundleStaleness(courseId: string, localVersionTag: string): Promise<{
+    course_id: string;
+    local_version_tag: string;
+    latest_version_tag: string;
+    is_stale: boolean;
+    status: string;
+    message: string;
+  }> {
+    return this.request<{
+      course_id: string;
+      local_version_tag: string;
+      latest_version_tag: string;
+      is_stale: boolean;
+      status: string;
+      message: string;
+    }>(
+      `/api/v1/localization/offline-bundle/${courseId}/staleness?local_version_tag=${encodeURIComponent(
+        localVersionTag
+      )}`
+    );
+  }
 }
 
 export const api = new ApiClient();
