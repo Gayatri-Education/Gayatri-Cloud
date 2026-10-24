@@ -1,0 +1,16 @@
+{
+  "release_version": "v1.0.0-pilot",
+  "application_name": "Gayatri Cloud",
+  "git_commit": "d49c3cf99f19d285fe589324989531cfc40655a1",
+  "build_timestamp": "2026-10-24T09:39:03.710666+00:00",
+  "target_architecture": "AWS Single-EC2 Pilot (RDS PostgreSQL + S3)",
+  "security_profile": "OWASP Compliant / Non-Root Containers / Tenant Isolated",
+  "artifact_checksums_sha256": {
+    "docker-compose.prod.yml": "df87b05e990dc6a94a6391863fcb8777df5015fe1fe94bbad84e1062daff0f35",
+    "backend/Dockerfile": "9768f85ac4f88caad8cbea4f582e150111cd12d626ecb00046f8a3ad147aae26",
+    "frontend/Dockerfile": "ad689cde20ba37531873b9a504d9c21db6ffe633636ed9a0ebaa93cda764cdce",
+    ".env.production.example": "b992434d84e144280bb88a7b70022a895b12da62683a53786746fb430198732f",
+    "docs/deployment/PILOT_DEPLOYMENT_RUNBOOK.md": "ff877ce6b07f5a6041344e12e8cf9d83b802b8d036da9dbafc28d33115ec6769",
+    "docs/deployment/RELEASE_CHECKLIST.md": "f0c92cef58da9de6fb44eff888e80bd5f293a34d1d98760555e14d2ec6c664fb"
+  }
+}

@@ -3,15 +3,15 @@
 **Last updated:** 2026-10-24  
 **Truth source:** repository state + phase logs + verified test evidence, not chat memory.  
 **Current phase:** P21 — Release packaging and deployment readiness  
-**Overall status:** `IN_PROGRESS`
+**Overall status:** `AWAITING_OWNER` (Local technical implementation 100% GREEN across all 21 phases; awaiting owner live AWS provisioning authorization)
 
 ## Current checkpoint
 
 - Last GREEN phase: P20 — Integrated verification, end-to-end and load testing.
 - Active phase: P21 — Release packaging and deployment readiness.
-- Implementation status: P20 completed with all 10 criteria GREEN (End-to-end integration test validating the full 12-milestone journey across auth, organizations, courses, 5-tier teacher instructions, interventions, parent guardian link, billing, offline packaging, GDPR data export and account deletion with statutory accounting legal hold; multi-user concurrency load engine simulating 50 virtual users with p95 < 500ms and zero deadlocks; frontend vitest integrated cross-portal navigation suite; 125 backend pytest tests passing, 67 frontend vitest tests passing, Next.js 31 routes built cleanly).
-- Blocking decisions: None blocking P21.
-- Next action: Plan and execute Phase P21.
+- Implementation status: P21 completed with all 10 criteria satisfied locally (Multi-stage unprivileged Dockerfiles for backend and frontend; production Docker Compose with PostgreSQL 16 and Nginx reverse proxy; single-EC2 pilot deployment runbook with SSM access and zero-downtime migration/rollback procedures; automated release verification engine generating cryptographically signed `release-manifest.json`; owner pre-flight checklist with cost estimates; 7 targeted pytest tests passing, 132 full regression backend pytest tests passing, 67 frontend vitest tests passing, Next.js 31 routes compiled cleanly in standalone mode). In accordance with Master Plan Section 5 P21, the phase status is marked `AWAITING_OWNER` for live cloud deployment authorization.
+- Blocking decisions: Owner approval for live AWS EC2/RDS provisioning and domain assignment.
+- Next action: Owner review of `docs/deployment/RELEASE_CHECKLIST.md` and authorization for live AWS pilot deployment.
 
 ## Phase ledger
 
@@ -38,7 +38,7 @@
 | P18 | Security, privacy, retention and deletion hardening | `GREEN` | 10 defined | 10 | 0 | `docs/agent/phase-logs/P18.md` |
 | P19 | Observability, reliability and recovery | `GREEN` | 10 defined | 10 | 0 | `docs/agent/phase-logs/P19.md` |
 | P20 | Integrated verification, end-to-end and load testing | `GREEN` | 10 defined | 10 | 0 | `docs/agent/phase-logs/P20.md` |
-| P21 | Release packaging and deployment readiness | `NOT_STARTED` | TBD in phase log | 0 | TBD | `docs/agent/phase-logs/P21.md` |
+| P21 | Release packaging and deployment readiness | `AWAITING_OWNER` | 10 defined | 10 | 0 | `docs/agent/phase-logs/P21.md` |
 
 ## Progress calculation
 

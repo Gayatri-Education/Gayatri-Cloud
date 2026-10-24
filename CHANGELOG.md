@@ -2,6 +2,25 @@
 
 All notable project changes should be recorded here. This file starts as a planning baseline; it must not imply code has been implemented.
 
+## [P21] — Release Packaging and Deployment Readiness — 2026-10-24
+
+### Added
+- Multi-Stage Production Containerization:
+  - `backend/Dockerfile`: Multi-stage build (`builder` -> `runner`), unprivileged non-root user `backenduser` (UID 10001), 4-worker uvicorn ASGI production server, and container readiness healthcheck (`/health/ready`).
+  - `frontend/Dockerfile`: Multi-stage build (`deps` -> `builder` -> `runner`), unprivileged non-root user `nextjs` (UID 1001), standalone Next.js 14 production server, and container liveness healthcheck.
+  - `frontend/next.config.js`: Configured `output: 'standalone'` and security settings.
+  - `docker-compose.prod.yml`: Orchestrates PostgreSQL 16 Alpine, Backend API, Frontend Web Portal, and Nginx reverse proxy with healthcheck dependency chaining (`condition: service_healthy`) and isolated internal network bridge.
+  - `nginx/nginx.conf`: Production reverse proxy configuration with TLS termination, OWASP defensive headers, gzip compression, and API routing.
+- Deployment Runbooks & Infrastructure Documentation:
+  - `docs/deployment/PILOT_DEPLOYMENT_RUNBOOK.md`: Comprehensive single-instance EC2 pilot deployment guide covering VPC security group topology (zero open SSH port 22; AWS Systems Manager Session Manager access), zero-downtime Alembic migration and rollback instructions, daily encrypted snapshot backups, and point-in-time disaster recovery restore drills.
+  - `docs/deployment/RELEASE_CHECKLIST.md`: Pre-flight owner release review documenting technical release gates, cloud infrastructure cost estimates (~$195/mo), and governance sign-off criteria.
+- Security & Environment Protection:
+  - `.env.production.example`: Safe configuration template with zero hardcoded credentials and clear instructions for AWS Secrets Manager parameter injection.
+  - `scripts/release_verification.py`: Automated verification engine checking Dockerfiles, unprivileged non-root contexts, secret exposure guards, and generating cryptographically signed `release-manifest.json` with artifact SHA-256 hashes.
+- Automated Test Suite:
+  - `backend/tests/test_release_packaging.py`: 7 automated pytest tests verifying release manifest validity, Docker non-root users, compose service dependencies, and runbook invariants.
+  - Full Regression: 132/132 backend pytest tests and 67/67 frontend vitest tests passing cleanly; Next.js 14 production build compiling 31/31 routes in standalone mode with zero lint warnings.
+
 ## [P20] — Integrated Verification, End-to-End and Load Testing — 2026-10-24
 
 ### Added
