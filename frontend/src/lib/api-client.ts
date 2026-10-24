@@ -19,6 +19,14 @@ import {
   StudyActivity,
 } from './types/mastery';
 import { ProviderConnection, ModelInfo, PrivacyConsentSettings } from './types/ai';
+import {
+  RosterStudent,
+  ClassAnalytics,
+  InterventionItem,
+  CopilotBriefing,
+  TeacherInstructionItem,
+  ClassAnnouncementItem,
+} from './types/teacher';
 
 export class ApiError extends Error {
   public status: number;
@@ -339,6 +347,84 @@ export class ApiClient {
       method: 'POST',
       body: JSON.stringify(settings),
     });
+  }
+
+  // Teacher & Academic Administration
+  public async getClassRoster(offeringId: string): Promise<RosterStudent[]> {
+    return this.request<RosterStudent[]>(`/api/v1/teacher/offerings/${offeringId}/roster`);
+  }
+
+  public async enrollStudent(offeringId: string, studentId: string): Promise<{ id: string; status: string }> {
+    return this.request<{ id: string; status: string }>(`/api/v1/teacher/offerings/${offeringId}/enroll`, {
+      method: 'POST',
+      body: JSON.stringify({ student_id: studentId }),
+    });
+  }
+
+  public async unenrollStudent(offeringId: string, studentId: string): Promise<void> {
+    await this.request<void>(`/api/v1/teacher/offerings/${offeringId}/enroll/${studentId}`, {
+      method: 'DELETE',
+    });
+  }
+
+  public async getClassAnalytics(offeringId: string): Promise<ClassAnalytics> {
+    return this.request<ClassAnalytics>(`/api/v1/teacher/offerings/${offeringId}/analytics`);
+  }
+
+  public async getInterventionQueue(offeringId: string): Promise<InterventionItem[]> {
+    return this.request<InterventionItem[]>(`/api/v1/teacher/offerings/${offeringId}/interventions`);
+  }
+
+  public async acknowledgeIntervention(
+    interventionId: string,
+    notes?: string,
+    resolve = false
+  ): Promise<InterventionItem> {
+    return this.request<InterventionItem>(`/api/v1/teacher/interventions/${interventionId}/acknowledge`, {
+      method: 'POST',
+      body: JSON.stringify({ resolution_notes: notes, resolve }),
+    });
+  }
+
+  public async getCopilotBriefing(offeringId: string): Promise<CopilotBriefing> {
+    return this.request<CopilotBriefing>(`/api/v1/teacher/offerings/${offeringId}/copilot-briefing`);
+  }
+
+  public async getTeacherInstructions(courseId?: string): Promise<TeacherInstructionItem[]> {
+    const query = courseId ? `?course_id=${courseId}` : '';
+    return this.request<TeacherInstructionItem[]>(`/api/v1/teacher/instructions${query}`);
+  }
+
+  public async createTeacherInstruction(payload: {
+    course_id: string;
+    tier: string;
+    directive_text: string;
+    priority?: number;
+  }): Promise<TeacherInstructionItem> {
+    return this.request<TeacherInstructionItem>('/api/v1/teacher/instructions', {
+      method: 'POST',
+      body: JSON.stringify(payload),
+    });
+  }
+
+  public async deactivateTeacherInstruction(instructionId: string): Promise<void> {
+    await this.request<void>(`/api/v1/teacher/instructions/${instructionId}`, {
+      method: 'DELETE',
+    });
+  }
+
+  public async createAnnouncement(
+    offeringId: string,
+    payload: { title: string; content: string }
+  ): Promise<ClassAnnouncementItem> {
+    return this.request<ClassAnnouncementItem>('/api/v1/teacher/announcements', {
+      method: 'POST',
+      body: JSON.stringify({ offering_id: offeringId, ...payload }),
+    });
+  }
+
+  public async getAnnouncements(offeringId: string): Promise<ClassAnnouncementItem[]> {
+    return this.request<ClassAnnouncementItem[]>(`/api/v1/teacher/offerings/${offeringId}/announcements`);
   }
 }
 

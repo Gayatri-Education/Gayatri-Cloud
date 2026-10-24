@@ -145,6 +145,19 @@ export default function Navbar() {
             <Key className="h-4 w-4" />
             AI Keys
           </Link>
+          {(activeContext.role === 'TEACHER' ||
+            activeContext.role === 'ACADEMIC_ADMIN' ||
+            activeContext.role === 'ORG_ADMIN' ||
+            activeContext.role === 'SUPER_ADMIN') && (
+            <Link
+              href="/teacher/dashboard"
+              className="flex items-center gap-1.5 rounded-lg bg-sky-50 px-3 py-2 text-sky-700 font-semibold hover:bg-sky-100 transition"
+              data-testid="nav-teacher-portal"
+            >
+              <GraduationCap className="h-4 w-4" />
+              Teacher Portal
+            </Link>
+          )}
         </nav>
 
         {/* User / Logout */}

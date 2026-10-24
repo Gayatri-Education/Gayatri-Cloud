@@ -2,16 +2,16 @@
 
 **Last updated:** 2026-10-24  
 **Truth source:** repository state + phase logs + verified test evidence, not chat memory.  
-**Current phase:** P13 — Teacher and academic-administration portal  
+**Current phase:** P14 — Parent/guardian portal  
 **Overall status:** `IN_PROGRESS`
 
 ## Current checkpoint
 
-- Last GREEN phase: P12 — Student portal.
-- Active phase: P13 — Teacher and academic-administration portal.
-- Implementation status: P12 completed with all 10 criteria GREEN (Learner onboarding, course catalog with pinned version tags, interactive Socratic tutor chat with SSE streaming, citation pills and rating feedback, assessment runner across all 6 question types with timer countdown and draft autosave, result review with rubric scoring and misconception diagnostics, visual concept mastery roadmap, organization context isolation, BYOK encrypted AI key vault with masked keys, and responsive recovery states). Ready for P13 Teacher and academic-administration portal.
-- Blocking decisions: None blocking P13.
-- Next action: Plan and execute Phase P13.
+- Last GREEN phase: P13 — Teacher and academic-administration portal.
+- Active phase: P14 — Parent/guardian portal.
+- Implementation status: P13 completed with all 10 criteria GREEN (Class rosters with student mastery metrics and misconception counts, strict tenant isolation across organizations, 5-tier instruction cascade editor with priority and expiration, cohort analytics aggregating mastery distributions across 5 tiers, hardest concepts ranking, misconception clustering, automated intervention queue with teacher acknowledgement and resolution notes, empirical evidence-grounded copilot briefings with uncertainty notices and teacher confirmation gates, assessment oversight with audit-trailed manual score overrides, role-aware teacher navigation, 82 passing backend pytest tests, 23 passing frontend vitest tests, and clean 15-route Next.js production build).
+- Blocking decisions: None blocking P14.
+- Next action: Plan and execute Phase P14.
 
 ## Phase ledger
 
@@ -30,8 +30,7 @@
 | P10 | Assessment, evaluation and grading | `GREEN` | 10 defined | 10 | 0 | `docs/agent/phase-logs/P10.md` |
 | P11 | Event capture, archive and training dataset pipeline | `GREEN` | 10 defined | 10 | 0 | `docs/agent/phase-logs/P11.md` |
 | P12 | Student portal | `GREEN` | 10 defined | 10 | 0 | `docs/agent/phase-logs/P12.md` |
-| P13 | Teacher and academic-administration portal | `NOT_STARTED` | TBD in phase log | 0 | TBD | `docs/agent/phase-logs/P13.md` |
-| P13 | Teacher and academic-administration portal | `NOT_STARTED` | TBD in phase log | 0 | TBD | `docs/agent/phase-logs/P13.md` |
+| P13 | Teacher and academic-administration portal | `GREEN` | 10 defined | 10 | 0 | `docs/agent/phase-logs/P13.md` |
 | P14 | Parent/guardian portal | `NOT_STARTED` | TBD in phase log | 0 | TBD | `docs/agent/phase-logs/P14.md` |
 | P15 | Super-admin and organization-admin portal | `NOT_STARTED` | TBD in phase log | 0 | TBD | `docs/agent/phase-logs/P15.md` |
 | P16 | Billing, subscriptions, entitlements and institution fees | `NOT_STARTED` | TBD in phase log | 0 | TBD | `docs/agent/phase-logs/P16.md` |

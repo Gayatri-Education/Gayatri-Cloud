@@ -2,6 +2,37 @@
 
 All notable project changes should be recorded here. This file starts as a planning baseline; it must not imply code has been implemented.
 
+## [P13] — Teacher and Academic-Administration Portal — 2026-10-24
+
+### Added
+- Backend Models & Schema in `backend/app/db/models/teacher.py`:
+  - `TeacherIntervention`: Flags struggling learners with severity (`LOW`, `MEDIUM`, `HIGH`, `CRITICAL`), diagnosed root causes, teacher acknowledgement timestamps, and resolution notes.
+  - `ClassAnnouncement`: Posts course announcements and notices to class offerings.
+- Teacher Domain Service in `backend/app/domain/teacher/service.py`:
+  - `TeacherService`: Class rosters with mastery calculations and active misconception counts; enrollment/unenrollment lifecycle; 5-tier instruction cascade management (`ORG`, `COURSE`, `CLASS`, `STUDENT`, `SESSION`) with priority sorting; class analytics aggregating mastery distributions across 5 buckets (Novice, Developing, Competent, Proficient, Master), hardest concepts ranking, and misconception clusters; intervention queue with teacher acknowledgement tracking; and evidence-grounded AI copilot briefings with uncertainty notes and teacher confirmation gates.
+- REST API Endpoints in `backend/app/api/v1/teacher.py`:
+  - 12 endpoints covering rosters, student enrollment/unenrollment, class analytics, intervention queue and acknowledgement, copilot briefings, 5-tier instruction directives, and announcements with strict tenant isolation.
+- Frontend Teacher Types & API Client:
+  - `frontend/src/lib/types/teacher.ts`: TypeScript contracts for `RosterStudent`, `ClassAnalytics`, `InterventionItem`, `CopilotBriefing`, `TeacherInstructionItem`, `ClassAnnouncementItem`.
+  - `frontend/src/lib/api-client.ts`: 12 typed methods for teacher capabilities.
+- Frontend Reusable Components in `frontend/src/components/teacher/`:
+  - `RosterTable.tsx`: Searchable class roster, student enrollment/unenrollment actions, mastery progress bars, active misconception badges.
+  - `InstructionEditor.tsx`: 5-tier cascade directive editor with priority slider (1-5), active directives listing, and deactivation.
+  - `AnalyticsCharts.tsx`: Mastery distribution breakdown, hardest concepts ranked by difficulty, and cohort misconception clusters.
+  - `InterventionQueue.tsx`: Severity-coded queue with acknowledge and resolve workflows.
+  - `TeacherCopilotCard.tsx`: Data-grounded AI copilot briefing card with confidence score, uncertainty note, and one-click recommended action triggers.
+- Next.js 14 App Router Pages:
+  - `/teacher/dashboard`: Primary teacher workspace with offering selector, copilot briefing card, and intervention queue preview.
+  - `/teacher/roster`: Full roster view and enrollment management.
+  - `/teacher/instructions`: 5-tier directive cascade manager.
+  - `/teacher/analytics`: Cohort learning analytics and misconception clusters.
+  - `/teacher/assessments`: Assessment oversight, audit log, and manual score overrides.
+  - `Navbar.tsx`: Integrated role-aware shortcut to Teacher Portal for teachers and academic administrators.
+- Automated Test Suite:
+  - `backend/tests/test_teacher.py`: 7 tests passing covering roster lifecycle, cross-tenant isolation, analytics calculation, intervention acknowledgement, copilot briefing grounding, instruction cascade, and announcements.
+  - `frontend/tests/teacher-portal.test.ts`: 9 vitest tests passing covering client contracts, tenant headers, 403 boundary rejection, instruction tiers, analytics processing, intervention workflow, and copilot grounding.
+  - All 82 backend pytest tests and 23 frontend vitest tests passing; Next.js production build compiling 15/15 routes cleanly.
+
 ## [P12] — Student Portal (Next.js Web UI) — 2026-10-24
 
 ### Added

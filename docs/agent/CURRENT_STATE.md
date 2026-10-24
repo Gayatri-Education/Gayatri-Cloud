@@ -4,12 +4,12 @@
 
 **Checkpoint created:** 2026-10-24  
 **Timezone:** Asia/Kolkata  
-**Current phase:** P13 — Teacher and academic-administration portal  
+**Current phase:** P14 — Parent/guardian portal  
 **Phase status:** `NOT_STARTED`  
-**Last verified GREEN phase:** P12 — Student portal  
+**Last verified GREEN phase:** P13 — Teacher and academic-administration portal  
 **Branch / commit:** `main`  
-**Repository status:** P00 through P12 are GREEN. 75 passing backend tests and 14 passing frontend tests. Delivered full student portal in Next.js 14 App Router: learner dashboard with enrolled courses, active streak, and retention queue; course catalog with pinned version tags; interactive Socratic tutor chat with SSE streaming, citation pills, and helpfulness feedback; assessment runner across all 6 question types with countdown timer and draft autosave; assessment result view with rubric criteria scoring and misconception alerts; visual concept mastery roadmap; organization context switcher isolating personal and school contexts; BYOK encrypted AI key vault with masked keys; transparent DEC-011 training consent governance; and actionable recovery error states. Clean lint, successful production build, and zero open defects.  
-**Tests run:** `Push-Location backend; python -m pytest; Pop-Location` (75 passed in 33.47s), `cd frontend; npm run test` (14 passed in 2.00s), `npm run lint` (pass, 0 warnings), `npm run build` (compiled successfully, 10/10 routes static/dynamic).
+**Repository status:** P00 through P13 are GREEN. 82 passing backend tests and 23 passing frontend tests. Delivered teacher domain models (TeacherIntervention, ClassAnnouncement), TeacherService, REST APIs for rosters, cascade directives, analytics, interventions, and copilot briefings. Delivered Next.js 14 Teacher Web UI: searchable class roster with mastery progress and misconception counts, 5-tier instruction cascade editor (ORG, COURSE, CLASS, STUDENT, SESSION) with priority sliders and deactivation, class analytics with cohort mastery distributions and hardest concepts, intervention queue with severity badges and acknowledge/resolve workflow, evidence-grounded AI copilot briefing card with explicit uncertainty notice, and assessment oversight with manual grade adjustments. Clean lint, 15 compiled Next.js routes, and zero open defects.  
+**Tests run:** `Push-Location backend ; python -m pytest ; Pop-Location` (82 passed in 30.24s), `Push-Location frontend ; npm run test ; Pop-Location` (23 passed in 1.55s), `npm run lint` (pass, 0 warnings), `npm run build` (compiled successfully, 15/15 routes static/dynamic).
 
 ## Confirmed direction
 
@@ -37,4 +37,4 @@
 
 ## Exact next action
 
-Execute Phase P13: Teacher and academic-administration portal.
+Execute Phase P14: Parent/guardian portal.

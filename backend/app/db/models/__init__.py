@@ -29,6 +29,7 @@ from app.db.models.organization import (
     OrganizationDomain,
     RoleAssignment,
 )
+from app.db.models.teacher import ClassAnnouncement, TeacherIntervention
 from app.db.models.tutoring import (
     Assessment,
     AssessmentAttempt,
@@ -61,6 +62,8 @@ __all__ = [
     "CourseEnrollment",
     "TeachingAssignment",
     "TeacherInstruction",
+    "ClassAnnouncement",
+    "TeacherIntervention",
     "ContentSource",
     "ContentChunk",
     "TutorSession",
