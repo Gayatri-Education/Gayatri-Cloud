@@ -2,16 +2,16 @@
 
 **Last updated:** 2026-10-24  
 **Truth source:** repository state + phase logs + verified test evidence, not chat memory.  
-**Current phase:** P11 — Event capture, archive and training dataset pipeline  
+**Current phase:** P12 — Student portal  
 **Overall status:** `IN_PROGRESS`
 
 ## Current checkpoint
 
-- Last GREEN phase: P10 — Assessment, evaluation and grading.
-- Active phase: P11 — Event capture, archive and training dataset pipeline.
-- Implementation status: P10 completed with all 10 criteria GREEN (Deterministic grading for MCQ/Boolean/Numerical with unit and tolerance verification, rubric-based subjective evaluator with misconception detection, AST and test-case coding evaluator, anti-leakage sanitizer, timed exam timer with autosave/resume, idempotent submit, automated canonical mastery progression, teacher manual override, cross-tenant isolation, 68 passing tests). Ready for P11 Event capture, archive and training dataset pipeline.
-- Blocking decisions: None blocking P11.
-- Next action: Plan and execute Phase P11.
+- Last GREEN phase: P11 — Event capture, archive and training dataset pipeline.
+- Active phase: P12 — Student portal.
+- Implementation status: P11 completed with all 10 criteria GREEN (Canonical versioned event envelope across all 8 event categories, transactional outbox with bounded retries and poison quarantine, immutable archive batching with SHA-256 checksums, operational telemetry with raw prompt/answer redaction, deny-by-default training eligibility governance DEC-011, PII redaction pipeline, leak-free train/val/test splits, human sign-off dataset approval gate, 75 passing backend tests). Ready for P12 Student portal (Next.js Web UI).
+- Blocking decisions: None blocking P12.
+- Next action: Plan and execute Phase P12.
 
 ## Phase ledger
 
@@ -28,7 +28,7 @@
 | P08 | Tutoring benchmark, model eligibility and routing | `GREEN` | 8 defined | 8 | 0 | `docs/agent/phase-logs/P08.md` |
 | P09 | Tutor orchestration and adaptive learning engine | `GREEN` | 8 defined | 8 | 0 | `docs/agent/phase-logs/P09.md` |
 | P10 | Assessment, evaluation and grading | `GREEN` | 10 defined | 10 | 0 | `docs/agent/phase-logs/P10.md` |
-| P11 | Event capture, archive and training dataset pipeline | `NOT_STARTED` | TBD in phase log | 0 | TBD | `docs/agent/phase-logs/P11.md` |
+| P11 | Event capture, archive and training dataset pipeline | `GREEN` | 10 defined | 10 | 0 | `docs/agent/phase-logs/P11.md` |
 | P12 | Student portal | `NOT_STARTED` | TBD in phase log | 0 | TBD | `docs/agent/phase-logs/P12.md` |
 | P13 | Teacher and academic-administration portal | `NOT_STARTED` | TBD in phase log | 0 | TBD | `docs/agent/phase-logs/P13.md` |
 | P14 | Parent/guardian portal | `NOT_STARTED` | TBD in phase log | 0 | TBD | `docs/agent/phase-logs/P14.md` |

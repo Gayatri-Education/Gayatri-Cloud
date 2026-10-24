@@ -2,6 +2,35 @@
 
 All notable project changes should be recorded here. This file starts as a planning baseline; it must not imply code has been implemented.
 
+## [P11] — Event Capture, Archive and Training Dataset Pipeline — 2026-10-24
+
+### Added
+- Canonical Event Schema & Envelope in `backend/app/domain/events/envelope.py`:
+  - `EventEnvelopeBuilder`: formats events with event UUID, UTC timestamp, schema version, actor context, tenant scope, session/course references, sensitivity classification (`PUBLIC`, `INTERNAL`, `PROTECTED`, `RESTRICTED`), and JSON payload.
+  - Covers all 8 event categories: `IDENTITY`, `COURSE`, `TUTOR`, `LEARNING`, `AI_EXECUTION`, `ADMIN_PRIVACY`, `BILLING`, `OPERATIONS`.
+- Transactional Outbox Engine in `backend/app/domain/events/outbox.py`:
+  - `OutboxService`: atomic event persistence with business transactions, status transitions (`pending`, `archived`, `failed`, `quarantined`), bounded exponential retry handling, and automatic poison-event isolation at `max_retries=3`.
+- Immutable Archive Batching Service in `backend/app/domain/events/archiver.py`:
+  - `ArchiveService`: aggregates pending outbox events into immutable archive batches, computes SHA-256 cryptographic checksums, uploads manifests and payloads to object storage (`archives/events/...`), updates outbox statuses to `archived`, and supports idempotent retry.
+- Operational Telemetry Plane in `backend/app/domain/events/telemetry.py`:
+  - `OperationalTelemetry`: enforces strict plane separation; redacts student conversational prompts, answers, and sensitive payload attributes while recording structured diagnostic logs and correlation IDs.
+- Deny-by-Default Training Governance & Export Pipeline in `backend/app/domain/events/training.py`:
+  - `TrainingPipelineService`: enforces DEC-011 training policy, initializing all events as `NOT_REVIEWED` and requiring explicit learner consent + institution authorization before promotion to `ELIGIBLE`.
+  - `PIIRedactor`: scrubs email addresses, phone numbers, and IPv4 addresses from training data.
+  - Controlled dataset exporter: reproducible train/validation/test splits (80/10/10) with course- and learner-level contamination prevention.
+  - Strict human approval gating: training engine blocks dataset access unless explicitly authorized by an administrator (`is_approved=True`).
+- Event Management REST API in `backend/app/api/v1/events.py`:
+  - `POST /api/v1/events/outbox/process`: Trigger transactional batch archival.
+  - `GET /api/v1/events/outbox/status`: Retrieve queue metrics, pending count, and quarantine statistics.
+  - `GET /api/v1/events/archive/batches`: Query archived storage manifests.
+  - `POST /api/v1/events/training/eligibility`: Evaluate or update training eligibility for an event.
+  - `POST /api/v1/events/training/export`: Export an eligible training dataset version.
+  - `POST /api/v1/events/training/datasets/{dataset_id}/approve`: Human approval sign-off gate.
+  - `GET /api/v1/events/training/datasets`: List dataset exports and approval status.
+- Verification & Test Suite in `backend/tests/test_events.py`:
+  - 7 targeted tests covering canonical envelope creation, transactional outbox & retries, archiver batching & checksums, telemetry redaction, deny-by-default training governance, split reproducibility, and approval gates.
+  - Regression suite passes with 75/75 tests in 17.23s.
+
 ## [P10] — Assessment, Evaluation and Grading — 2026-10-24
 
 ### Added

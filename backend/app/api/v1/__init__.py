@@ -7,6 +7,7 @@ from app.api.v1.assessments import router as assessments_router
 from app.api.v1.auth import router as auth_router
 from app.api.v1.benchmarks import router as benchmarks_router
 from app.api.v1.courses import router as course_router
+from app.api.v1.events import router as events_router
 from app.api.v1.organizations import router as org_router
 from app.api.v1.rag import router as rag_router
 from app.api.v1.tutoring import router as tutoring_router
@@ -20,5 +21,6 @@ api_v1_router.include_router(ai_router, prefix="/ai", tags=["AI Gateway"])
 api_v1_router.include_router(benchmarks_router, prefix="/benchmarks", tags=["Benchmarks & Routing"])
 api_v1_router.include_router(tutoring_router, prefix="/tutoring", tags=["Tutoring & Mastery"])
 api_v1_router.include_router(assessments_router, tags=["Assessments & Grading"])
+api_v1_router.include_router(events_router, tags=["Events & Training"])
 
 __all__ = ["api_v1_router"]

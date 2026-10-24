@@ -4,12 +4,12 @@
 
 **Checkpoint created:** 2026-10-24  
 **Timezone:** Asia/Kolkata  
-**Current phase:** P11 — Event capture, archive and training dataset pipeline  
+**Current phase:** P12 — Student portal  
 **Phase status:** `NOT_STARTED`  
-**Last verified GREEN phase:** P10 — Assessment, evaluation and grading  
+**Last verified GREEN phase:** P11 — Event capture, archive and training dataset pipeline  
 **Branch / commit:** `main`  
-**Repository status:** P00 through P10 are GREEN. 68 passing tests covering health, database constraints, isolation repositories, authentication endpoints, organization RBAC, storage abstraction, MIME sniff verification, immutable course versions, multi-format extraction, prompt-injection defense, course-scoped hybrid RAG, AES-256-GCM credential encryption, provider adapter contracts, gateway rate-limit fallback, SSE streaming, tutoring benchmarks, quality-first routing, teacher instruction cascade, pedagogical modes, deterministic mastery state machine, anti-leakage assessment sanitization, multi-criterion rubrics, AST coding evaluation, timed exams, autosave/resume, and teacher score override. Clean lint and formatting on both backend and frontend.  
-**Tests run:** `Push-Location backend; python -m pytest; Pop-Location` (68 passed in 11.69s), `ruff check` (pass), `ruff format --check` (pass), `npm run lint` (pass), `npm run test` (3 passed).
+**Repository status:** P00 through P11 are GREEN. 75 passing tests covering health, database constraints, isolation repositories, authentication endpoints, organization RBAC, storage abstraction, MIME sniff verification, immutable course versions, multi-format extraction, prompt-injection defense, course-scoped hybrid RAG, AES-256-GCM credential encryption, provider adapter contracts, gateway rate-limit fallback, SSE streaming, tutoring benchmarks, quality-first routing, teacher instruction cascade, pedagogical modes, deterministic mastery state machine, anti-leakage assessment sanitization, multi-criterion rubrics, AST coding evaluation, timed exams, autosave/resume, teacher score override, canonical event envelope, transactional outbox with bounded retries and poison quarantine, immutable S3 archive batching with SHA-256 checksums, operational telemetry with prompt redaction, deny-by-default training governance (DEC-011), PII scrubbing, and dataset export approval gates. Clean lint and formatting on both backend and frontend.  
+**Tests run:** `pytest backend/tests/` (75 passed in 17.23s), `ruff check backend/ && ruff format --check backend/` (pass), `npm run lint` (pass), `npm run test` (3 passed).
 
 ## Confirmed direction
 
@@ -25,6 +25,7 @@
 - Standardized tutoring benchmark suite and quality-first router with model promotion threshold gating.
 - Tutor orchestration combining 5-tier teacher instructions, configurable pedagogies, XML document enclosures, and deterministic mastery state machines with stability formulas.
 - Assessment engine supporting MCQ, Boolean, Numerical (±2% tolerance, units), Rubric-based Subjective evaluation with misconception detection, AST coding tasks, timed exams with autosave, and anti-leakage protection.
+- Event capture and archive with transactional outbox, immutable S3 storage batching, telemetry redaction, deny-by-default training governance (DEC-011), and human dataset sign-off gates.
 - Remote repository: `https://github.com/Gayatri-Education/Gayatri-Cloud.git`.
 
 ## Open blockers / decision references
@@ -35,4 +36,4 @@
 
 ## Exact next action
 
-Execute Phase P11: Event capture, archive and training dataset pipeline.
+Execute Phase P12: Student portal (Next.js Web UI).
