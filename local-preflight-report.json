@@ -1,0 +1,115 @@
+{
+  "report_title": "Gayatri Cloud Local Pre-Flight Certification Report",
+  "generated_at": "2026-10-24T10:57:11.540353+00:00",
+  "overall_verdict": "CERTIFIED_READY_FOR_DEPLOYMENT",
+  "summary": {
+    "all_phases_passed": true,
+    "target_architecture": "AWS Single-EC2 Pilot (RDS PostgreSQL 16 + S3)",
+    "total_phases_evaluated": 6
+  },
+  "phase_results": {
+    "phase_1_environment": {
+      "python_version": {
+        "status": "PASS",
+        "version": "3.12.10"
+      },
+      "node_version": {
+        "status": "PASS",
+        "version": "v22.16.0"
+      },
+      "secrets_check": {
+        "status": "PASS",
+        "details": "No exposed secrets"
+      },
+      "docs_check": {
+        "status": "PASS",
+        "missing": []
+      }
+    },
+    "phase_2_containers": {
+      "backend_dockerfile": {
+        "status": "PASS",
+        "non_root": true,
+        "healthcheck": true
+      },
+      "frontend_dockerfile": {
+        "status": "PASS",
+        "non_root": true,
+        "standalone": true
+      },
+      "compose_spec": {
+        "status": "PASS",
+        "services_present": true
+      },
+      "nginx_config": {
+        "status": "PASS",
+        "headers_configured": true
+      }
+    },
+    "phase_3_database": {
+      "schema_parity": {
+        "status": "PASS",
+        "total_tables": 46,
+        "missing_expected": []
+      }
+    },
+    "phase_4_test_suites": {
+      "backend_linter": {
+        "status": "PASS",
+        "exit_code": 0
+      },
+      "frontend_linter": {
+        "status": "PASS",
+        "exit_code": 0
+      },
+      "backend_tests": {
+        "status": "PASS",
+        "exit_code": 0,
+        "duration_s": 35.94
+      },
+      "frontend_tests": {
+        "status": "PASS",
+        "exit_code": 0,
+        "duration_s": 4.97
+      }
+    },
+    "phase_5_live_api": {
+      "server_startup": {
+        "status": "PASS"
+      },
+      "health_ready": {
+        "status": "PASS"
+      },
+      "prometheus_metrics": {
+        "status": "PASS"
+      },
+      "localization_check": {
+        "status": "PASS",
+        "languages_count": 8
+      },
+      "user_registration": {
+        "status": "PASS"
+      },
+      "auth_token": {
+        "status": "PASS"
+      },
+      "user_me": {
+        "status": "PASS"
+      },
+      "deep_health": {
+        "status": "PASS"
+      },
+      "admin_rbac_defense": {
+        "status": "PASS"
+      }
+    },
+    "phase_6_frontend_build": {
+      "standalone_bundle": {
+        "status": "PASS"
+      },
+      "static_chunks": {
+        "status": "PASS"
+      }
+    }
+  }
+}

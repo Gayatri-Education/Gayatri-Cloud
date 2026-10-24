@@ -101,6 +101,7 @@ async def correlation_and_security_headers_middleware(request: Request, call_nex
 
 
 @app.get("/health", status_code=status.HTTP_200_OK, tags=["Health"])
+@app.get("/health/live", status_code=status.HTTP_200_OK, tags=["Health"])
 async def health_check() -> dict[str, str]:
     """Lightweight health probe for container/orchestrator liveness.
 
@@ -115,6 +116,7 @@ async def health_check() -> dict[str, str]:
 
 
 @app.get("/ready", status_code=status.HTTP_200_OK, tags=["Health"])
+@app.get("/health/ready", status_code=status.HTTP_200_OK, tags=["Health"])
 async def readiness_check() -> dict[str, object]:
     """Readiness probe verifying that dependencies and subsystem configurations are operational."""
     # Subsystem readiness checks can expand with DB and Cache connectivity in later phases
