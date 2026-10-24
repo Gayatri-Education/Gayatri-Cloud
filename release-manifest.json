@@ -1,8 +1,8 @@
 {
   "release_version": "v1.0.0-pilot",
   "application_name": "Gayatri Cloud",
-  "git_commit": "d49c3cf99f19d285fe589324989531cfc40655a1",
-  "build_timestamp": "2026-10-24T09:39:03.710666+00:00",
+  "git_commit": "a69ff4901fa9c8143b98984971fad30006ed39b2",
+  "build_timestamp": "2026-10-24T09:39:33.748357+00:00",
   "target_architecture": "AWS Single-EC2 Pilot (RDS PostgreSQL + S3)",
   "security_profile": "OWASP Compliant / Non-Root Containers / Tenant Isolated",
   "artifact_checksums_sha256": {
