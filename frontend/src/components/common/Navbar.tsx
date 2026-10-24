@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useAuth } from '../../context/AuthContext';
+import { useI18n } from '../../lib/i18n/I18nContext';
 import LanguageSelector from '../localization/LanguageSelector';
 import AccessibilityControls from '../localization/AccessibilityControls';
 import {
@@ -30,6 +31,7 @@ import {
 
 export default function Navbar() {
   const { user, activeContext, memberships, switchOrganization, logout } = useAuth();
+  const { t } = useI18n();
   const [mounted, setMounted] = useState(false);
   const [isOrgDropdownOpen, setIsOrgDropdownOpen] = useState(false);
   const [isMoreDropdownOpen, setIsMoreDropdownOpen] = useState(false);
@@ -153,7 +155,7 @@ export default function Navbar() {
             href="/"
             className="rounded-lg px-2.5 py-1.5 hover:bg-slate-100 hover:text-slate-900 transition"
           >
-            Portal Hub
+            {t('portal_hub')}
           </Link>
 
           {/* Student Links */}
@@ -163,35 +165,35 @@ export default function Navbar() {
                 href="/dashboard"
                 className="rounded-lg px-2.5 py-1.5 hover:bg-slate-100 hover:text-slate-900 transition"
               >
-                Dashboard
+                {t('dashboard')}
               </Link>
               <Link
                 href="/courses"
                 className="flex items-center gap-1 rounded-lg px-2.5 py-1.5 hover:bg-slate-100 hover:text-slate-900 transition"
               >
                 <BookOpen className="h-3.5 w-3.5" />
-                <span>Courses</span>
+                <span>{t('courses')}</span>
               </Link>
               <Link
                 href="/tutoring"
                 className="flex items-center gap-1 rounded-lg px-2.5 py-1.5 text-sky-700 bg-sky-50 hover:bg-sky-100 transition"
               >
                 <MessageSquare className="h-3.5 w-3.5" />
-                <span>AI Tutor</span>
+                <span>{t('tutor')}</span>
               </Link>
               <Link
                 href="/assessments"
                 className="flex items-center gap-1 rounded-lg px-2.5 py-1.5 hover:bg-slate-100 hover:text-slate-900 transition"
               >
                 <Award className="h-3.5 w-3.5" />
-                <span>Assessments</span>
+                <span>{t('assessments')}</span>
               </Link>
               <Link
                 href="/mastery"
                 className="flex items-center gap-1 rounded-lg px-2.5 py-1.5 hover:bg-slate-100 hover:text-slate-900 transition"
               >
                 <TrendingUp className="h-3.5 w-3.5" />
-                <span>Mastery</span>
+                <span>{t('mastery')}</span>
               </Link>
             </>
           )}
@@ -205,26 +207,26 @@ export default function Navbar() {
                 data-testid="nav-teacher-portal"
               >
                 <School className="h-3.5 w-3.5" />
-                <span>Teacher Cockpit</span>
+                <span>{t('teacher_cockpit')}</span>
               </Link>
               <Link
                 href="/teacher/roster"
                 className="flex items-center gap-1 rounded-lg px-2.5 py-1.5 hover:bg-slate-100 hover:text-slate-900 transition"
               >
                 <Users className="h-3.5 w-3.5" />
-                <span>Rosters</span>
+                <span>{t('roster')}</span>
               </Link>
               <Link
                 href="/teacher/instructions"
                 className="rounded-lg px-2.5 py-1.5 hover:bg-slate-100 hover:text-slate-900 transition"
               >
-                5-Tier Cascade
+                {t('instructions')}
               </Link>
               <Link
                 href="/teacher/analytics"
                 className="rounded-lg px-2.5 py-1.5 hover:bg-slate-100 hover:text-slate-900 transition"
               >
-                Cohort Analytics
+                {t('analytics')}
               </Link>
             </>
           )}
@@ -238,19 +240,19 @@ export default function Navbar() {
                 data-testid="nav-parent-portal"
               >
                 <Heart className="h-3.5 w-3.5" />
-                <span>Parent Dashboard</span>
+                <span>{t('parent_portal')}</span>
               </Link>
               <Link
                 href="/parent/children"
                 className="rounded-lg px-2.5 py-1.5 hover:bg-slate-100 hover:text-slate-900 transition"
               >
-                Children Links
+                {t('children')}
               </Link>
               <Link
                 href="/parent/assessments"
                 className="rounded-lg px-2.5 py-1.5 hover:bg-slate-100 hover:text-slate-900 transition"
               >
-                Child Reports
+                {t('assessments')}
               </Link>
             </>
           )}
@@ -264,26 +266,26 @@ export default function Navbar() {
                 data-testid="nav-admin-portal"
               >
                 <Shield className="h-3.5 w-3.5" />
-                <span>Admin Portal</span>
+                <span>{t('admin_console')}</span>
               </Link>
               <Link
                 href="/admin/members"
                 className="rounded-lg px-2.5 py-1.5 hover:bg-slate-100 hover:text-slate-900 transition"
               >
-                Members
+                {t('members')}
               </Link>
               <Link
                 href="/admin/ai-policy"
                 className="rounded-lg px-2.5 py-1.5 hover:bg-slate-100 hover:text-slate-900 transition"
               >
-                AI Policy
+                {t('ai_policy')}
               </Link>
               <Link
                 href="/admin/observability"
                 className="flex items-center gap-1 rounded-lg px-2.5 py-1.5 text-purple-700 hover:bg-purple-50 transition"
               >
                 <ShieldAlert className="h-3.5 w-3.5" />
-                <span>Observability</span>
+                <span>{t('observability')}</span>
               </Link>
             </>
           )}
@@ -297,7 +299,7 @@ export default function Navbar() {
               }}
               className="flex items-center gap-1 rounded-lg px-2.5 py-1.5 hover:bg-slate-100 hover:text-slate-900 transition"
             >
-              <span>More</span>
+              <span>{t('more')}</span>
               <ChevronDown className="h-3 w-3 text-slate-400" />
             </button>
 
@@ -309,7 +311,7 @@ export default function Navbar() {
                   className="flex items-center gap-2 rounded-xl px-3 py-2 text-xs text-slate-700 hover:bg-slate-50 transition"
                 >
                   <CreditCard className="h-4 w-4 text-emerald-600" />
-                  <span>Billing & Plans</span>
+                  <span>{t('billing')}</span>
                 </Link>
                 <Link
                   href="/offline"
@@ -317,7 +319,7 @@ export default function Navbar() {
                   className="flex items-center gap-2 rounded-xl px-3 py-2 text-xs text-slate-700 hover:bg-slate-50 transition"
                 >
                   <DownloadCloud className="h-4 w-4 text-sky-600" />
-                  <span>Offline Course Reader</span>
+                  <span>{t('offline_library')}</span>
                 </Link>
                 <Link
                   href="/settings/ai-keys"
@@ -333,7 +335,7 @@ export default function Navbar() {
                   className="flex items-center gap-2 rounded-xl px-3 py-2 text-xs text-slate-700 hover:bg-slate-50 transition"
                 >
                   <Settings className="h-4 w-4 text-purple-600" />
-                  <span>Privacy & GDPR Export</span>
+                  <span>{t('settings')}</span>
                 </Link>
               </div>
             )}
@@ -342,8 +344,10 @@ export default function Navbar() {
 
         {/* Right Tools, User Profile & Actions */}
         <div className="flex items-center gap-2 sm:gap-3">
-          <div className="hidden sm:flex items-center gap-2">
-            <AccessibilityControls />
+          <div className="flex items-center gap-1.5 sm:gap-2">
+            <div className="hidden sm:block">
+              <AccessibilityControls />
+            </div>
             <LanguageSelector />
           </div>
 
@@ -352,19 +356,19 @@ export default function Navbar() {
               <Link
                 href="/login"
                 className="hidden sm:inline-flex items-center gap-1 rounded-lg border border-slate-200 bg-white px-2.5 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 transition"
-                title="Switch Demo Role"
+                title={t('switch_role')}
               >
                 <UserCheck className="h-3.5 w-3.5 text-sky-600" />
-                <span>Switch Role</span>
+                <span>{t('switch_role')}</span>
               </Link>
 
               <button
                 onClick={logout}
                 className="flex items-center gap-1 rounded-lg border border-slate-200 px-2.5 py-1.5 text-xs font-medium text-slate-600 hover:bg-rose-50 hover:text-rose-600 hover:border-rose-200 transition"
-                title="Log out"
+                title={t('logout')}
               >
                 <LogOut className="h-3.5 w-3.5" />
-                <span className="hidden md:inline">Logout</span>
+                <span className="hidden md:inline">{t('logout')}</span>
               </button>
             </div>
           ) : (
@@ -372,7 +376,7 @@ export default function Navbar() {
               href="/login"
               className="rounded-xl bg-sky-600 px-3.5 py-1.5 text-xs font-bold text-white shadow-sm hover:bg-sky-700 transition"
             >
-              Sign In
+              {t('sign_in')}
             </Link>
           )}
 
@@ -395,56 +399,56 @@ export default function Navbar() {
               onClick={() => setIsMobileMenuOpen(false)}
               className="p-2 rounded-lg bg-slate-50 text-slate-800"
             >
-              Portal Hub
+              {t('portal_hub')}
             </Link>
             <Link
               href="/dashboard"
               onClick={() => setIsMobileMenuOpen(false)}
               className="p-2 rounded-lg bg-slate-50 text-slate-800"
             >
-              Student Dashboard
+              {t('dashboard')}
             </Link>
             <Link
               href="/courses"
               onClick={() => setIsMobileMenuOpen(false)}
               className="p-2 rounded-lg bg-slate-50 text-slate-800"
             >
-              Course Catalog
+              {t('courses')}
             </Link>
             <Link
               href="/tutoring"
               onClick={() => setIsMobileMenuOpen(false)}
               className="p-2 rounded-lg bg-sky-50 text-sky-700"
             >
-              AI Tutor
+              {t('tutor')}
             </Link>
             <Link
               href="/teacher/dashboard"
               onClick={() => setIsMobileMenuOpen(false)}
               className="p-2 rounded-lg bg-indigo-50 text-indigo-700"
             >
-              Teacher Cockpit
+              {t('teacher_cockpit')}
             </Link>
             <Link
               href="/parent/dashboard"
               onClick={() => setIsMobileMenuOpen(false)}
               className="p-2 rounded-lg bg-rose-50 text-rose-700"
             >
-              Parent Dashboard
+              {t('parent_portal')}
             </Link>
             <Link
               href="/admin/dashboard"
               onClick={() => setIsMobileMenuOpen(false)}
               className="p-2 rounded-lg bg-amber-50 text-amber-800"
             >
-              Admin Portal
+              {t('admin_console')}
             </Link>
             <Link
               href="/admin/observability"
               onClick={() => setIsMobileMenuOpen(false)}
               className="p-2 rounded-lg bg-purple-50 text-purple-700"
             >
-              Observability
+              {t('observability')}
             </Link>
           </div>
 

@@ -4,7 +4,6 @@ import React, { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import {
   BookOpen,
-  MessageSquare,
   Award,
   TrendingUp,
   ArrowRight,
@@ -13,6 +12,7 @@ import {
   Shield,
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
+import { useI18n } from '../../lib/i18n/I18nContext';
 import { Course } from '../../lib/types/course';
 import { SpacedReviewReminder, ConceptMastery } from '../../lib/types/mastery';
 import { AssessmentSummary } from '../../lib/types/assessment';
@@ -24,6 +24,7 @@ import EmptyState from '../../components/common/EmptyState';
 
 export default function DashboardPage() {
   const { user, activeContext } = useAuth();
+  const { t } = useI18n();
   const [courses, setCourses] = useState<Course[]>([]);
   const [reviews, setReviews] = useState<SpacedReviewReminder[]>([]);
   const [assessments, setAssessments] = useState<AssessmentSummary[]>([]);
@@ -105,10 +106,10 @@ export default function DashboardPage() {
               <span className="text-xs text-slate-400">Context: {activeContext.role}</span>
             </div>
             <h1 className="text-2xl font-black text-slate-900 sm:text-3xl">
-              Welcome back, {user ? user.first_name : 'Learner'}!
+              {t('welcome_back', { name: user ? user.first_name : 'Learner' })}
             </h1>
             <p className="mt-1 text-sm text-slate-500">
-              Your personalized adaptive tutoring and learning roadmap are ready.
+              {t('personalized_roadmap')}
             </p>
           </div>
 
@@ -118,7 +119,7 @@ export default function DashboardPage() {
               className="flex items-center gap-2 rounded-xl bg-sky-600 px-5 py-3 text-xs font-semibold text-white shadow-sm hover:bg-sky-700 transition"
             >
               <Sparkles className="h-4 w-4" />
-              <span>Launch AI Tutor</span>
+              <span>{t('launch_tutor')}</span>
             </Link>
           </div>
         </div>
@@ -127,25 +128,25 @@ export default function DashboardPage() {
         <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-4 border-t border-slate-100 pt-6">
           <div>
             <div className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
-              Enrolled Courses
+              {t('enrolled_courses')}
             </div>
             <div className="mt-1 text-2xl font-bold text-slate-900">{courses.length || 2}</div>
           </div>
           <div>
             <div className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
-              Average Mastery
+              {t('average_mastery')}
             </div>
             <div className="mt-1 text-2xl font-bold text-sky-700">{averageMastery}%</div>
           </div>
           <div>
             <div className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
-              Reviews Due
+              {t('reviews_due')}
             </div>
             <div className="mt-1 text-2xl font-bold text-purple-700">{reviews.length}</div>
           </div>
           <div>
             <div className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
-              Study Streak
+              {t('study_streak')}
             </div>
             <div className="mt-1 text-2xl font-bold text-emerald-600">5 Days 🔥</div>
           </div>
@@ -159,13 +160,13 @@ export default function DashboardPage() {
           <div className="flex items-center justify-between">
             <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
               <BookOpen className="h-5 w-5 text-sky-600" />
-              <span>My Enrolled Courses</span>
+              <span>{t('your_courses')}</span>
             </h2>
             <Link
               href="/courses"
               className="text-xs font-semibold text-sky-600 hover:text-sky-700 flex items-center gap-1"
             >
-              <span>Browse Catalog</span>
+              <span>{t('browse_catalog')}</span>
               <ArrowRight className="h-3.5 w-3.5" />
             </Link>
           </div>
@@ -174,7 +175,7 @@ export default function DashboardPage() {
             <EmptyState
               title="No courses enrolled yet"
               description="Explore the course catalog to start personalized adaptive tutoring."
-              actionLabel="Browse Courses"
+              actionLabel={t('courses')}
               actionHref="/courses"
             />
           ) : (
@@ -197,7 +198,7 @@ export default function DashboardPage() {
           <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
             <h3 className="text-base font-bold text-slate-900 flex items-center gap-2 mb-4">
               <Award className="h-4 w-4 text-emerald-600" />
-              <span>Upcoming Assessments</span>
+              <span>{t('upcoming_assessments')}</span>
             </h3>
 
             {(!Array.isArray(assessments) || assessments.length === 0) ? (
@@ -212,15 +213,15 @@ export default function DashboardPage() {
                     <div className="font-semibold text-slate-900">{a.title}</div>
                     <div className="flex items-center gap-2 text-slate-500 mt-1">
                       <Clock className="h-3 w-3" />
-                      <span>{a.time_limit_minutes} mins limit</span>
+                      <span>{t('mins_limit', { count: a.time_limit_minutes })}</span>
                       <span>•</span>
-                      <span>{a.total_points} pts</span>
+                      <span>{t('pts', { count: a.total_points })}</span>
                     </div>
                     <Link
                       href={`/assessments/${a.id}`}
                       className="mt-3 inline-flex items-center gap-1 rounded-lg bg-emerald-600 px-3 py-1.5 text-[11px] font-semibold text-white hover:bg-emerald-700 transition"
                     >
-                      <span>Start Attempt</span>
+                      <span>{t('start_attempt')}</span>
                       <ArrowRight className="h-3 w-3" />
                     </Link>
                   </div>
@@ -233,7 +234,7 @@ export default function DashboardPage() {
           <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
             <h3 className="text-base font-bold text-slate-900 flex items-center gap-2 mb-4">
               <TrendingUp className="h-4 w-4 text-purple-600" />
-              <span>Retention Review Queue</span>
+              <span>{t('spaced_reviews')}</span>
             </h3>
 
             {(!Array.isArray(reviews) || reviews.length === 0) ? (
@@ -247,13 +248,13 @@ export default function DashboardPage() {
                   >
                     <div>
                       <div className="font-semibold text-slate-900">{r.concept_name}</div>
-                      <div className="text-[10px] text-purple-700">Due for review</div>
+                      <div className="text-[10px] text-purple-700">{t('due_for_review')}</div>
                     </div>
                     <Link
                       href={`/tutoring?concept=${encodeURIComponent(r.concept_name)}`}
                       className="rounded bg-purple-600 px-2.5 py-1 text-[11px] font-medium text-white hover:bg-purple-700"
                     >
-                      Practice
+                      {t('practice')}
                     </Link>
                   </div>
                 ))}

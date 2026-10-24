@@ -9,9 +9,11 @@ import LoadingSkeleton from '../../components/common/LoadingSkeleton';
 import ErrorState from '../../components/common/ErrorState';
 import EmptyState from '../../components/common/EmptyState';
 import { useAuth } from '../../context/AuthContext';
+import { useI18n } from '../../lib/i18n/I18nContext';
 
 export default function CoursesPage() {
   const { activeContext } = useAuth();
+  const { t } = useI18n();
   const [courses, setCourses] = useState<Course[]>([]);
   const [search, setSearch] = useState('');
   const [selectedSubject, setSelectedSubject] = useState('all');
@@ -94,7 +96,7 @@ export default function CoursesPage() {
     <div className="space-y-6" data-testid="courses-catalog-page">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-black text-slate-900 sm:text-3xl">Course Catalog</h1>
+        <h1 className="text-2xl font-black text-slate-900 sm:text-3xl">{t('courses')}</h1>
         <p className="mt-1 text-sm text-slate-500">
           Course-independent curricula with approved pinned versions and verified mastery models.
         </p>
@@ -108,14 +110,14 @@ export default function CoursesPage() {
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search courses or keywords..."
+            placeholder={t('search')}
             className="w-full rounded-lg border border-slate-200 bg-slate-50 py-2 pl-10 pr-4 text-xs text-slate-800 focus:border-sky-500 focus:bg-white focus:outline-none"
           />
         </div>
 
         <div className="flex items-center gap-2">
           <Filter className="h-4 w-4 text-slate-400" />
-          <span className="text-xs font-semibold text-slate-600">Subject:</span>
+          <span className="text-xs font-semibold text-slate-600">{t('subject')}:</span>
           <select
             value={selectedSubject}
             onChange={(e) => setSelectedSubject(e.target.value)}
@@ -123,7 +125,7 @@ export default function CoursesPage() {
           >
             {subjects.map((sub) => (
               <option key={sub} value={sub}>
-                {sub.charAt(0).toUpperCase() + sub.slice(1)}
+                {sub === 'all' ? t('all_subjects') : sub.charAt(0).toUpperCase() + sub.slice(1)}
               </option>
             ))}
           </select>

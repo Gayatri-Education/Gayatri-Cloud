@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import { useI18n } from '../lib/i18n/I18nContext';
 import {
   GraduationCap,
   School,
@@ -12,18 +13,29 @@ import {
   BookOpen,
   Award,
   ArrowRight,
-  TrendingUp,
-  Cpu,
   DownloadCloud,
-  CreditCard,
-  Lock,
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
-const PORTALS = [
+interface PortalDef {
+  id: string;
+  titleKey: string;
+  defaultTitle: string;
+  role: string;
+  icon: React.ComponentType<{ className?: string }>;
+  href: string;
+  color: string;
+  lightColor: string;
+  description: string;
+  features: string[];
+  demoAccount: { email: string; pass: string; name: string };
+}
+
+const PORTALS: PortalDef[] = [
   {
     id: 'student',
-    title: 'Student Learner Portal',
+    titleKey: 'student_portal_title',
+    defaultTitle: 'Student Learner Portal',
     role: 'STUDENT',
     icon: GraduationCap,
     href: '/dashboard',
@@ -36,7 +48,8 @@ const PORTALS = [
   },
   {
     id: 'teacher',
-    title: 'Teacher Academic Cockpit',
+    titleKey: 'teacher_portal_title',
+    defaultTitle: 'Teacher Academic Cockpit',
     role: 'TEACHER',
     icon: School,
     href: '/teacher/dashboard',
@@ -49,7 +62,8 @@ const PORTALS = [
   },
   {
     id: 'parent',
-    title: 'Parent & Guardian Portal',
+    titleKey: 'parent_portal_title',
+    defaultTitle: 'Parent & Guardian Portal',
     role: 'PARENT',
     icon: HeartHandshake,
     href: '/parent/dashboard',
@@ -62,7 +76,8 @@ const PORTALS = [
   },
   {
     id: 'admin',
-    title: 'Organization Administration',
+    titleKey: 'admin_portal_title',
+    defaultTitle: 'Organization Administration',
     role: 'ORG_ADMIN',
     icon: Building2,
     href: '/admin/dashboard',
@@ -75,7 +90,8 @@ const PORTALS = [
   },
   {
     id: 'observability',
-    title: 'Platform Observability & Reliability',
+    titleKey: 'observability_portal_title',
+    defaultTitle: 'Platform Observability & Reliability',
     role: 'SUPER_ADMIN',
     icon: ShieldAlert,
     href: '/admin/observability',
@@ -90,6 +106,7 @@ const PORTALS = [
 
 export default function HomePage() {
   const { user, activeContext, login } = useAuth();
+  const { t } = useI18n();
   const [mounted, setMounted] = React.useState(false);
 
   React.useEffect(() => {
@@ -155,10 +172,10 @@ export default function HomePage() {
           <div>
             <h2 className="text-base font-bold text-slate-900 flex items-center gap-2">
               <Sparkles className="h-4 w-4 text-amber-500" />
-              <span>1-Click Demo Role Launcher</span>
+              <span>{t('quick_switch')}</span>
             </h2>
             <p className="text-xs text-slate-500 mt-0.5">
-              Select any role to instantly log in and access that portal directly:
+              {t('choose_portal')}
             </p>
           </div>
           <Link
@@ -202,7 +219,7 @@ export default function HomePage() {
                     </span>
                   )}
                 </div>
-                <div className="text-xs font-bold text-slate-900">{portal.role}</div>
+                <div className="text-xs font-bold text-slate-900">{t(portal.titleKey) || portal.role}</div>
                 <div className="text-[11px] text-slate-500 truncate w-full mt-0.5">
                   {portal.demoAccount.name}
                 </div>
@@ -215,9 +232,9 @@ export default function HomePage() {
       {/* Main Portals Grid */}
       <section className="space-y-4">
         <div>
-          <h2 className="text-xl font-black text-slate-900">Explore Portals & Capabilities</h2>
+          <h2 className="text-xl font-black text-slate-900">{t('learning_portals')}</h2>
           <p className="text-xs text-slate-500 mt-1">
-            Choose a dedicated portal or navigate directly to specific learning tools.
+            {t('explore_capabilities')}
           </p>
         </div>
 
@@ -243,7 +260,7 @@ export default function HomePage() {
                     </span>
                   </div>
 
-                  <h3 className="text-lg font-bold text-slate-900">{portal.title}</h3>
+                  <h3 className="text-lg font-bold text-slate-900">{t(portal.titleKey) || portal.defaultTitle}</h3>
                   <p className="mt-2 text-xs text-slate-600 leading-relaxed">
                     {portal.description}
                   </p>
@@ -274,7 +291,7 @@ export default function HomePage() {
                     }
                     className="flex-1 flex items-center justify-center gap-1.5 rounded-xl bg-slate-900 py-2.5 px-4 text-xs font-semibold text-white hover:bg-sky-600 transition shadow-sm"
                   >
-                    <span>Launch Portal</span>
+                    <span>{t('launch_portal')}</span>
                     <ArrowRight className="h-3.5 w-3.5" />
                   </button>
                 </div>
@@ -286,35 +303,35 @@ export default function HomePage() {
 
       {/* Direct Feature Shortcuts */}
       <section className="rounded-2xl border border-slate-200 bg-slate-50/60 p-6">
-        <h3 className="text-sm font-bold text-slate-900 mb-3">Quick Navigation Shortcuts</h3>
+        <h3 className="text-sm font-bold text-slate-900 mb-3">{t('quick_shortcuts')}</h3>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
           <Link
             href="/courses"
             className="flex items-center gap-2 p-3 rounded-xl bg-white border border-slate-200 hover:border-sky-300 hover:shadow-sm transition font-medium text-slate-700"
           >
             <BookOpen className="h-4 w-4 text-sky-600" />
-            <span>Course Catalog</span>
+            <span>{t('courses')}</span>
           </Link>
           <Link
             href="/tutoring"
             className="flex items-center gap-2 p-3 rounded-xl bg-white border border-slate-200 hover:border-sky-300 hover:shadow-sm transition font-medium text-slate-700"
           >
             <Sparkles className="h-4 w-4 text-purple-600" />
-            <span>Socratic AI Tutor</span>
+            <span>{t('tutor')}</span>
           </Link>
           <Link
             href="/assessments"
             className="flex items-center gap-2 p-3 rounded-xl bg-white border border-slate-200 hover:border-sky-300 hover:shadow-sm transition font-medium text-slate-700"
           >
             <Award className="h-4 w-4 text-emerald-600" />
-            <span>Assessments</span>
+            <span>{t('assessments')}</span>
           </Link>
           <Link
             href="/offline"
             className="flex items-center gap-2 p-3 rounded-xl bg-white border border-slate-200 hover:border-sky-300 hover:shadow-sm transition font-medium text-slate-700"
           >
             <DownloadCloud className="h-4 w-4 text-indigo-600" />
-            <span>Offline Reader</span>
+            <span>{t('offline_library')}</span>
           </Link>
         </div>
       </section>

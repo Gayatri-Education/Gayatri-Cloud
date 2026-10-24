@@ -62,6 +62,18 @@ describe('P17 Localization, Accessibility & Offline Reading — Frontend Tests',
 
       // Kannada offline guidance
       expect(TRANSLATIONS.kn.offline_library).toBe('ಆಫ್‌ಲೈನ್ ಲೈಬ್ರರಿ');
+
+      // Comprehensive portal navigation & dashboard keys across all 8 languages
+      for (const lang of SUPPORTED_LANGUAGES) {
+        const dict = TRANSLATIONS[lang.code];
+        expect(dict).toBeDefined();
+        expect(dict.student_portal_title).toBeTruthy();
+        expect(dict.quick_switch).toBeTruthy();
+        expect(dict.launch_portal).toBeTruthy();
+        expect(dict.your_courses).toBeTruthy();
+        expect(dict.browse_catalog).toBeTruthy();
+        expect(dict.welcome_back).toContain('{name}');
+      }
     });
   });
 

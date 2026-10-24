@@ -2,6 +2,7 @@
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { SUPPORTED_LANGUAGES, TRANSLATIONS, LanguageInfo } from './catalogs';
+import { api } from '../api-client';
 
 type ContrastMode = 'normal' | 'high';
 type FontScale = 'normal' | 'large' | 'xlarge';
@@ -26,31 +27,57 @@ export function I18nProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     // Load persisted settings
-    const storedLocale = localStorage.getItem('gayatri_locale');
-    if (storedLocale && TRANSLATIONS[storedLocale]) {
-      setLocaleState(storedLocale);
-      document.documentElement.lang = storedLocale;
-    }
-
-    const storedContrast = localStorage.getItem('gayatri_contrast') as ContrastMode;
-    if (storedContrast === 'high' || storedContrast === 'normal') {
-      setContrastMode(storedContrast);
-      if (storedContrast === 'high') {
-        document.documentElement.classList.add('contrast-high');
+    try {
+      const storedLocale = localStorage.getItem('gayatri_locale');
+      if (storedLocale && TRANSLATIONS[storedLocale]) {
+        setLocaleState(storedLocale);
+        if (typeof document !== 'undefined') {
+          document.documentElement.lang = storedLocale;
+        }
       }
+    } catch {
+      // localStorage may fail in SSR/restricted environments
     }
 
-    const storedScale = localStorage.getItem('gayatri_font_scale') as FontScale;
-    if (['normal', 'large', 'xlarge'].includes(storedScale)) {
-      setFontScaleState(storedScale);
+    try {
+      const storedContrast = localStorage.getItem('gayatri_contrast') as ContrastMode;
+      if (storedContrast === 'high' || storedContrast === 'normal') {
+        setContrastMode(storedContrast);
+        if (storedContrast === 'high' && typeof document !== 'undefined') {
+          document.documentElement.classList.add('contrast-high');
+        }
+      }
+    } catch {
+      // ignore
+    }
+
+    try {
+      const storedScale = localStorage.getItem('gayatri_font_scale') as FontScale;
+      if (['normal', 'large', 'xlarge'].includes(storedScale)) {
+        setFontScaleState(storedScale);
+      }
+    } catch {
+      // ignore
     }
   }, []);
 
   const setLocale = (lang: string) => {
     const valid = TRANSLATIONS[lang] ? lang : 'en';
     setLocaleState(valid);
-    localStorage.setItem('gayatri_locale', valid);
-    document.documentElement.lang = valid;
+    try {
+      localStorage.setItem('gayatri_locale', valid);
+    } catch {
+      // ignore
+    }
+    if (typeof document !== 'undefined') {
+      document.documentElement.lang = valid;
+    }
+    // Best-effort sync with backend if user has session
+    try {
+      api.updateLanguagePreference(valid).catch(() => {});
+    } catch {
+      // ignore
+    }
   };
 
   const toggleContrast = () => {
