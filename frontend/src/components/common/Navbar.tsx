@@ -171,6 +171,17 @@ export default function Navbar() {
               Parent Portal
             </Link>
           )}
+          {(activeContext.role === 'ORG_ADMIN' ||
+            activeContext.role === 'SUPER_ADMIN') && (
+            <Link
+              href="/admin/dashboard"
+              className="flex items-center gap-1.5 rounded-lg bg-indigo-50 px-3 py-2 text-indigo-700 font-semibold hover:bg-indigo-100 transition"
+              data-testid="nav-admin-portal"
+            >
+              <Building2 className="h-4 w-4" />
+              Admin Portal
+            </Link>
+          )}
         </nav>
 
         {/* User / Logout */}

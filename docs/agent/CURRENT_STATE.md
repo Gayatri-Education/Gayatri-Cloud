@@ -4,12 +4,12 @@
 
 **Checkpoint created:** 2026-10-24  
 **Timezone:** Asia/Kolkata  
-**Current phase:** P15 — Super-admin and organization-admin portal  
+**Current phase:** P16 — Billing, subscriptions, entitlements and institution fees  
 **Phase status:** `NOT_STARTED`  
-**Last verified GREEN phase:** P14 — Parent/guardian portal  
+**Last verified GREEN phase:** P15 — Super-admin and organization-admin portal  
 **Branch / commit:** `main`  
-**Repository status:** P00 through P14 are GREEN. 89 passing backend tests and 30 passing frontend tests. Delivered parent domain service (ParentService) and REST APIs for guardian linking, verification, immediate revocation, and privacy-filtered views. Delivered Next.js 14 Parent Web UI: multi-child switcher, privacy-filtered learning progress gauge, completed assessment reports with teacher feedback, guardian link manager with request/revoke actions, and school notices/announcements. Server-side privacy guarantees raw tutoring conversational turns are never exposed to parent endpoints (RQ-025). Audit logs emitted on sensitive child record access. Clean lint, 19 compiled Next.js routes, and zero open defects.  
-**Tests run:** `Push-Location backend ; python -m pytest ; Pop-Location` (89 passed in 22.63s), `Push-Location frontend ; npm run test ; Pop-Location` (30 passed in 14.81s), `npm run lint` (pass, 0 warnings), `npm run build` (compiled successfully, 19/19 routes static/dynamic).
+**Repository status:** P00 through P15 are GREEN. 96 passing backend tests and 36 passing frontend tests. Delivered admin domain service (AdminService) and REST APIs for platform super-admin and organization-admin operations. Enforces strict tenant isolation (cross-tenant denial with 403 Forbidden), domain registration and DNS proof token verification, global organization suspension and reactivation with mandatory reason codes, member role updating enforcing RQ-003 incompatibility between Student and Teacher roles, member suspension, organization AI policy routing and model whitelisting without raw secret exposure, immutable application event audit trail search, and operational telemetry aggregating members, courses, outbox lag, and AI token metrics. Delivered Next.js 14 Admin Web UI: operational dashboard, member and role management table, AI policy and routing manager, compliance audit trail search, and tenant settings with domain verification proofs. Clean lint, 24 compiled Next.js routes, and zero open defects.  
+**Tests run:** `Push-Location backend ; python -m pytest ; Pop-Location` (96 passed in 22.43s), `Push-Location frontend ; npm run test ; Pop-Location` (36 passed in 2.11s), `npm run lint` (pass, 0 warnings), `npm run build` (compiled successfully, 24/24 routes static/dynamic).
 
 ## Confirmed direction
 
@@ -27,6 +27,9 @@
 - Assessment engine supporting MCQ, Boolean, Numerical (±2% tolerance, units), Rubric-based Subjective evaluation with misconception detection, AST coding tasks, timed exams with autosave, and anti-leakage protection.
 - Event capture and archive with transactional outbox, immutable S3 storage batching, telemetry redaction, deny-by-default training governance (DEC-011), and human dataset sign-off gates.
 - Student portal web UI in Next.js 14 App Router delivering learner onboarding, tutoring streaming, assessments, mastery roadmap, and BYOK key vault.
+- Teacher portal with rosters, 5-tier instruction cascade, cohort analytics, and AI Copilot briefing.
+- Parent portal with multi-child switcher, privacy-filtered progress, completed assessments, and notices.
+- Admin portal with operational telemetry, member role lifecycle (RQ-003), domain proofs, AI model policy, and audit trail.
 - Remote repository: `https://github.com/Gayatri-Education/Gayatri-Cloud.git`.
 
 ## Open blockers / decision references
@@ -37,4 +40,4 @@
 
 ## Exact next action
 
-Execute Phase P15: Super-admin and organization-admin portal.
+Execute Phase P16: Billing, subscriptions, entitlements and institution fees.

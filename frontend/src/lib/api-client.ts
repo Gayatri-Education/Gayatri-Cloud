@@ -33,6 +33,14 @@ import {
   ChildAssessmentReport,
   ChildCommunicationItem,
 } from './types/parent';
+import {
+  AdminMetrics,
+  OrganizationMember,
+  DomainVerification,
+  AdminAiPolicy,
+  AuditLogEntry,
+  OrganizationDetails,
+} from './types/admin';
 
 export class ApiError extends Error {
   public status: number;
@@ -467,6 +475,101 @@ export class ApiClient {
 
   public async getChildCommunications(studentId: string): Promise<ChildCommunicationItem[]> {
     return this.request<ChildCommunicationItem[]>(`/api/v1/parent/children/${studentId}/communications`);
+  }
+
+  // Super-Admin & Organization-Admin Portal
+  public async getAdminDashboardMetrics(organizationId?: string): Promise<AdminMetrics> {
+    const query = organizationId ? `?organization_id=${organizationId}` : '';
+    return this.request<AdminMetrics>(`/api/v1/admin/dashboard${query}`);
+  }
+
+  public async getAdminOrganization(orgId: string): Promise<OrganizationDetails> {
+    return this.request<OrganizationDetails>(`/api/v1/admin/organizations/${orgId}`);
+  }
+
+  public async updateAdminBranding(orgId: string, name: string): Promise<OrganizationDetails> {
+    return this.request<OrganizationDetails>(`/api/v1/admin/organizations/${orgId}`, {
+      method: 'PATCH',
+      body: JSON.stringify({ name }),
+    });
+  }
+
+  public async suspendOrganization(orgId: string, reason: string): Promise<{ id: string; status: string; reason: string }> {
+    return this.request<{ id: string; status: string; reason: string }>(`/api/v1/admin/organizations/${orgId}/suspend`, {
+      method: 'POST',
+      body: JSON.stringify({ reason }),
+    });
+  }
+
+  public async reactivateOrganization(orgId: string, reason: string): Promise<{ id: string; status: string; reason: string }> {
+    return this.request<{ id: string; status: string; reason: string }>(`/api/v1/admin/organizations/${orgId}/reactivate`, {
+      method: 'POST',
+      body: JSON.stringify({ reason }),
+    });
+  }
+
+  public async getAdminDomains(orgId: string): Promise<DomainVerification[]> {
+    return this.request<DomainVerification[]>(`/api/v1/admin/organizations/${orgId}/domains`);
+  }
+
+  public async addAdminDomain(orgId: string, domainName: string): Promise<DomainVerification> {
+    return this.request<DomainVerification>(`/api/v1/admin/organizations/${orgId}/domains`, {
+      method: 'POST',
+      body: JSON.stringify({ domain_name: domainName }),
+    });
+  }
+
+  public async verifyAdminDomain(orgId: string, domainId: string): Promise<DomainVerification> {
+    return this.request<DomainVerification>(`/api/v1/admin/organizations/${orgId}/domains/${domainId}/verify`, {
+      method: 'POST',
+    });
+  }
+
+  public async getAdminMembers(orgId: string): Promise<OrganizationMember[]> {
+    return this.request<OrganizationMember[]>(`/api/v1/admin/organizations/${orgId}/members`);
+  }
+
+  public async updateAdminMemberRole(orgId: string, membershipId: string, newRole: string): Promise<{ membership_id: string; assigned_role: string }> {
+    return this.request<{ membership_id: string; assigned_role: string }>(
+      `/api/v1/admin/organizations/${orgId}/members/${membershipId}/role`,
+      {
+        method: 'PATCH',
+        body: JSON.stringify({ new_role: newRole }),
+      }
+    );
+  }
+
+  public async suspendAdminMember(orgId: string, membershipId: string): Promise<void> {
+    await this.request<void>(`/api/v1/admin/organizations/${orgId}/members/${membershipId}/suspend`, {
+      method: 'POST',
+    });
+  }
+
+  public async getAdminAiPolicy(orgId: string): Promise<AdminAiPolicy> {
+    return this.request<AdminAiPolicy>(`/api/v1/admin/organizations/${orgId}/ai-policy`);
+  }
+
+  public async updateAdminAiPolicy(
+    orgId: string,
+    allowedModels: string[],
+    routingStrategy: string
+  ): Promise<AdminAiPolicy> {
+    return this.request<AdminAiPolicy>(`/api/v1/admin/organizations/${orgId}/ai-policy`, {
+      method: 'PUT',
+      body: JSON.stringify({ allowed_models: allowedModels, routing_strategy: routingStrategy }),
+    });
+  }
+
+  public async searchAdminAuditLogs(
+    orgId: string,
+    category?: string,
+    limit?: number
+  ): Promise<AuditLogEntry[]> {
+    const params = new URLSearchParams();
+    if (category) params.append('category', category);
+    if (limit) params.append('limit', limit.toString());
+    const query = params.toString() ? `?${params.toString()}` : '';
+    return this.request<AuditLogEntry[]>(`/api/v1/admin/organizations/${orgId}/audit${query}`);
   }
 }
 

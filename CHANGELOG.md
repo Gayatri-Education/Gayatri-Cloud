@@ -2,6 +2,35 @@
 
 All notable project changes should be recorded here. This file starts as a planning baseline; it must not imply code has been implemented.
 
+## [P15] — Super-Admin and Organization-Admin Portal — 2026-10-24
+
+### Added
+- Admin Domain Service in `backend/app/domain/admin/service.py`:
+  - `AdminService`: Platform Super-Admin vs. Tenant Organization Admin role hierarchy; strict cross-tenant isolation enforcement (403 Forbidden); domain registration and DNS TXT verification token generation; global organization suspension and reactivation with mandatory justification reason codes; member role update enforcing RQ-003 incompatibility prohibiting Student and Teacher coexistence; member suspension; organization AI routing policy and model whitelisting without exposing encrypted API secrets; immutable audit search over `ApplicationEvent`; and operational telemetry aggregating members, courses, offerings, outbox queue lag, and AI token metrics.
+- REST API Endpoints in `backend/app/api/v1/admin.py`:
+  - 13 endpoints mounted at `/api/v1/admin` for operational dashboard telemetry, organization branding, global suspension/reactivation, domain proofs, member role management, member suspension, AI policy controls, and immutable audit search.
+- Frontend Admin Types & API Client:
+  - `frontend/src/lib/types/admin.ts`: TypeScript contracts for `AdminMetrics`, `OrganizationMember`, `DomainVerification`, `AdminAiPolicy`, `AuditLogEntry`, `OrganizationDetails`.
+  - `frontend/src/lib/api-client.ts`: 12 typed admin methods with tenant header injection.
+- Frontend Reusable Components in `frontend/src/components/admin/`:
+  - `AdminNav.tsx`: Tab navigation for admin sub-pages.
+  - `AdminMetricsCards.tsx`: Top operational statistics (active members, courses, outbox lag, AI tokens, health badge).
+  - `MemberManagementTable.tsx`: Searchable members list, role changer dropdown, client-side RQ-003 invariant guard, and suspension actions.
+  - `AiPolicyManager.tsx`: Permitted model whitelist toggles, routing strategy selector, and masked credential displays.
+  - `AuditSearchTable.tsx`: Filterable audit log with event categories, actor ID, sensitivity badges, and timestamps.
+  - `DomainVerificationPanel.tsx`: Domain proof instructions, TXT token copy, and verification trigger.
+- Next.js 14 App Router Pages:
+  - `/admin/dashboard`: Primary administration telemetry dashboard.
+  - `/admin/members`: User, role, and membership controls.
+  - `/admin/ai-policy`: Provider governance and routing policies.
+  - `/admin/audit`: Compliance audit trail.
+  - `/admin/settings`: Organization configuration and domain proofs.
+  - `Navbar.tsx`: Integrated role-aware shortcut to Admin Portal for `ORG_ADMIN` and `SUPER_ADMIN`.
+- Automated Test Suite:
+  - `backend/tests/test_admin.py`: 7 tests passing covering super-admin vs org-admin scope, cross-tenant 403 rejection, domain proof lifecycle, suspension with reason, member role updates with RQ-003 check, AI policy updates without raw secret leaks, and audit search.
+  - `frontend/tests/admin-portal.test.ts`: 6 vitest tests passing covering dashboard metrics, domain proof verification, member management, AI policy controls, audit trail filters, and suspension controls.
+  - Full regression: 96 backend pytest tests and 36 frontend vitest tests passing; Next.js production build compiling 24/24 routes cleanly.
+
 ## [P14] — Parent and Guardian Portal — 2026-10-24
 
 ### Added

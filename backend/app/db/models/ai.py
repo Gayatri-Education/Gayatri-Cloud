@@ -70,13 +70,17 @@ class ModelPolicy(Base, TimestampMixin):
         String(36), ForeignKey("organizations.id", ondelete="CASCADE"), nullable=True, index=True
     )
     task_type: Mapped[str] = mapped_column(
-        String(100), nullable=False
+        String(100), default="general", nullable=False
     )  # tutoring, assessment, general, embedding
     default_provider: Mapped[str] = mapped_column(String(50), default="mock", nullable=False)
     default_model: Mapped[str] = mapped_column(String(100), default="mock-tutor", nullable=False)
     fallback_provider: Mapped[str | None] = mapped_column(String(50), nullable=True)
     fallback_model: Mapped[str | None] = mapped_column(String(100), nullable=True)
     max_tokens_per_call: Mapped[int] = mapped_column(Integer, default=2048, nullable=False)
+    allowed_models_json: Mapped[str | None] = mapped_column(Text, nullable=True, default="*")
+    routing_strategy: Mapped[str] = mapped_column(
+        String(50), default="quality_first", nullable=False
+    )
 
 
 class AIExecutionUsage(Base, TimestampMixin):

@@ -2,16 +2,16 @@
 
 **Last updated:** 2026-10-24  
 **Truth source:** repository state + phase logs + verified test evidence, not chat memory.  
-**Current phase:** P15 — Super-admin and organization-admin portal  
+**Current phase:** P16 — Billing, subscriptions, entitlements and institution fees  
 **Overall status:** `IN_PROGRESS`
 
 ## Current checkpoint
 
-- Last GREEN phase: P14 — Parent and guardian portal.
-- Active phase: P15 — Super-admin and organization-admin portal.
-- Implementation status: P14 completed with all 10 criteria GREEN (Guardian relationship linking, verification approval workflow, immediate revocation enforcement, strict server-side privacy filtering excluding raw tutoring turns from parent payloads, seamless multi-child switcher, completed assessment reports with teacher feedback, school and class notices, child record access audit logging, 89 backend pytest tests passing, 30 frontend vitest tests passing, and clean 19-route Next.js production build).
-- Blocking decisions: None blocking P15.
-- Next action: Plan and execute Phase P15.
+- Last GREEN phase: P15 — Super-admin and organization-admin portal.
+- Active phase: P16 — Billing, subscriptions, entitlements and institution fees.
+- Implementation status: P15 completed with all 10 criteria GREEN (Platform Super-Admin vs. Tenant Organization Admin role hierarchy, cross-tenant denial 403 Forbidden, domain registration and DNS proof verification tokens, global organization suspension and reactivation with mandatory reason codes, member role update enforcing RQ-003 incompatibility between student and teacher roles, member suspension, organization AI policy routing and model whitelisting without raw secret exposure, immutable application event audit trail search, operational telemetry aggregating members, courses, outbox lag, and AI token metrics, 7 targeted pytest tests, 96 regression pytest tests, 36 frontend vitest tests, and clean 24-route Next.js production build).
+- Blocking decisions: None blocking P16.
+- Next action: Plan and execute Phase P16.
 
 ## Phase ledger
 
@@ -32,7 +32,7 @@
 | P12 | Student portal | `GREEN` | 10 defined | 10 | 0 | `docs/agent/phase-logs/P12.md` |
 | P13 | Teacher and academic-administration portal | `GREEN` | 10 defined | 10 | 0 | `docs/agent/phase-logs/P13.md` |
 | P14 | Parent/guardian portal | `GREEN` | 10 defined | 10 | 0 | `docs/agent/phase-logs/P14.md` |
-| P15 | Super-admin and organization-admin portal | `NOT_STARTED` | TBD in phase log | 0 | TBD | `docs/agent/phase-logs/P15.md` |
+| P15 | Super-admin and organization-admin portal | `GREEN` | 10 defined | 10 | 0 | `docs/agent/phase-logs/P15.md` |
 | P16 | Billing, subscriptions, entitlements and institution fees | `NOT_STARTED` | TBD in phase log | 0 | TBD | `docs/agent/phase-logs/P16.md` |
 | P17 | Localization, accessibility and offline reading | `NOT_STARTED` | TBD in phase log | 0 | TBD | `docs/agent/phase-logs/P17.md` |
 | P18 | Security, privacy, retention and deletion hardening | `NOT_STARTED` | TBD in phase log | 0 | TBD | `docs/agent/phase-logs/P18.md` |
