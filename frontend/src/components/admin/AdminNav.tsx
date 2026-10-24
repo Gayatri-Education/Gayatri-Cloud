@@ -3,13 +3,14 @@
 import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, Users, Cpu, FileText, Settings } from 'lucide-react';
+import { LayoutDashboard, Users, Cpu, FileText, Settings, Activity } from 'lucide-react';
 
 const ADMIN_LINKS = [
   { href: '/admin/dashboard', label: 'Dashboard', icon: LayoutDashboard },
   { href: '/admin/members', label: 'Members & Roles', icon: Users },
   { href: '/admin/ai-policy', label: 'AI Policy', icon: Cpu },
   { href: '/admin/audit', label: 'Audit Trail', icon: FileText },
+  { href: '/admin/observability', label: 'Observability', icon: Activity },
   { href: '/admin/settings', label: 'Tenant Settings', icon: Settings },
 ];
 

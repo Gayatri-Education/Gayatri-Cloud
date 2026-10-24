@@ -53,6 +53,13 @@ import {
   DeletionRequestStatus,
   SecurityAuditEntry,
 } from './types/security';
+import {
+  SystemHealthReport,
+  MetricsSummary,
+  CircuitBreakerItem,
+  BackupSnapshot,
+  RestoreReport,
+} from './types/observability';
 
 export class ApiError extends Error {
   public status: number;
@@ -762,6 +769,45 @@ export class ApiClient {
   public async getSecurityAudit(userId?: string): Promise<SecurityAuditEntry[]> {
     const query = userId ? `?user_id=${userId}` : '';
     return this.request<SecurityAuditEntry[]>(`/api/v1/security/audit${query}`);
+  }
+
+  // ---------------------------------------------------------------------------
+  // P19: Observability, Reliability & Recovery
+  // ---------------------------------------------------------------------------
+
+  public async getDeepHealth(): Promise<SystemHealthReport> {
+    return this.request<SystemHealthReport>('/api/v1/observability/deep-health');
+  }
+
+  public async getObservabilityMetrics(): Promise<MetricsSummary> {
+    return this.request<MetricsSummary>('/api/v1/observability/metrics');
+  }
+
+  public async tripCircuitBreaker(provider: string, reason: string): Promise<any> {
+    return this.request<any>(`/api/v1/observability/circuit-breakers/${provider}/trip`, {
+      method: 'POST',
+      body: JSON.stringify({ reason }),
+    });
+  }
+
+  public async resetCircuitBreaker(provider: string): Promise<any> {
+    return this.request<any>(`/api/v1/observability/circuit-breakers/${provider}/reset`, {
+      method: 'POST',
+    });
+  }
+
+  public async createBackupSnapshot(label?: string): Promise<BackupSnapshot> {
+    return this.request<BackupSnapshot>('/api/v1/observability/backup/snapshot', {
+      method: 'POST',
+      body: JSON.stringify({ label: label || 'manual_snapshot' }),
+    });
+  }
+
+  public async verifyBackupRestore(snapshotMetadata: any): Promise<RestoreReport> {
+    return this.request<RestoreReport>('/api/v1/observability/backup/verify', {
+      method: 'POST',
+      body: JSON.stringify(snapshotMetadata),
+    });
   }
 }
 

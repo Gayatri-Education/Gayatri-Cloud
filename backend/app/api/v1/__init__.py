@@ -11,6 +11,7 @@ from app.api.v1.billing import router as billing_router
 from app.api.v1.courses import router as course_router
 from app.api.v1.events import router as events_router
 from app.api.v1.localization import router as localization_router
+from app.api.v1.observability import router as observability_router
 from app.api.v1.organizations import router as org_router
 from app.api.v1.parent import router as parent_router
 from app.api.v1.rag import router as rag_router
@@ -34,5 +35,6 @@ api_v1_router.include_router(admin_router, tags=["Administration Portal"])
 api_v1_router.include_router(billing_router, tags=["Billing & Subscriptions"])
 api_v1_router.include_router(localization_router, tags=["Localization & Accessibility"])
 api_v1_router.include_router(security_router, tags=["Security, Privacy & Data Subject Rights"])
+api_v1_router.include_router(observability_router, tags=["Observability, Reliability & Recovery"])
 
 __all__ = ["api_v1_router"]

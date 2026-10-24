@@ -2,16 +2,16 @@
 
 **Last updated:** 2026-10-24  
 **Truth source:** repository state + phase logs + verified test evidence, not chat memory.  
-**Current phase:** P19 — Observability, reliability and recovery  
+**Current phase:** P20 — Integrated verification, end-to-end and load testing  
 **Overall status:** `IN_PROGRESS`
 
 ## Current checkpoint
 
-- Last GREEN phase: P18 — Security, privacy, retention and deletion hardening.
-- Active phase: P19 — Observability, reliability and recovery.
-- Implementation status: P18 completed with all 10 criteria GREEN (SSRF protection against AWS metadata 169.254.169.254, loopback, and private RFC-1918 networks; path traversal and null-byte defenses; OWASP defensive security headers; GDPR Art. 20 machine-readable data export archive with SHA-256 verification; 7-day deletion grace period with immediate session revocation; statutory legal hold retaining tax invoices and fee payments with user PII pseudonymization; Next.js 14 Privacy & Security Settings UI; 7 targeted pytest tests, 116 regression pytest tests, 54 frontend vitest tests, and clean 30-route Next.js production build).
-- Blocking decisions: None blocking P19.
-- Next action: Plan and execute Phase P19.
+- Last GREEN phase: P19 — Observability, reliability and recovery.
+- Active phase: P20 — Integrated verification, end-to-end and load testing.
+- Implementation status: P19 completed with all 10 criteria GREEN (Prometheus metrics exposition; circuit breakers with emergency kill-switches and fast-fail behavior; deep health readiness probe inspecting DB, storage, outbox backlog, and circuit breakers; point-in-time database snapshot manifests with SHA-256 verification and simulated disaster recovery drills with zero data loss; Next.js 14 Admin Observability Portal; 7 targeted pytest tests, 123 regression pytest tests, 59 frontend vitest tests, and clean 31-route Next.js production build).
+- Blocking decisions: None blocking P20.
+- Next action: Plan and execute Phase P20.
 
 ## Phase ledger
 
@@ -36,7 +36,7 @@
 | P16 | Billing, subscriptions, entitlements and institution fees | `GREEN` | 10 defined | 10 | 0 | `docs/agent/phase-logs/P16.md` |
 | P17 | Localization, accessibility and offline reading | `GREEN` | 10 defined | 10 | 0 | `docs/agent/phase-logs/P17.md` |
 | P18 | Security, privacy, retention and deletion hardening | `GREEN` | 10 defined | 10 | 0 | `docs/agent/phase-logs/P18.md` |
-| P19 | Observability, reliability and recovery | `NOT_STARTED` | TBD in phase log | 0 | TBD | `docs/agent/phase-logs/P19.md` |
+| P19 | Observability, reliability and recovery | `GREEN` | 10 defined | 10 | 0 | `docs/agent/phase-logs/P19.md` |
 | P20 | Integrated verification, end-to-end and load testing | `NOT_STARTED` | TBD in phase log | 0 | TBD | `docs/agent/phase-logs/P20.md` |
 | P21 | Release packaging and deployment readiness | `NOT_STARTED` | TBD in phase log | 0 | TBD | `docs/agent/phase-logs/P21.md` |
 

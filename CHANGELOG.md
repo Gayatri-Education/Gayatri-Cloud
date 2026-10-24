@@ -2,6 +2,36 @@
 
 All notable project changes should be recorded here. This file starts as a planning baseline; it must not imply code has been implemented.
 
+## [P19] — Observability, Reliability and Recovery — 2026-10-24
+
+### Added
+- Real-Time Metrics & Prometheus Exporter in `backend/app/domain/observability/metrics.py`:
+  - `MetricsCollector` singleton accumulating HTTP traffic rates, endpoints breakdown, external AI calls, token consumption (prompt vs completion), average provider latency, and outbox queue backlog.
+  - Standard OpenMetrics / Prometheus text exposition generation at `GET /api/v1/observability/metrics/prometheus`.
+- Circuit Breaker Pattern & Emergency Kill-Switch in `backend/app/domain/observability/circuit_breaker.py`:
+  - `CircuitBreaker`: Three-state machine (`CLOSED`, `OPEN`, `HALF_OPEN`) with configurable failure threshold, cooldown period, and half-open probe testing. Prevents retry storms and cascading downstream failures by raising 503 fast-fail.
+  - Administrative emergency kill-switch (`manual_trip` and `manual_reset`) allowing operators to instantly trip or restore any provider circuit.
+  - Global `CircuitBreakerRegistry` maintaining state across OpenAI, Gemini, Anthropic, Grok, OpenRouter, and Mock providers.
+- Deep Dependency Readiness Health Service in `backend/app/domain/observability/health_service.py`:
+  - `DeepHealthService.check_readiness`: Performs deep health inspection across relational SQL database (`SELECT 1`), storage volume writeability, outbox queue backlog, and circuit breaker health with sanitized diagnostics and zero credential leakage.
+- Backup Snapshot & Recovery Simulator in `backend/app/domain/observability/backup_recovery.py`:
+  - `BackupRecoverySimulator.create_snapshot`: Constructs point-in-time relational inventory manifest with SHA-256 integrity checksum and encryption metadata.
+  - `BackupRecoverySimulator.verify_and_simulate_restore`: Validates cryptographic checksum and simulates disaster recovery into an isolated staging target with zero data divergence.
+- REST API Endpoints in `backend/app/api/v1/observability.py`:
+  - 7 endpoints mounted at `/api/v1/observability`: `/metrics`, `/metrics/prometheus`, `/deep-health`, `/circuit-breakers/{provider}/trip`, `/circuit-breakers/{provider}/reset`, `/backup/snapshot`, and `/backup/verify`.
+- Frontend Admin Observability & Reliability Portal:
+  - `frontend/src/lib/types/observability.ts`: TypeScript contracts for `SystemHealthReport`, `MetricsSummary`, `CircuitBreakerItem`, `BackupSnapshot`, and `RestoreReport`.
+  - `frontend/src/lib/api-client.ts`: 6 typed observability methods.
+  - `frontend/src/components/observability/SystemHealthDashboard.tsx`: Deep dependency cards (database latency, storage writeability, outbox backlog, and active breaker trips).
+  - `frontend/src/components/observability/CircuitBreakerControls.tsx`: Provider breaker cards with emergency trip and reset actions.
+  - `frontend/src/components/observability/BackupRecoveryPanel.tsx`: Point-in-time snapshot generator and simulated restore drill runner.
+  - `frontend/src/app/admin/observability/page.tsx`: Real-time observability dashboard with 15-second polling.
+  - Integrated into `AdminNav.tsx`.
+- Automated Test Suite:
+  - `backend/tests/test_observability.py`: 7 tests passing covering metrics recording, Prometheus format export, circuit breaker lifecycle and fast-fail, emergency kill-switch, deep readiness probe, and backup snapshot SHA-256 verification.
+  - `frontend/tests/observability.test.ts`: 5 vitest tests passing covering deep health parsing, metrics summary, circuit breaker tripping/resetting, and restore simulation drills.
+  - Full regression: 123 backend pytest tests and 59 frontend vitest tests passing; Next.js production build compiling 31/31 routes cleanly with zero lint warnings.
+
 ## [P18] — Security, Privacy, Retention and Deletion Hardening — 2026-10-24
 
 ### Added
