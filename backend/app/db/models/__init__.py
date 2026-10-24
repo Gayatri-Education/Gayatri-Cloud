@@ -3,6 +3,7 @@
 from app.db.base import Base, SoftDeleteMixin, TimestampMixin, generate_uuid
 from app.db.models.ai import (
     AIExecutionUsage,
+    ModelBenchmarkRun,
     ModelPolicy,
     ProviderConnection,
     ProviderModelSnapshot,
@@ -73,6 +74,7 @@ __all__ = [
     "ProviderConnection",
     "ProviderModelSnapshot",
     "ModelPolicy",
+    "ModelBenchmarkRun",
     "AIExecutionUsage",
     "ApplicationEvent",
     "EventOutbox",

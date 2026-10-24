@@ -7,11 +7,11 @@
 
 ## Current checkpoint
 
-- Last GREEN phase: P07 — AI provider gateway, API credentials and model discovery.
-- Active phase: P08 — Tutoring benchmark, model eligibility and routing.
-- Implementation status: P07 completed with all 8 criteria GREEN (AES-256-GCM authenticated credential vault, masked keys, native/custom/mock provider adapters, gateway with automatic rate-limit fallback, SSE streaming, tenant credential isolation, 53 passing tests). Ready for P08 Tutoring benchmark, model eligibility and routing.
-- Blocking decisions: None blocking P08.
-- Next action: Plan and execute Phase P08.
+- Last GREEN phase: P08 — Tutoring benchmark, model eligibility and routing.
+- Active phase: P09 — Tutor orchestration and adaptive learning engine.
+- Implementation status: P08 completed with all 8 criteria GREEN (Standardized tutoring benchmark suite v1.0.0, automated evaluator with pedagogical/safety/accuracy scoring, threshold eligibility gating, ModelBenchmarkRun schema, quality-first router with manual override and context checking, 57 passing tests). Ready for P09 Tutor orchestration and adaptive learning engine.
+- Blocking decisions: None blocking P09.
+- Next action: Plan and execute Phase P09.
 
 ## Phase ledger
 
@@ -25,7 +25,8 @@
 | P05 | File storage abstraction and course lifecycle | `GREEN` | 8 defined | 8 | 0 | `docs/agent/phase-logs/P05.md` |
 | P06 | Content ingestion, indexing and course-scoped RAG | `GREEN` | 8 defined | 8 | 0 | `docs/agent/phase-logs/P06.md` |
 | P07 | AI provider gateway, API credentials and model discovery | `GREEN` | 8 defined | 8 | 0 | `docs/agent/phase-logs/P07.md` |
-| P08 | Tutoring benchmark, model eligibility and routing | `NOT_STARTED` | TBD in phase log | 0 | TBD | `docs/agent/phase-logs/P08.md` |
+| P08 | Tutoring benchmark, model eligibility and routing | `GREEN` | 8 defined | 8 | 0 | `docs/agent/phase-logs/P08.md` |
+| P09 | Tutor orchestration and adaptive learning engine | `NOT_STARTED` | TBD in phase log | 0 | TBD | `docs/agent/phase-logs/P09.md` |
 | P07 | AI provider gateway, API credentials and model discovery | `NOT_STARTED` | TBD in phase log | 0 | TBD | `docs/agent/phase-logs/P07.md` |
 | P08 | Tutoring benchmark, model eligibility and routing | `NOT_STARTED` | TBD in phase log | 0 | TBD | `docs/agent/phase-logs/P08.md` |
 | P09 | Tutor orchestration and adaptive learning engine | `NOT_STARTED` | TBD in phase log | 0 | TBD | `docs/agent/phase-logs/P09.md` |

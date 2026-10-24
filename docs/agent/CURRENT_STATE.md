@@ -4,12 +4,12 @@
 
 **Checkpoint created:** 2026-10-24  
 **Timezone:** Asia/Kolkata  
-**Current phase:** P08 — Tutoring benchmark, model eligibility and routing  
+**Current phase:** P09 — Tutor orchestration and adaptive learning engine  
 **Phase status:** `NOT_STARTED`  
-**Last verified GREEN phase:** P07 — AI provider gateway, API credentials and model discovery  
+**Last verified GREEN phase:** P08 — Tutoring benchmark, model eligibility and routing  
 **Branch / commit:** `main`  
-**Repository status:** P00 through P07 are GREEN. 53 passing tests covering health, database constraints, isolation repositories, authentication endpoints, organization RBAC, storage abstraction, MIME sniff verification, immutable course versions, multi-format extraction, prompt-injection defense, course-scoped hybrid RAG, AES-256-GCM credential encryption, provider adapter contracts, gateway rate-limit fallback, and SSE streaming. Clean lint and formatting on both backend and frontend.  
-**Tests run:** `python -m pytest backend/tests -v` (53 passed in 10.71s), `ruff check` (pass), `ruff format --check` (pass), `npm run lint` (pass), `npm run test` (3 passed).
+**Repository status:** P00 through P08 are GREEN. 57 passing tests covering health, database constraints, isolation repositories, authentication endpoints, organization RBAC, storage abstraction, MIME sniff verification, immutable course versions, multi-format extraction, prompt-injection defense, course-scoped hybrid RAG, AES-256-GCM credential encryption, provider adapter contracts, gateway rate-limit fallback, SSE streaming, tutoring benchmarks, and quality-first routing. Clean lint and formatting on both backend and frontend.  
+**Tests run:** `python -m pytest backend/tests -v` (57 passed in 9.35s), `ruff check` (pass), `ruff format --check` (pass), `npm run lint` (pass), `npm run test` (3 passed).
 
 ## Confirmed direction
 
@@ -22,6 +22,7 @@
 - Course versions immutable once published; offering deployments strictly tied to published versions.
 - Hybrid RAG (lexical BM25 + dense semantic embeddings) strictly scoped to course version and tenant.
 - Server-side AI provider gateway with AES-256-GCM encrypted keys and zero raw secret exposure to browser.
+- Standardized tutoring benchmark suite and quality-first router with model promotion threshold gating.
 - Remote repository: `https://github.com/Gayatri-Education/Gayatri-Cloud.git`.
 
 ## Open blockers / decision references
@@ -32,4 +33,4 @@
 
 ## Exact next action
 
-Execute Phase P08: Tutoring benchmark, model eligibility and routing.
+Execute Phase P09: Tutor orchestration and adaptive learning engine.

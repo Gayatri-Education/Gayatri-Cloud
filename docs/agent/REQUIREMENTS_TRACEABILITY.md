@@ -23,8 +23,8 @@
 | RQ-015 | Connect personal and organization API credentials | P07, P15 | Key ownership/isolation/revocation tests | Verified BYOK and org-level encrypted credentials with tenant isolation (`backend/tests/test_ai.py`) |
 | RQ-016 | Native provider adapters and custom OpenAI-compatible endpoint | P07 | Contract tests and provider mocks | Verified adapter contracts across Mock, OpenAI, Anthropic, Gemini, OpenRouter, Custom (`backend/tests/test_ai.py:test_provider_adapters_contract`) |
 | RQ-017 | Model discovery handles provider catalogue/access/capability differences | P07 | Adapter contract tests; no assumption all providers support list API | Verified model discovery catalog sync (`backend/tests/test_ai.py`) |
-| RQ-018 | Automatic and manual model selection | P08 | Routing policy unit/integration tests | Planned |
-| RQ-019 | Quality-first tutoring benchmark gates model promotion | P08, P20 | Fixed benchmark and promotion gate | Planned; promotion policy open |
+| RQ-018 | Automatic and manual model selection | P08 | Routing policy unit/integration tests | Verified quality-first router & capability-validated manual override (`backend/tests/test_benchmarks.py`) |
+| RQ-019 | Quality-first tutoring benchmark gates model promotion | P08, P20 | Fixed benchmark and promotion gate | Verified versioned tutoring benchmark suite v1.0.0 and scoring gate (`backend/tests/test_benchmarks.py`) |
 | RQ-020 | Provider failure fallback visible to user, with policy control | P07, P08, P19 | Timeout/quota/invalid key/fallback tests | Verified automated rate-limit fallback with policy and audit records (`backend/tests/test_ai.py:test_ai_gateway_fallback_on_rate_limit`) |
 | RQ-021 | Complete chat/session/product events captured reliably | P11, P19 | Replay, deduplication, outage and archive reconciliation tests | Planned |
 | RQ-022 | Raw event storage separated from technical operational logs | P11, P18 | Access-control and log-redaction tests | Planned |

@@ -100,3 +100,21 @@ class AIExecutionUsage(Base, TimestampMixin):
     completion_tokens: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
     estimated_cost_usd: Mapped[float] = mapped_column(Float, default=0.0, nullable=False)
     latency_ms: Mapped[float] = mapped_column(Float, default=0.0, nullable=False)
+
+
+class ModelBenchmarkRun(Base, TimestampMixin):
+    """Execution of a standardized educational benchmark evaluating model quality and eligibility."""
+
+    __tablename__ = "model_benchmark_runs"
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=generate_uuid)
+    benchmark_suite_version: Mapped[str] = mapped_column(String(50), nullable=False)
+    provider_type: Mapped[str] = mapped_column(String(50), nullable=False)
+    model_id: Mapped[str] = mapped_column(String(100), nullable=False)
+    composite_score: Mapped[float] = mapped_column(Float, nullable=False)  # 0.0 to 100.0
+    pedagogical_score: Mapped[float] = mapped_column(Float, nullable=False)
+    factual_accuracy_score: Mapped[float] = mapped_column(Float, nullable=False)
+    safety_score: Mapped[float] = mapped_column(Float, nullable=False)
+    is_eligible: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
+    evaluation_metadata_json: Mapped[str | None] = mapped_column(Text, nullable=True)
+    evaluated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)

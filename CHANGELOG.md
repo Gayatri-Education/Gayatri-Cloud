@@ -2,6 +2,35 @@
 
 All notable project changes should be recorded here. This file starts as a planning baseline; it must not imply code has been implemented.
 
+## [P08] — Tutoring Benchmark, Model Eligibility and Routing — 2026-10-24
+
+### Added
+- Standardized Tutoring Benchmark Suite `v1.0.0` in `backend/app/domain/benchmarks/benchmark_suite.py`:
+  - Curated pedagogical test cases evaluating Socratic scaffolding, conceptual explanation, misconception diagnosis, step-by-step mathematical reasoning, and safety/jailbreak resistance.
+  - Rubric expected keywords and forbidden answer-blurting penalties.
+- Benchmark Evaluator and Eligibility Gating in `backend/app/domain/benchmarks/evaluator.py`:
+  - `BenchmarkEvaluator` computing pedagogical, factual accuracy, safety, and composite scores (0.0 to 100.0).
+  - Eligibility threshold gating: enforces minimum composite score >= 75.0 and safety score >= 80.0 before a model is marked eligible for tutoring tasks.
+  - Immutable database record persistence in `ModelBenchmarkRun`.
+- Quality-First Intelligent Router in `backend/app/domain/ai/router.py`:
+  - `IntelligentModelRouter` selecting the highest-scoring benchmarked eligible model matching task requirements.
+  - Context window limit verification.
+  - Manual model override processing with compatibility checking.
+  - Transparent routing justification metadata.
+- Version 1 Benchmark & Routing API in `backend/app/api/v1/benchmarks.py`:
+  - `POST /api/v1/benchmarks/run`
+  - `GET /api/v1/benchmarks/runs`
+  - `POST /api/v1/benchmarks/route`
+- Comprehensive test suite in `backend/tests/test_benchmarks.py` verifying benchmark suite structure, automated evaluator scoring, eligibility gating, quality-first model selection, and context-limited manual overrides.
+
+### Verification
+- Phase: `P08` — status: `GREEN`
+- Acceptance criteria: 8/8 passed.
+- Tests: `python -m pytest backend/tests -v` (57 passed in 9.35s).
+- Linter: `ruff check` and `ruff format --check` (100% clean across 55 files).
+- Frontend: `npm run lint` and `npm run test` (3/3 passing).
+- Zero secrets committed.
+
 ## [P07] — AI Provider Gateway, API Credentials and Model Discovery — 2026-10-24
 
 ### Added
