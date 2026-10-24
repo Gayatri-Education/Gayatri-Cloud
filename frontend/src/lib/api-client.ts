@@ -27,6 +27,12 @@ import {
   TeacherInstructionItem,
   ClassAnnouncementItem,
 } from './types/teacher';
+import {
+  LinkedChild,
+  ChildProgressSummary,
+  ChildAssessmentReport,
+  ChildCommunicationItem,
+} from './types/parent';
 
 export class ApiError extends Error {
   public status: number;
@@ -425,6 +431,42 @@ export class ApiClient {
 
   public async getAnnouncements(offeringId: string): Promise<ClassAnnouncementItem[]> {
     return this.request<ClassAnnouncementItem[]>(`/api/v1/teacher/offerings/${offeringId}/announcements`);
+  }
+
+  // Parent & Guardian Portal
+  public async getLinkedChildren(): Promise<LinkedChild[]> {
+    return this.request<LinkedChild[]>('/api/v1/parent/children');
+  }
+
+  public async requestStudentLink(studentIdentifier: string): Promise<LinkedChild> {
+    return this.request<LinkedChild>('/api/v1/parent/link-request', {
+      method: 'POST',
+      body: JSON.stringify({ student_identifier: studentIdentifier }),
+    });
+  }
+
+  public async verifyGuardianLink(relationshipId: string): Promise<LinkedChild> {
+    return this.request<LinkedChild>(`/api/v1/parent/children/${relationshipId}/verify`, {
+      method: 'POST',
+    });
+  }
+
+  public async revokeGuardianLink(relationshipId: string): Promise<void> {
+    await this.request<void>(`/api/v1/parent/children/${relationshipId}`, {
+      method: 'DELETE',
+    });
+  }
+
+  public async getChildProgress(studentId: string): Promise<ChildProgressSummary> {
+    return this.request<ChildProgressSummary>(`/api/v1/parent/children/${studentId}/progress`);
+  }
+
+  public async getChildAssessments(studentId: string): Promise<ChildAssessmentReport[]> {
+    return this.request<ChildAssessmentReport[]>(`/api/v1/parent/children/${studentId}/assessments`);
+  }
+
+  public async getChildCommunications(studentId: string): Promise<ChildCommunicationItem[]> {
+    return this.request<ChildCommunicationItem[]>(`/api/v1/parent/children/${studentId}/communications`);
   }
 }
 

@@ -4,12 +4,12 @@
 
 **Checkpoint created:** 2026-10-24  
 **Timezone:** Asia/Kolkata  
-**Current phase:** P14 — Parent/guardian portal  
+**Current phase:** P15 — Super-admin and organization-admin portal  
 **Phase status:** `NOT_STARTED`  
-**Last verified GREEN phase:** P13 — Teacher and academic-administration portal  
+**Last verified GREEN phase:** P14 — Parent/guardian portal  
 **Branch / commit:** `main`  
-**Repository status:** P00 through P13 are GREEN. 82 passing backend tests and 23 passing frontend tests. Delivered teacher domain models (TeacherIntervention, ClassAnnouncement), TeacherService, REST APIs for rosters, cascade directives, analytics, interventions, and copilot briefings. Delivered Next.js 14 Teacher Web UI: searchable class roster with mastery progress and misconception counts, 5-tier instruction cascade editor (ORG, COURSE, CLASS, STUDENT, SESSION) with priority sliders and deactivation, class analytics with cohort mastery distributions and hardest concepts, intervention queue with severity badges and acknowledge/resolve workflow, evidence-grounded AI copilot briefing card with explicit uncertainty notice, and assessment oversight with manual grade adjustments. Clean lint, 15 compiled Next.js routes, and zero open defects.  
-**Tests run:** `Push-Location backend ; python -m pytest ; Pop-Location` (82 passed in 30.24s), `Push-Location frontend ; npm run test ; Pop-Location` (23 passed in 1.55s), `npm run lint` (pass, 0 warnings), `npm run build` (compiled successfully, 15/15 routes static/dynamic).
+**Repository status:** P00 through P14 are GREEN. 89 passing backend tests and 30 passing frontend tests. Delivered parent domain service (ParentService) and REST APIs for guardian linking, verification, immediate revocation, and privacy-filtered views. Delivered Next.js 14 Parent Web UI: multi-child switcher, privacy-filtered learning progress gauge, completed assessment reports with teacher feedback, guardian link manager with request/revoke actions, and school notices/announcements. Server-side privacy guarantees raw tutoring conversational turns are never exposed to parent endpoints (RQ-025). Audit logs emitted on sensitive child record access. Clean lint, 19 compiled Next.js routes, and zero open defects.  
+**Tests run:** `Push-Location backend ; python -m pytest ; Pop-Location` (89 passed in 22.63s), `Push-Location frontend ; npm run test ; Pop-Location` (30 passed in 14.81s), `npm run lint` (pass, 0 warnings), `npm run build` (compiled successfully, 19/19 routes static/dynamic).
 
 ## Confirmed direction
 
@@ -37,4 +37,4 @@
 
 ## Exact next action
 
-Execute Phase P14: Parent/guardian portal.
+Execute Phase P15: Super-admin and organization-admin portal.

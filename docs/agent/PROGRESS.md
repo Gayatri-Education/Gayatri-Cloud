@@ -2,16 +2,16 @@
 
 **Last updated:** 2026-10-24  
 **Truth source:** repository state + phase logs + verified test evidence, not chat memory.  
-**Current phase:** P14 — Parent/guardian portal  
+**Current phase:** P15 — Super-admin and organization-admin portal  
 **Overall status:** `IN_PROGRESS`
 
 ## Current checkpoint
 
-- Last GREEN phase: P13 — Teacher and academic-administration portal.
-- Active phase: P14 — Parent/guardian portal.
-- Implementation status: P13 completed with all 10 criteria GREEN (Class rosters with student mastery metrics and misconception counts, strict tenant isolation across organizations, 5-tier instruction cascade editor with priority and expiration, cohort analytics aggregating mastery distributions across 5 tiers, hardest concepts ranking, misconception clustering, automated intervention queue with teacher acknowledgement and resolution notes, empirical evidence-grounded copilot briefings with uncertainty notices and teacher confirmation gates, assessment oversight with audit-trailed manual score overrides, role-aware teacher navigation, 82 passing backend pytest tests, 23 passing frontend vitest tests, and clean 15-route Next.js production build).
-- Blocking decisions: None blocking P14.
-- Next action: Plan and execute Phase P14.
+- Last GREEN phase: P14 — Parent and guardian portal.
+- Active phase: P15 — Super-admin and organization-admin portal.
+- Implementation status: P14 completed with all 10 criteria GREEN (Guardian relationship linking, verification approval workflow, immediate revocation enforcement, strict server-side privacy filtering excluding raw tutoring turns from parent payloads, seamless multi-child switcher, completed assessment reports with teacher feedback, school and class notices, child record access audit logging, 89 backend pytest tests passing, 30 frontend vitest tests passing, and clean 19-route Next.js production build).
+- Blocking decisions: None blocking P15.
+- Next action: Plan and execute Phase P15.
 
 ## Phase ledger
 
@@ -31,7 +31,7 @@
 | P11 | Event capture, archive and training dataset pipeline | `GREEN` | 10 defined | 10 | 0 | `docs/agent/phase-logs/P11.md` |
 | P12 | Student portal | `GREEN` | 10 defined | 10 | 0 | `docs/agent/phase-logs/P12.md` |
 | P13 | Teacher and academic-administration portal | `GREEN` | 10 defined | 10 | 0 | `docs/agent/phase-logs/P13.md` |
-| P14 | Parent/guardian portal | `NOT_STARTED` | TBD in phase log | 0 | TBD | `docs/agent/phase-logs/P14.md` |
+| P14 | Parent/guardian portal | `GREEN` | 10 defined | 10 | 0 | `docs/agent/phase-logs/P14.md` |
 | P15 | Super-admin and organization-admin portal | `NOT_STARTED` | TBD in phase log | 0 | TBD | `docs/agent/phase-logs/P15.md` |
 | P16 | Billing, subscriptions, entitlements and institution fees | `NOT_STARTED` | TBD in phase log | 0 | TBD | `docs/agent/phase-logs/P16.md` |
 | P17 | Localization, accessibility and offline reading | `NOT_STARTED` | TBD in phase log | 0 | TBD | `docs/agent/phase-logs/P17.md` |

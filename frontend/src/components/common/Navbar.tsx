@@ -13,6 +13,7 @@ import {
   LogOut,
   Building2,
   ChevronDown,
+  Heart,
 } from 'lucide-react';
 
 export default function Navbar() {
@@ -156,6 +157,18 @@ export default function Navbar() {
             >
               <GraduationCap className="h-4 w-4" />
               Teacher Portal
+            </Link>
+          )}
+          {(activeContext.role === 'PARENT' ||
+            activeContext.role === 'ORG_ADMIN' ||
+            activeContext.role === 'SUPER_ADMIN') && (
+            <Link
+              href="/parent/dashboard"
+              className="flex items-center gap-1.5 rounded-lg bg-rose-50 px-3 py-2 text-rose-700 font-semibold hover:bg-rose-100 transition"
+              data-testid="nav-parent-portal"
+            >
+              <Heart className="h-4 w-4" />
+              Parent Portal
             </Link>
           )}
         </nav>

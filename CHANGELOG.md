@@ -2,6 +2,33 @@
 
 All notable project changes should be recorded here. This file starts as a planning baseline; it must not imply code has been implemented.
 
+## [P14] — Parent and Guardian Portal — 2026-10-24
+
+### Added
+- Parent Domain Service in `backend/app/domain/parent/service.py`:
+  - `ParentService`: Guardian link request, relationship verification, immediate revocation; multi-child overview aggregation; privacy-filtered child progress calculation; child assessment reports; teacher communications; and structured audit logging on child record access.
+- REST API Endpoints in `backend/app/api/v1/parent.py`:
+  - 7 endpoints mounted at `/api/v1/parent` for listing children, link requests, verification approval, revocation, privacy-filtered progress, assessment results, and school notices.
+- Frontend Parent Types & API Client:
+  - `frontend/src/lib/types/parent.ts`: TypeScript contracts for `LinkedChild`, `ChildProgressSummary`, `ChildAssessmentReport`, `ChildCommunicationItem`.
+  - `frontend/src/lib/api-client.ts`: 7 typed parent methods.
+- Frontend Reusable Components in `frontend/src/components/parent/`:
+  - `ChildSelector.tsx`: Seamless multi-child toggle with avatar, mastery pill, and active state.
+  - `ChildProgressOverview.tsx`: Overall mastery gauge, study time, active streak, subject breakdown, and explicit RQ-025 privacy guarantee disclosure.
+  - `ChildAssessmentList.tsx`: Assessment scores, teacher remarks, competency badges.
+  - `GuardianLinkManager.tsx`: Manage linked children, pending approvals, and link new child.
+  - `SchoolCommunications.tsx`: Announcements from child's teachers and school notices.
+- Next.js 14 App Router Pages:
+  - `/parent/dashboard`: Main parent workspace with multi-child selector and progress cards.
+  - `/parent/children`: Relationship verification and linking manager.
+  - `/parent/assessments`: Assessment records and teacher feedback.
+  - `/parent/communications`: Class notices and school announcements.
+  - `Navbar.tsx`: Integrated role-aware shortcut to Parent Portal for parent users.
+- Automated Test Suite:
+  - `backend/tests/test_parent.py`: 7 tests passing covering link lifecycle, 403 unlinked rejection, immediate revocation, strict privacy filtering (no raw conversation turn leak), multi-child isolation, and audit logging.
+  - `frontend/tests/parent-portal.test.ts`: 7 vitest tests passing covering client contracts, headers, 403 rejection, and privacy guarantees.
+  - Full regression: 89 backend pytest tests and 30 frontend vitest tests passing; Next.js production build compiling 19/19 routes cleanly.
+
 ## [P13] — Teacher and Academic-Administration Portal — 2026-10-24
 
 ### Added

@@ -9,6 +9,7 @@ from app.api.v1.benchmarks import router as benchmarks_router
 from app.api.v1.courses import router as course_router
 from app.api.v1.events import router as events_router
 from app.api.v1.organizations import router as org_router
+from app.api.v1.parent import router as parent_router
 from app.api.v1.rag import router as rag_router
 from app.api.v1.teacher import router as teacher_router
 from app.api.v1.tutoring import router as tutoring_router
@@ -24,5 +25,6 @@ api_v1_router.include_router(tutoring_router, prefix="/tutoring", tags=["Tutorin
 api_v1_router.include_router(assessments_router, tags=["Assessments & Grading"])
 api_v1_router.include_router(events_router, tags=["Events & Training"])
 api_v1_router.include_router(teacher_router, tags=["Teacher & Academic Administration"])
+api_v1_router.include_router(parent_router, tags=["Parent & Guardian Portal"])
 
 __all__ = ["api_v1_router"]
