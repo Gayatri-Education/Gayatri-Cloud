@@ -90,6 +90,13 @@ const PORTALS = [
 
 export default function HomePage() {
   const { user, activeContext, login } = useAuth();
+  const [mounted, setMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const displayUser = mounted ? user : null;
 
   const handleQuickSwitch = async (email: string, pass: string, href: string) => {
     try {
@@ -121,11 +128,11 @@ export default function HomePage() {
 
           {/* User Session Status */}
           <div className="pt-2 flex flex-wrap items-center gap-3">
-            {user ? (
+            {displayUser ? (
               <div className="inline-flex items-center gap-2.5 rounded-xl bg-white/10 px-4 py-2 text-xs backdrop-blur border border-white/10">
                 <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
                 <span>
-                  Signed in as <strong>{user.full_name || user.email}</strong> ({activeContext.role})
+                  Signed in as <strong>{displayUser.full_name || displayUser.email}</strong> ({activeContext.role})
                 </span>
                 <span className="text-slate-400">•</span>
                 <span className="text-sky-300">{activeContext.organizationName}</span>

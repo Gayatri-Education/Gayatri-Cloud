@@ -1,16 +1,21 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useNetworkStatus } from '../../lib/offline/offline-storage';
 import { useI18n } from '../../lib/i18n/I18nContext';
 import { WifiOff, BookOpen } from 'lucide-react';
 
 export default function OfflineIndicatorBanner() {
+  const [mounted, setMounted] = useState(false);
   const isOnline = useNetworkStatus();
   const { t } = useI18n();
 
-  if (isOnline) {
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted || isOnline) {
     return null;
   }
 

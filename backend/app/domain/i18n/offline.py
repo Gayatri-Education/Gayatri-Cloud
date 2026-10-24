@@ -58,7 +58,7 @@ class OfflineService:
                 CourseVersion.course_id == course_id,
                 CourseVersion.status == "published",
             )
-            .order_by(CourseVersion.created_at.desc())
+            .order_by(CourseVersion.created_at.desc(), CourseVersion.version_tag.desc())
             .limit(1)
         )
         v_res = await self.session.execute(v_stmt)
@@ -128,7 +128,7 @@ class OfflineService:
                 CourseVersion.course_id == course_id,
                 CourseVersion.status == "published",
             )
-            .order_by(CourseVersion.created_at.desc())
+            .order_by(CourseVersion.created_at.desc(), CourseVersion.version_tag.desc())
             .limit(1)
         )
         v_res = await self.session.execute(v_stmt)

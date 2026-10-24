@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useAuth } from '../../context/AuthContext';
 import LanguageSelector from '../localization/LanguageSelector';
@@ -30,11 +30,17 @@ import {
 
 export default function Navbar() {
   const { user, activeContext, memberships, switchOrganization, logout } = useAuth();
+  const [mounted, setMounted] = useState(false);
   const [isOrgDropdownOpen, setIsOrgDropdownOpen] = useState(false);
   const [isMoreDropdownOpen, setIsMoreDropdownOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  const role = activeContext.role;
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const role = mounted ? activeContext.role : 'STUDENT';
+  const displayUser = mounted ? user : null;
 
   return (
     <header className="sticky top-0 z-40 w-full border-b border-slate-200 bg-white/95 backdrop-blur">
@@ -341,7 +347,7 @@ export default function Navbar() {
             <LanguageSelector />
           </div>
 
-          {user ? (
+          {displayUser ? (
             <div className="flex items-center gap-2">
               <Link
                 href="/login"

@@ -68,11 +68,10 @@ export const OfflineStorage = {
 };
 
 export function useNetworkStatus(): boolean {
-  const [isOnline, setIsOnline] = useState<boolean>(() => {
-    return typeof navigator !== 'undefined' ? navigator.onLine : true;
-  });
+  const [isOnline, setIsOnline] = useState<boolean>(true);
 
   useEffect(() => {
+    setIsOnline(typeof navigator !== 'undefined' ? navigator.onLine : true);
     const handleOnline = () => setIsOnline(true);
     const handleOffline = () => setIsOnline(false);
 
