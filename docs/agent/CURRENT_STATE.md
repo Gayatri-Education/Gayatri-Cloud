@@ -4,12 +4,12 @@
 
 **Checkpoint created:** 2026-10-24  
 **Timezone:** Asia/Kolkata  
-**Current phase:** P07 — AI provider gateway, API credentials and model discovery  
+**Current phase:** P08 — Tutoring benchmark, model eligibility and routing  
 **Phase status:** `NOT_STARTED`  
-**Last verified GREEN phase:** P06 — Content ingestion, indexing and course-scoped RAG  
+**Last verified GREEN phase:** P07 — AI provider gateway, API credentials and model discovery  
 **Branch / commit:** `main`  
-**Repository status:** P00 through P06 are GREEN. 44 passing tests covering health, database constraints, isolation repositories, authentication endpoints, organization RBAC, storage abstraction, MIME sniff verification, immutable course versions, multi-format extraction, prompt-injection defense, and course-scoped hybrid RAG. Clean lint and formatting on both backend and frontend.  
-**Tests run:** `python -m pytest backend/tests -v` (44 passed in 8.21s), `ruff check` (pass), `ruff format --check` (pass), `npm run lint` (pass), `npm run test` (3 passed).
+**Repository status:** P00 through P07 are GREEN. 53 passing tests covering health, database constraints, isolation repositories, authentication endpoints, organization RBAC, storage abstraction, MIME sniff verification, immutable course versions, multi-format extraction, prompt-injection defense, course-scoped hybrid RAG, AES-256-GCM credential encryption, provider adapter contracts, gateway rate-limit fallback, and SSE streaming. Clean lint and formatting on both backend and frontend.  
+**Tests run:** `python -m pytest backend/tests -v` (53 passed in 10.71s), `ruff check` (pass), `ruff format --check` (pass), `npm run lint` (pass), `npm run test` (3 passed).
 
 ## Confirmed direction
 
@@ -21,6 +21,7 @@
 - Object storage abstraction: Local filesystem in dev/test, S3 design in production.
 - Course versions immutable once published; offering deployments strictly tied to published versions.
 - Hybrid RAG (lexical BM25 + dense semantic embeddings) strictly scoped to course version and tenant.
+- Server-side AI provider gateway with AES-256-GCM encrypted keys and zero raw secret exposure to browser.
 - Remote repository: `https://github.com/Gayatri-Education/Gayatri-Cloud.git`.
 
 ## Open blockers / decision references
@@ -31,4 +32,4 @@
 
 ## Exact next action
 
-Execute Phase P07: AI provider gateway, API credentials and model discovery.
+Execute Phase P08: Tutoring benchmark, model eligibility and routing.

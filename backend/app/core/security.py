@@ -9,6 +9,7 @@ from datetime import UTC, datetime, timedelta
 from typing import Any
 
 import jwt
+from cryptography.hazmat.primitives.ciphers.aead import AESGCM
 
 from app.core.config import settings
 
@@ -114,3 +115,50 @@ def decode_jwt_token(token: str) -> dict[str, Any] | None:
         return payload
     except jwt.PyJWTError:
         return None
+
+
+# --- AES-256-GCM Credential Encryption & Masking ---
+
+
+def _get_encryption_key() -> bytes:
+    """Derive a 256-bit symmetric encryption key from settings.SECRET_KEY."""
+    return hashlib.sha256(settings.SECRET_KEY.encode("utf-8")).digest()
+
+
+def encrypt_credential(secret_text: str) -> str:
+    """Encrypt secret credential using AES-256-GCM with a random 12-byte nonce."""
+    key = _get_encryption_key()
+    aesgcm = AESGCM(key)
+    nonce = os.urandom(12)
+    ciphertext = aesgcm.encrypt(nonce, secret_text.encode("utf-8"), None)
+    return f"{nonce.hex()}${ciphertext.hex()}"
+
+
+def decrypt_credential(ciphertext_payload: str) -> str:
+    """Decrypt AES-256-GCM ciphertext payload."""
+    try:
+        parts = ciphertext_payload.split("$")
+        if len(parts) != 2:
+            raise ValueError("Malformed ciphertext format.")
+        nonce = bytes.fromhex(parts[0])
+        ciphertext = bytes.fromhex(parts[1])
+        key = _get_encryption_key()
+        aesgcm = AESGCM(key)
+        plaintext = aesgcm.decrypt(nonce, ciphertext, None)
+        return plaintext.decode("utf-8")
+    except Exception as err:
+        raise ValueError("Failed to decrypt credential.") from err
+
+
+def mask_credential(secret_text: str) -> str:
+    """Mask secret key for safe display, revealing only prefix and last 4 characters."""
+    if len(secret_text) <= 8:
+        return "..." + secret_text[-2:] if len(secret_text) >= 2 else "..."
+    prefix = secret_text[:3]
+    suffix = secret_text[-4:]
+    return f"{prefix}...{suffix}"
+
+
+def compute_key_fingerprint(secret_text: str) -> str:
+    """Generate SHA-256 fingerprint for credential identification."""
+    return hashlib.sha256(secret_text.encode("utf-8")).hexdigest()

@@ -2,6 +2,44 @@
 
 All notable project changes should be recorded here. This file starts as a planning baseline; it must not imply code has been implemented.
 
+## [P07] — AI Provider Gateway, API Credentials and Model Discovery — 2026-10-24
+
+### Added
+- Authenticated AES-256-GCM Credential Vault in `backend/app/core/security.py`:
+  - Symmetric key derivation from application secret key.
+  - Random 12-byte nonces for ciphertext non-determinism.
+  - Decryption with integrity/tamper detection.
+  - Safe key masking (`mask_credential`) and SHA-256 key fingerprinting (`compute_key_fingerprint`) ensuring plaintext keys are never returned or logged.
+- Multi-Provider Adapters in `backend/app/domain/ai/adapters.py`:
+  - `AIProviderAdapter` ABC with `list_models`, `generate`, and `stream_generate`.
+  - Deterministic `MockAIProviderAdapter` for offline zero-cost testing and rate-limit simulation.
+  - Native adapters: `OpenAIProviderAdapter`, `AnthropicProviderAdapter`, `GeminiProviderAdapter`, `OpenRouterAdapter`, and `CustomEndpointAdapter` for OpenAI-compatible self-hosted servers.
+- Resilient Server-Side AI Gateway in `backend/app/domain/ai/gateway.py`:
+  - `AIGateway` managing provider credential resolution (personal BYOK vs institution keys).
+  - Policy-driven automated fallback: if primary provider encounters quota/rate-limit exceptions, gateway transparently executes against configured fallback model with audit metadata.
+  - Execution audit logging in `AIExecutionUsage`.
+  - Asynchronous token stream generator.
+- Credential & Model Catalog Domain Services in `backend/app/domain/ai/service.py`:
+  - Encrypted registration, retrieval, and deactivation of `ProviderConnection` entities.
+  - Model discovery synchronization updating `ProviderModelSnapshot` table.
+- Version 1 AI Gateway API in `backend/app/api/v1/ai.py`:
+  - `POST /api/v1/ai/connections`
+  - `GET /api/v1/ai/connections`
+  - `DELETE /api/v1/ai/connections/{connection_id}`
+  - `GET /api/v1/ai/models`
+  - `POST /api/v1/ai/models/sync`
+  - `POST /api/v1/ai/generate`
+  - `POST /api/v1/ai/generate/stream` (SSE)
+- Comprehensive test suite in `backend/tests/test_ai.py` verifying AES-256-GCM encryption, tamper rejection, zero secret exposure, provider adapter contracts, automatic rate-limit fallback, SSE streaming, and tenant credential isolation.
+
+### Verification
+- Phase: `P07` — status: `GREEN`
+- Acceptance criteria: 8/8 passed.
+- Tests: `python -m pytest backend/tests -v` (53 passed in 10.71s).
+- Linter: `ruff check` and `ruff format --check` (100% clean across 50 files).
+- Frontend: `npm run lint` and `npm run test` (3/3 passing).
+- Zero secrets committed.
+
 ## [P06] — Content Ingestion, Indexing and Course-Scoped RAG — 2026-10-24
 
 ### Added
