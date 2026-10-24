@@ -6,7 +6,7 @@ from datetime import UTC, datetime, timedelta
 from typing import Annotated
 
 from fastapi import Depends, Header, HTTPException, status
-from pydantic import BaseModel, ConfigDict, EmailStr, Field
+from pydantic import BaseModel, ConfigDict, EmailStr, Field, computed_field
 from sqlalchemy import select, update
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -67,6 +67,18 @@ class UserResponse(BaseModel):
     is_verified: bool
     is_super_admin: bool
     created_at: datetime
+
+    @computed_field
+    @property
+    def first_name(self) -> str:
+        parts = self.full_name.split()
+        return parts[0] if parts else ""
+
+    @computed_field
+    @property
+    def last_name(self) -> str:
+        parts = self.full_name.split()
+        return " ".join(parts[1:]) if len(parts) > 1 else ""
 
 
 # --- Service ---

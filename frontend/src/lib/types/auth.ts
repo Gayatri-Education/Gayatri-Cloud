@@ -1,10 +1,12 @@
 export interface UserProfile {
   id: string;
   email: string;
-  first_name: string;
-  last_name: string;
+  full_name?: string;
+  first_name?: string;
+  last_name?: string;
   is_active: boolean;
-  is_superuser: boolean;
+  is_super_admin?: boolean;
+  is_superuser?: boolean;
   created_at: string;
 }
 

@@ -69,6 +69,15 @@ class MemberResponse(BaseModel):
     created_at: datetime
 
 
+class UserMembershipResponse(BaseModel):
+    id: str
+    organization_id: str
+    organization_name: str
+    organization_slug: str
+    role: str
+    is_active: bool
+
+
 class LinkGuardianRequest(BaseModel):
     student_id: str
 
@@ -163,6 +172,43 @@ class OrganizationService:
         )
         res = await session.execute(stmt)
         return list(res.scalars().all())
+
+    @staticmethod
+    async def list_user_memberships(
+        session: AsyncSession,
+        user_id: str,
+    ) -> list[UserMembershipResponse]:
+        """List all active memberships and primary assigned roles for a user."""
+        stmt = (
+            select(Membership, Organization)
+            .join(Organization, Organization.id == Membership.organization_id)
+            .where(
+                Membership.user_id == user_id,
+                Membership.status == "active",
+                Organization.is_deleted.is_(False),
+            )
+        )
+        res = await session.execute(stmt)
+        rows = res.all()
+
+        memberships: list[UserMembershipResponse] = []
+        for membership, org in rows:
+            roles_res = await session.execute(
+                select(RoleAssignment.role).where(RoleAssignment.membership_id == membership.id)
+            )
+            roles = [r[0] for r in roles_res.fetchall()]
+            role = roles[0] if roles else RoleEnum.STUDENT.value
+            memberships.append(
+                UserMembershipResponse(
+                    id=membership.id,
+                    organization_id=org.id,
+                    organization_name=org.name,
+                    organization_slug=org.slug,
+                    role=role,
+                    is_active=membership.status == "active",
+                )
+            )
+        return memberships
 
     @staticmethod
     async def create_invitation(

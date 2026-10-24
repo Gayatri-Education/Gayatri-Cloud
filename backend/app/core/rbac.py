@@ -47,14 +47,27 @@ async def resolve_optional_tenant_context(
     current_user: UserAccount = Depends(get_current_user),
     session: AsyncSession = Depends(get_db),
 ) -> TenantContext:
-    """Resolve tenant context if X-Organization-ID header is present, else personal context."""
+    """Resolve tenant context if X-Organization-ID header is present, else personal/all active roles."""
     if not x_organization_id:
+        stmt = (
+            select(RoleAssignment.role, Membership.organization_id)
+            .join(Membership, Membership.id == RoleAssignment.membership_id)
+            .where(Membership.user_id == current_user.id, Membership.status == "active")
+        )
+        res = await session.execute(stmt)
+        rows = res.all()
+        user_roles = [r[0] for r in rows]
+        primary_org = rows[0][1] if rows else None
+
+        if current_user.is_super_admin:
+            user_roles.append(RoleEnum.SUPER_ADMIN.value)
+        if not user_roles:
+            user_roles = [RoleEnum.STUDENT.value]
+
         return TenantContext(
             user=current_user,
-            organization_id=None,
-            roles=[RoleEnum.SUPER_ADMIN.value]
-            if current_user.is_super_admin
-            else [RoleEnum.STUDENT.value],
+            organization_id=primary_org,
+            roles=list(set(user_roles)),
         )
     return await resolve_tenant_context(x_organization_id, current_user, session)
 
@@ -110,7 +123,9 @@ async def resolve_tenant_context(
 def require_roles(*allowed_roles: str):
     """Dependency factory restricting endpoint to users holding specified roles."""
 
-    def role_checker(context: TenantContext = Depends(resolve_tenant_context)) -> TenantContext:
+    def role_checker(
+        context: TenantContext = Depends(resolve_optional_tenant_context),
+    ) -> TenantContext:
         if not context.has_role(*allowed_roles):
             raise HTTPException(
                 status_code=status.HTTP_403_FORBIDDEN,

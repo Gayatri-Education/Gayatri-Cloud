@@ -5,7 +5,13 @@ from __future__ import annotations
 from fastapi import APIRouter, Depends, File, HTTPException, UploadFile, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.core.rbac import RoleEnum, TenantContext, require_roles, resolve_tenant_context
+from app.core.rbac import (
+    RoleEnum,
+    TenantContext,
+    require_roles,
+    resolve_optional_tenant_context,
+    resolve_tenant_context,
+)
 from app.db.session import get_db
 from app.domain.course import (
     ContentSourceResponse,
@@ -53,7 +59,7 @@ async def create_course(
     summary="List courses for active organization and global catalog",
 )
 async def list_courses(
-    context: TenantContext = Depends(resolve_tenant_context),
+    context: TenantContext = Depends(resolve_optional_tenant_context),
     session: AsyncSession = Depends(get_db),
 ) -> list[CourseResponse]:
     """Retrieve all active courses for the tenant and platform global courses."""
@@ -69,7 +75,7 @@ async def list_courses(
 )
 async def get_course(
     course_id: str,
-    context: TenantContext = Depends(resolve_tenant_context),
+    context: TenantContext = Depends(resolve_optional_tenant_context),
     session: AsyncSession = Depends(get_db),
 ) -> CourseResponse:
     """Retrieve course metadata ensuring tenant boundary."""

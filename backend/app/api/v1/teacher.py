@@ -221,7 +221,7 @@ async def create_instruction(
     summary="List active teacher directives ordered by priority",
 )
 async def list_instructions(
-    course_id: str = Query(...),
+    course_id: str | None = Query(None),
     context: TenantContext = Depends(teacher_auth),
     session: AsyncSession = Depends(get_db),
 ) -> list[dict[str, Any]]:

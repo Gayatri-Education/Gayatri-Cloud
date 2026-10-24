@@ -97,7 +97,7 @@ export default function LoginPage() {
     setError(null);
     try {
       await login(loginEmail, loginPass);
-      router.push(redirectUrl);
+      window.location.href = redirectUrl;
     } catch (err: unknown) {
       setError((err as Error).message || 'Invalid email or password. Please try again.');
     } finally {

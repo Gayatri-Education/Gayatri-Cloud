@@ -18,9 +18,24 @@ from app.domain.organization import (
     MemberResponse,
     OrganizationResponse,
     OrganizationService,
+    UserMembershipResponse,
 )
 
 router = APIRouter()
+
+
+@router.get(
+    "/memberships",
+    response_model=list[UserMembershipResponse],
+    status_code=status.HTTP_200_OK,
+    summary="List memberships and assigned roles for current user",
+)
+async def list_my_memberships(
+    current_user: UserAccount = Depends(get_current_user),
+    session: AsyncSession = Depends(get_db),
+) -> list[UserMembershipResponse]:
+    """List all organization memberships and assigned roles for authenticated user."""
+    return await OrganizationService.list_user_memberships(session, current_user.id)
 
 
 @router.post(

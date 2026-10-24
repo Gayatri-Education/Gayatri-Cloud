@@ -459,16 +459,18 @@ class TeacherService:
         return instruction
 
     async def list_instructions(
-        self, context: TenantContext, course_id: str
+        self, context: TenantContext, course_id: str | None = None
     ) -> list[TeacherInstruction]:
         """List active teacher instructions ordered by priority descending."""
+        filters = [
+            TeacherInstruction.organization_id == context.organization_id,
+            TeacherInstruction.is_active.is_(True),
+        ]
+        if course_id:
+            filters.append(TeacherInstruction.course_id == course_id)
         stmt = (
             select(TeacherInstruction)
-            .where(
-                TeacherInstruction.organization_id == context.organization_id,
-                TeacherInstruction.course_id == course_id,
-                TeacherInstruction.is_active.is_(True),
-            )
+            .where(*filters)
             .order_by(TeacherInstruction.priority.desc())
         )
         res = await self.session.execute(stmt)
