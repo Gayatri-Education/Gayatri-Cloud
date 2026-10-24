@@ -11,7 +11,7 @@
 | RQ-003 | Teacher + parent allowed; student + teacher prohibited | P04, P18 | Role compatibility matrix tests | Verified (`backend/tests/test_organizations.py:test_role_incompatibility_enforcement`) |
 | RQ-004 | Invitation, membership request, approval and optional verified-domain flows | P04, P15 | Workflow tests for valid/expired/revoked invitations | Verified for invitation lifecycle (`backend/tests/test_organizations.py:test_invitation_lifecycle_and_acceptance`) |
 | RQ-005 | Tenant boundaries on all records, file operations, RAG and analytics | P02, P04, P06, P18, P20 | Cross-tenant negative tests on every interface | Verified at query and API layer (`backend/tests/test_repositories.py`, `backend/tests/test_organizations.py:test_cross_tenant_access_denied`) |
-| RQ-006 | Role-aware student/teacher/parent/admin portals | P12–P15 | Portal journey E2E tests | Planned |
+| RQ-006 | Role-aware student/teacher/parent/admin portals | P12–P15 | Portal journey E2E tests | Verified for Student Portal (`frontend/tests/student-portal.test.ts`, Next.js routes) |
 | RQ-007 | Course-independent curriculum/course-version model | P02, P05, P06, P09 | Multiple unrelated course fixtures | Verified course & immutable version lifecycle (`backend/tests/test_courses.py:test_course_creation_and_version_lifecycle`) |
 | RQ-008 | Upload PDF, scanned PDF, DOCX/PPTX/text, images, web sources, Q&A and lecture/video material | P05, P06 | Ingestion fixture tests; OCR/transcription dependencies isolated | Verified storage upload, MIME sniff validation & traversal guards (`backend/tests/test_courses.py`) |
 | RQ-009 | Course-scoped RAG, approved source provenance and version pinning | P06, P09 | Retrieval relevance, authorization and citation tests | Verified hybrid RAG with citations, version-pinning and tenant negative isolation (`backend/tests/test_rag.py`) |
@@ -43,7 +43,7 @@
 | RQ-035 | No silent test weakening; phase GREEN requires evidence | All | Phase log and CI review | Verified for P00-P01 (all tests executed and passing) |
 | RQ-036 | Admin config: users, organizations, courses, AI policy, privacy, fees, analytics and branding | P15, P16 | Admin permission and workflow E2E tests | Planned |
 | RQ-037 | Emails/password verification, privileged MFA, session/device controls, recovery | P03, P18 | Auth/abuse/recovery tests | Verified for P03 baseline (`backend/tests/test_auth.py`) |
-| RQ-038 | Responsive browser UI for desktop and mobile | P12–P17, P20 | Responsive/accessibility checks | Planned |
+| RQ-038 | Responsive browser UI for desktop and mobile | P12–P17, P20 | Responsive/accessibility checks | Verified for Student Portal (`frontend/src/app/`, responsive Tailwind classes, build check) |
 | RQ-039 | Feature-complete scope cannot be silently reduced | All | Traceability review at each phase and release | Always applicable |
 
 ## Traceability rules

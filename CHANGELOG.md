@@ -2,6 +2,37 @@
 
 All notable project changes should be recorded here. This file starts as a planning baseline; it must not imply code has been implemented.
 
+## [P12] — Student Portal (Next.js Web UI) — 2026-10-24
+
+### Added
+- Frontend Type Architecture in `frontend/src/lib/types/`:
+  - `auth.ts`, `course.ts`, `tutoring.ts`, `assessment.ts`, `mastery.ts`, `ai.ts`: Complete TypeScript interface models mapped to backend schemas.
+- Core Services & Context:
+  - `api-client.ts`: Typed REST client with automatic Bearer token injection, active `X-Organization-Id` tenant isolation header, retry handling, and friendly network failure diagnostics.
+  - `stream-client.ts`: Server-Sent Events (SSE) streaming client parsing tokens, citations, and mode changes with `AbortController` cancellation.
+  - `AuthContext.tsx`: Manages user authentication, session persistence, and organization context switching (strictly separating personal learning space from school memberships).
+- Reusable UI Components in `frontend/src/components/`:
+  - `Navbar.tsx`: Global navigation header with active organization context switcher, role badge, and profile logout.
+  - `ErrorState.tsx`: Actionable error boundary with explicit recovery triggers (`Try Again`, `Return to Dashboard`, `Manage AI Keys`).
+  - `EmptyState.tsx`: Structured empty states with call-to-actions.
+  - `LoadingSkeleton.tsx`: Clean animated pulse loaders.
+  - `CourseCard.tsx`: Course card with approved version tag (`v1.0`), subject pill, and mastery progress bar.
+  - `TutorChat.tsx`: Interactive AI tutor interface supporting real-time streaming, pedagogy mode switching (Socratic/Explain/Practice), source citation pills, helpfulness ratings, and streaming abort/cancel.
+  - `AssessmentRunner.tsx`: Full assessment test taker supporting all 6 question types (MCQ, Boolean, Numerical with units and tolerance, Subjective, Coding, Adaptive) with timer countdown, autosave indicator, and idempotent submission confirmation.
+  - `AssessmentResultView.tsx`: Comprehensive results display with percentage scores, rubric criteria breakdown, detected misconception alerts, and automated mastery updates.
+  - `MasteryRoadmap.tsx`: Visual concept mastery hierarchy with progress bars, stability metrics, active misconception remediation advice, and spaced review schedules.
+  - `KeyManager.tsx`: BYOK AI provider connection manager with server-side AES-256-GCM encryption, strictly masked keys (`sk-...4f9b`), and zero client secret exposure.
+- Next.js 14 App Router Pages:
+  - `/dashboard`: Learner dashboard with enrolled courses, streak tracker, and upcoming assessments.
+  - `/courses` & `/courses/[id]`: Course catalog and detailed syllabus with pinned version display.
+  - `/tutoring` & `/tutoring/[sessionId]`: Live Socratic tutor chat session.
+  - `/assessments` & `/assessments/[id]`: Assessment list and live attempt runner.
+  - `/mastery`: Concept knowledge graph and misconception remediation center.
+  - `/settings/ai-keys`: BYOK key manager and DEC-011 training consent governance.
+- Verification & Test Suite in `frontend/tests/student-portal.test.ts`:
+  - 11 unit and component tests verifying token injection, tenant isolation, SSE chunk parsing, client cancellation, assessment scoring, masked BYOK credentials, and mastery calculations.
+  - 14/14 total vitest tests passing; Next.js production build compiling 10/10 routes.
+
 ## [P11] — Event Capture, Archive and Training Dataset Pipeline — 2026-10-24
 
 ### Added
