@@ -4,12 +4,12 @@
 
 **Checkpoint created:** 2026-10-24  
 **Timezone:** Asia/Kolkata  
-**Current phase:** P09 — Tutor orchestration and adaptive learning engine  
+**Current phase:** P10 — Assessment, evaluation and grading  
 **Phase status:** `NOT_STARTED`  
-**Last verified GREEN phase:** P08 — Tutoring benchmark, model eligibility and routing  
+**Last verified GREEN phase:** P09 — Tutor orchestration and adaptive learning engine  
 **Branch / commit:** `main`  
-**Repository status:** P00 through P08 are GREEN. 57 passing tests covering health, database constraints, isolation repositories, authentication endpoints, organization RBAC, storage abstraction, MIME sniff verification, immutable course versions, multi-format extraction, prompt-injection defense, course-scoped hybrid RAG, AES-256-GCM credential encryption, provider adapter contracts, gateway rate-limit fallback, SSE streaming, tutoring benchmarks, and quality-first routing. Clean lint and formatting on both backend and frontend.  
-**Tests run:** `python -m pytest backend/tests -v` (57 passed in 9.35s), `ruff check` (pass), `ruff format --check` (pass), `npm run lint` (pass), `npm run test` (3 passed).
+**Repository status:** P00 through P09 are GREEN. 60 passing tests covering health, database constraints, isolation repositories, authentication endpoints, organization RBAC, storage abstraction, MIME sniff verification, immutable course versions, multi-format extraction, prompt-injection defense, course-scoped hybrid RAG, AES-256-GCM credential encryption, provider adapter contracts, gateway rate-limit fallback, SSE streaming, tutoring benchmarks, quality-first routing, teacher instruction cascade, pedagogical modes, and deterministic mastery updating with misconception tracking. Clean lint and formatting on both backend and frontend.  
+**Tests run:** `Push-Location backend; python -m pytest; Pop-Location` (60 passed in 11.70s), `ruff check` (pass), `ruff format --check` (pass), `npm run lint` (pass), `npm run test` (3 passed).
 
 ## Confirmed direction
 
@@ -23,6 +23,7 @@
 - Hybrid RAG (lexical BM25 + dense semantic embeddings) strictly scoped to course version and tenant.
 - Server-side AI provider gateway with AES-256-GCM encrypted keys and zero raw secret exposure to browser.
 - Standardized tutoring benchmark suite and quality-first router with model promotion threshold gating.
+- Tutor orchestration combining 5-tier teacher instructions, configurable pedagogies, XML document enclosures, and deterministic mastery state machines with stability formulas.
 - Remote repository: `https://github.com/Gayatri-Education/Gayatri-Cloud.git`.
 
 ## Open blockers / decision references
@@ -33,4 +34,4 @@
 
 ## Exact next action
 
-Execute Phase P09: Tutor orchestration and adaptive learning engine.
+Execute Phase P10: Assessment, evaluation and grading.

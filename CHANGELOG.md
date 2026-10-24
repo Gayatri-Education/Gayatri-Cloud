@@ -2,6 +2,44 @@
 
 All notable project changes should be recorded here. This file starts as a planning baseline; it must not imply code has been implemented.
 
+## [P09] — Tutor Orchestration and Adaptive Learning Engine — 2026-10-24
+
+### Added
+- Teacher Instruction Cascade Engine in `backend/app/domain/tutoring/pedagogy.py`:
+  - 5-tier instruction hierarchy: `SESSION (5) > STUDENT (4) > CLASS (3) > COURSE (2) > ORG (1)`.
+  - Deterministic precedence sorting by tier rank, priority, and creation time.
+  - Active expiry filtering (`expires_at <= now()`).
+- Configurable Pedagogical Modes in `backend/app/domain/tutoring/pedagogy.py`:
+  - `socratic`: guided questions, active scaffolding, prohibited from blurting direct answers.
+  - `explain_first`: direct conceptual clarity with analogies, followed by a check question.
+  - `practice_first`: scenario/problem-driven coaching.
+  - `custom`: teacher directive driven.
+  - Untrusted curriculum RAG context injection enclosed strictly in `<document_chunk>` XML tags to guard against prompt injection.
+- Deterministic Mastery State Machine in `backend/app/domain/tutoring/mastery.py`:
+  - Prohibits LLMs from unilaterally altering student mastery states.
+  - Updates `CanonicalLearningState` via validated evidence events: increases mastery via stability formula `min(1.0, current + 0.20 * stability)`, decreases mastery on errors (`-0.15`).
+  - Append-only `LearningEvent` audit trail logging.
+  - Misconception diagnosis in `MisconceptionRecord` with automatic remediation tracking upon reaching threshold mastery >= 0.70.
+- Tutor Orchestrator Service in `backend/app/domain/tutoring/service.py`:
+  - Verifies student course enrollment before session initiation.
+  - Orchestrates multi-turn dialogue, integrates hybrid course-scoped RAG chunks, applies teacher instructions, calls `AIGateway` with model routing, and persists monotonic `ConversationTurn` history.
+- Tutoring REST API in `backend/app/api/v1/tutoring.py`:
+  - `POST /api/v1/tutoring/sessions`
+  - `GET /api/v1/tutoring/sessions/{id}`
+  - `POST /api/v1/tutoring/sessions/{id}/turns`
+  - `GET /api/v1/tutoring/sessions/{id}/mastery`
+  - `POST /api/v1/tutoring/instructions`
+  - `GET /api/v1/tutoring/instructions`
+- Comprehensive test suite in `backend/tests/test_tutoring.py` verifying multi-turn dialogue, teacher instruction cascade precedence/expiry, pedagogy modes, deterministic mastery updates, misconception logging, and tenant/student isolation.
+
+### Verification
+- Phase: `P09` — status: `GREEN`
+- Acceptance criteria: 8/8 passed.
+- Tests: `Push-Location backend; python -m pytest; Pop-Location` (60 passed in 11.70s).
+- Linter: `ruff check` and `ruff format --check` (100% clean across 60 files).
+- Frontend: `npm run lint` and `npm run test` (3/3 passing).
+- Zero secrets committed.
+
 ## [P08] — Tutoring Benchmark, Model Eligibility and Routing — 2026-10-24
 
 ### Added

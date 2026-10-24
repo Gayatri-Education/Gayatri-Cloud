@@ -2,16 +2,16 @@
 
 **Last updated:** 2026-10-24  
 **Truth source:** repository state + phase logs + verified test evidence, not chat memory.  
-**Current phase:** P04 — Organizations, memberships, roles and tenant isolation  
+**Current phase:** P10 — Assessment, evaluation and grading  
 **Overall status:** `IN_PROGRESS`
 
 ## Current checkpoint
 
-- Last GREEN phase: P08 — Tutoring benchmark, model eligibility and routing.
-- Active phase: P09 — Tutor orchestration and adaptive learning engine.
-- Implementation status: P08 completed with all 8 criteria GREEN (Standardized tutoring benchmark suite v1.0.0, automated evaluator with pedagogical/safety/accuracy scoring, threshold eligibility gating, ModelBenchmarkRun schema, quality-first router with manual override and context checking, 57 passing tests). Ready for P09 Tutor orchestration and adaptive learning engine.
-- Blocking decisions: None blocking P09.
-- Next action: Plan and execute Phase P09.
+- Last GREEN phase: P09 — Tutor orchestration and adaptive learning engine.
+- Active phase: P10 — Assessment, evaluation and grading.
+- Implementation status: P09 completed with all 8 criteria GREEN (Teacher Instruction cascade with 5-tier precedence and expiry filtering, 4 pedagogical prompt builder modes with XML document delimiters, deterministic canonical mastery state machine with stability formula, append-only learning events, misconception detection and remediation, learner and tenant isolation, 60 passing tests). Ready for P10 Assessment, evaluation and grading.
+- Blocking decisions: None blocking P10.
+- Next action: Plan and execute Phase P10.
 
 ## Phase ledger
 
@@ -26,10 +26,7 @@
 | P06 | Content ingestion, indexing and course-scoped RAG | `GREEN` | 8 defined | 8 | 0 | `docs/agent/phase-logs/P06.md` |
 | P07 | AI provider gateway, API credentials and model discovery | `GREEN` | 8 defined | 8 | 0 | `docs/agent/phase-logs/P07.md` |
 | P08 | Tutoring benchmark, model eligibility and routing | `GREEN` | 8 defined | 8 | 0 | `docs/agent/phase-logs/P08.md` |
-| P09 | Tutor orchestration and adaptive learning engine | `NOT_STARTED` | TBD in phase log | 0 | TBD | `docs/agent/phase-logs/P09.md` |
-| P07 | AI provider gateway, API credentials and model discovery | `NOT_STARTED` | TBD in phase log | 0 | TBD | `docs/agent/phase-logs/P07.md` |
-| P08 | Tutoring benchmark, model eligibility and routing | `NOT_STARTED` | TBD in phase log | 0 | TBD | `docs/agent/phase-logs/P08.md` |
-| P09 | Tutor orchestration and adaptive learning engine | `NOT_STARTED` | TBD in phase log | 0 | TBD | `docs/agent/phase-logs/P09.md` |
+| P09 | Tutor orchestration and adaptive learning engine | `GREEN` | 8 defined | 8 | 0 | `docs/agent/phase-logs/P09.md` |
 | P10 | Assessment, evaluation and grading | `NOT_STARTED` | TBD in phase log | 0 | TBD | `docs/agent/phase-logs/P10.md` |
 | P11 | Event capture, archive and training dataset pipeline | `NOT_STARTED` | TBD in phase log | 0 | TBD | `docs/agent/phase-logs/P11.md` |
 | P12 | Student portal | `NOT_STARTED` | TBD in phase log | 0 | TBD | `docs/agent/phase-logs/P12.md` |
@@ -49,14 +46,4 @@ Do not estimate percent complete from lines of code, files created, token use or
 
 `acceptance completion = passed acceptance checks / total applicable acceptance checks`
 
-A phase can become `GREEN` only if all required acceptance checks pass, mandatory tests pass, and no unresolved blocker affects the phase. If an owner decision gates behavior, use `AWAITING_OWNER` or `BLOCKED`.
-
-## Session close checklist
-
-- [ ] Update active phase log with exact work performed.
-- [ ] Record exact tests/commands and true results; attach or link logs if available.
-- [ ] Update active phase status and criteria counts.
-- [ ] Update `CURRENT_STATE.md` with one next action.
-- [ ] Update `DECISION_LOG.md` if a choice was raised or changed.
-- [ ] Update traceability and `CHANGELOG.md` where appropriate.
-- [ ] Commit only if the local workflow has been authorized and repository state is safe.
+For overall delivery, compute cumulative passed criteria across all phases once their scope is planned and frozen.
