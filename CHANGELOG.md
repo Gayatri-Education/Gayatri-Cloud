@@ -2,6 +2,39 @@
 
 All notable project changes should be recorded here. This file starts as a planning baseline; it must not imply code has been implemented.
 
+## [P16] — Billing, Subscriptions, Entitlements and Institution Fees — 2026-10-24
+
+### Added
+- Billing Models in `backend/app/db/models/billing.py`:
+  - `SubscriptionPlan`, `Subscription`, `InstitutionFee`, `FeePayment`, `PaymentTransaction`, `InvoiceReceipt`.
+- Payment Gateway Abstraction & Mock in `backend/app/domain/billing/gateway.py`:
+  - `PaymentGatewayAdapter` abstract class and `MockPaymentGateway` implementation with deterministic checkout intent generation, HMAC-SHA256 signature verification, and simulated refunds.
+- Billing Domain Service in `backend/app/domain/billing/service.py`:
+  - `BillingService`: Freemium plan seeding (`free`, `pro_learner`, `institution_standard`, `institution_enterprise`); server-side entitlement checks; idempotent subscription checkout and plan switching preventing double-charging; subscription cancellation at period end; institutional fee schedule management (tuition, lab fees) and collection tracking; student/guardian fee payment workflows with instant receipt generation; cryptographic webhook verification with replay defense; and immutable invoice listing.
+  - Clear separation between platform fees and third-party AI provider BYOK costs with visible attribution disclaimer.
+- REST API Endpoints in `backend/app/api/v1/billing.py`:
+  - 10 endpoints mounted at `/api/v1/billing` for listing plans, active subscriptions, subscribing with idempotency, cancellation, institutional fee management, student fee payments, cryptographic webhook ingestion, and invoice retrieval.
+- Frontend Billing Types & API Client:
+  - `frontend/src/lib/types/billing.ts`: TypeScript contracts for `SubscriptionPlan`, `SubscriptionRecord`, `InstitutionFeeItem`, `StudentFeePayment`, `InvoiceReceiptItem`.
+  - `frontend/src/lib/api-client.ts`: 9 typed billing methods.
+- Frontend Reusable Components in `frontend/src/components/billing/`:
+  - `BillingNav.tsx`: Tab navigation for billing sub-views.
+  - `PlanSelectorCards.tsx`: Freemium tier matrix, seat limits, and upgrade/downgrade actions with idempotency keys.
+  - `EntitlementsBadge.tsx`: Current tier, renewal status, feature checklist, and BYOK disclaimer.
+  - `InstitutionFeeManager.tsx`: Org fee schedule editor and collections table.
+  - `StudentFeePaymentCard.tsx`: Payable fee cards, status badges, and online checkout with instant receipt.
+  - `InvoiceHistoryTable.tsx`: Immutable invoice history with line items and amounts.
+- Next.js 14 App Router Pages:
+  - `/billing`: Primary subscription overview.
+  - `/billing/plans`: Subscription plan comparison & tier switching.
+  - `/billing/fees`: Institutional fee management and student payments.
+  - `/billing/invoices`: Invoices and transaction receipts.
+  - `Navbar.tsx`: Integrated shortcut to Billing.
+- Automated Test Suite:
+  - `backend/tests/test_billing.py`: 6 tests passing covering default plan seeding, idempotent subscription checkout, plan upgrades/cancellations, institutional fee lifecycle, cross-tenant isolation, and HMAC-SHA256 webhook verification.
+  - `frontend/tests/billing-portal.test.ts`: 7 vitest tests passing covering plan listing, subscription status, idempotency key injection, fee management, and invoice history.
+  - Full regression: 102 backend pytest tests and 43 frontend vitest tests passing; Next.js production build compiling 28/28 routes cleanly.
+
 ## [P15] — Super-Admin and Organization-Admin Portal — 2026-10-24
 
 ### Added

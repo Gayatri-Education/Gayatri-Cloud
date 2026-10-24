@@ -4,12 +4,12 @@
 
 **Checkpoint created:** 2026-10-24  
 **Timezone:** Asia/Kolkata  
-**Current phase:** P16 — Billing, subscriptions, entitlements and institution fees  
+**Current phase:** P17 — Localization, accessibility and offline reading  
 **Phase status:** `NOT_STARTED`  
-**Last verified GREEN phase:** P15 — Super-admin and organization-admin portal  
+**Last verified GREEN phase:** P16 — Billing, subscriptions, entitlements and institution fees  
 **Branch / commit:** `main`  
-**Repository status:** P00 through P15 are GREEN. 96 passing backend tests and 36 passing frontend tests. Delivered admin domain service (AdminService) and REST APIs for platform super-admin and organization-admin operations. Enforces strict tenant isolation (cross-tenant denial with 403 Forbidden), domain registration and DNS proof token verification, global organization suspension and reactivation with mandatory reason codes, member role updating enforcing RQ-003 incompatibility between Student and Teacher roles, member suspension, organization AI policy routing and model whitelisting without raw secret exposure, immutable application event audit trail search, and operational telemetry aggregating members, courses, outbox lag, and AI token metrics. Delivered Next.js 14 Admin Web UI: operational dashboard, member and role management table, AI policy and routing manager, compliance audit trail search, and tenant settings with domain verification proofs. Clean lint, 24 compiled Next.js routes, and zero open defects.  
-**Tests run:** `Push-Location backend ; python -m pytest ; Pop-Location` (96 passed in 22.43s), `Push-Location frontend ; npm run test ; Pop-Location` (36 passed in 2.11s), `npm run lint` (pass, 0 warnings), `npm run build` (compiled successfully, 24/24 routes static/dynamic).
+**Repository status:** P00 through P16 are GREEN. 102 passing backend tests and 43 passing frontend tests. Delivered billing domain service (BillingService) and REST APIs for freemium subscriptions (free, pro learner, institution standard, institution enterprise), server-side entitlement checks, idempotent checkout and plan switching preventing double-charging, payment gateway adapter with HMAC-SHA256 signature verification, idempotent webhook ingestion with replay defense, institutional fee schedule creation and student/guardian fee collections, clear BYOK third-party fee disclaimer separation, and cross-tenant fee isolation. Delivered Next.js 14 Billing Web UI: subscription overview, plan switcher, institutional fee manager, student fee payment card with online checkout, and immutable invoice receipts history. Clean lint, 28 compiled Next.js routes, and zero open defects.  
+**Tests run:** `Push-Location backend ; python -m pytest ; Pop-Location` (102 passed in 24.66s), `Push-Location frontend ; npm run test ; Pop-Location` (43 passed in 1.65s), `npm run lint` (pass, 0 warnings), `npm run build` (compiled successfully, 28/28 routes static/dynamic).
 
 ## Confirmed direction
 
@@ -30,6 +30,7 @@
 - Teacher portal with rosters, 5-tier instruction cascade, cohort analytics, and AI Copilot briefing.
 - Parent portal with multi-child switcher, privacy-filtered progress, completed assessments, and notices.
 - Admin portal with operational telemetry, member role lifecycle (RQ-003), domain proofs, AI model policy, and audit trail.
+- Billing portal with freemium tier checkout, institutional fees, idempotent webhooks, and receipts.
 - Remote repository: `https://github.com/Gayatri-Education/Gayatri-Cloud.git`.
 
 ## Open blockers / decision references
@@ -40,4 +41,4 @@
 
 ## Exact next action
 
-Execute Phase P16: Billing, subscriptions, entitlements and institution fees.
+Execute Phase P17: Localization, accessibility and offline reading.

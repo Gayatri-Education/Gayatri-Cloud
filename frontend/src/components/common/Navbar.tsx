@@ -14,6 +14,7 @@ import {
   Building2,
   ChevronDown,
   Heart,
+  CreditCard,
 } from 'lucide-react';
 
 export default function Navbar() {
@@ -145,6 +146,14 @@ export default function Navbar() {
           >
             <Key className="h-4 w-4" />
             AI Keys
+          </Link>
+          <Link
+            href="/billing"
+            className="flex items-center gap-1.5 rounded-lg px-3 py-2 hover:bg-slate-50 hover:text-slate-900 transition"
+            data-testid="nav-billing"
+          >
+            <CreditCard className="h-4 w-4" />
+            Billing
           </Link>
           {(activeContext.role === 'TEACHER' ||
             activeContext.role === 'ACADEMIC_ADMIN' ||

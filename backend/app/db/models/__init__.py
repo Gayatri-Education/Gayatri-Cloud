@@ -8,6 +8,14 @@ from app.db.models.ai import (
     ProviderConnection,
     ProviderModelSnapshot,
 )
+from app.db.models.billing import (
+    FeePayment,
+    InstitutionFee,
+    InvoiceReceipt,
+    PaymentTransaction,
+    Subscription,
+    SubscriptionPlan,
+)
 from app.db.models.course import (
     ClassGroup,
     ContentChunk,
@@ -81,4 +89,10 @@ __all__ = [
     "AIExecutionUsage",
     "ApplicationEvent",
     "EventOutbox",
+    "SubscriptionPlan",
+    "Subscription",
+    "InstitutionFee",
+    "FeePayment",
+    "PaymentTransaction",
+    "InvoiceReceipt",
 ]

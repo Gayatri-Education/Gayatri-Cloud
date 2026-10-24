@@ -41,6 +41,13 @@ import {
   AuditLogEntry,
   OrganizationDetails,
 } from './types/admin';
+import {
+  SubscriptionPlan,
+  SubscriptionRecord,
+  InstitutionFeeItem,
+  StudentFeePayment,
+  InvoiceReceiptItem,
+} from './types/billing';
 
 export class ApiError extends Error {
   public status: number;
@@ -570,6 +577,78 @@ export class ApiClient {
     if (limit) params.append('limit', limit.toString());
     const query = params.toString() ? `?${params.toString()}` : '';
     return this.request<AuditLogEntry[]>(`/api/v1/admin/organizations/${orgId}/audit${query}`);
+  }
+
+  // Billing, Subscriptions, and Institutional Fees
+  public async getBillingPlans(): Promise<SubscriptionPlan[]> {
+    return this.request<SubscriptionPlan[]>('/api/v1/billing/plans');
+  }
+
+  public async getActiveSubscription(): Promise<SubscriptionRecord> {
+    return this.request<SubscriptionRecord>('/api/v1/billing/subscription');
+  }
+
+  public async subscribePlan(
+    planCode: string,
+    idempotencyKey: string
+  ): Promise<{ transaction_id: string; invoice_number: string; status: string; plan_code: string; amount_paid_cents: number }> {
+    return this.request<{ transaction_id: string; invoice_number: string; status: string; plan_code: string; amount_paid_cents: number }>(
+      '/api/v1/billing/subscribe',
+      {
+        method: 'POST',
+        body: JSON.stringify({ plan_code: planCode, idempotency_key: idempotencyKey }),
+      }
+    );
+  }
+
+  public async cancelSubscription(): Promise<{ subscription_id: string; cancel_at_period_end: boolean; message: string }> {
+    return this.request<{ subscription_id: string; cancel_at_period_end: boolean; message: string }>(
+      '/api/v1/billing/cancel',
+      {
+        method: 'POST',
+      }
+    );
+  }
+
+  public async getInstitutionFees(organizationId: string): Promise<InstitutionFeeItem[]> {
+    return this.request<InstitutionFeeItem[]>(`/api/v1/billing/institution/fees?organization_id=${organizationId}`);
+  }
+
+  public async createInstitutionFee(
+    organizationId: string,
+    payload: { title: string; description?: string; amount_cents: number; currency?: string; due_date?: string }
+  ): Promise<InstitutionFeeItem> {
+    return this.request<InstitutionFeeItem>(
+      `/api/v1/billing/institution/fees?organization_id=${organizationId}`,
+      {
+        method: 'POST',
+        body: JSON.stringify(payload),
+      }
+    );
+  }
+
+  public async getStudentFees(studentId?: string): Promise<StudentFeePayment[]> {
+    const query = studentId ? `?student_id=${studentId}` : '';
+    return this.request<StudentFeePayment[]>(`/api/v1/billing/student/fees${query}`);
+  }
+
+  public async payStudentFee(
+    feeId: string,
+    idempotencyKey: string,
+    studentId?: string
+  ): Promise<{ payment_id: string; transaction_id: string; invoice_number: string; status: string; amount_paid_cents: number }> {
+    return this.request<{ payment_id: string; transaction_id: string; invoice_number: string; status: string; amount_paid_cents: number }>(
+      `/api/v1/billing/student/fees/${feeId}/pay`,
+      {
+        method: 'POST',
+        body: JSON.stringify({ idempotency_key: idempotencyKey, student_id: studentId }),
+      }
+    );
+  }
+
+  public async getInvoices(organizationId?: string): Promise<InvoiceReceiptItem[]> {
+    const query = organizationId ? `?organization_id=${organizationId}` : '';
+    return this.request<InvoiceReceiptItem[]>(`/api/v1/billing/invoices${query}`);
   }
 }
 

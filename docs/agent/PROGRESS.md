@@ -2,16 +2,16 @@
 
 **Last updated:** 2026-10-24  
 **Truth source:** repository state + phase logs + verified test evidence, not chat memory.  
-**Current phase:** P16 — Billing, subscriptions, entitlements and institution fees  
+**Current phase:** P17 — Localization, accessibility and offline reading  
 **Overall status:** `IN_PROGRESS`
 
 ## Current checkpoint
 
-- Last GREEN phase: P15 — Super-admin and organization-admin portal.
-- Active phase: P16 — Billing, subscriptions, entitlements and institution fees.
-- Implementation status: P15 completed with all 10 criteria GREEN (Platform Super-Admin vs. Tenant Organization Admin role hierarchy, cross-tenant denial 403 Forbidden, domain registration and DNS proof verification tokens, global organization suspension and reactivation with mandatory reason codes, member role update enforcing RQ-003 incompatibility between student and teacher roles, member suspension, organization AI policy routing and model whitelisting without raw secret exposure, immutable application event audit trail search, operational telemetry aggregating members, courses, outbox lag, and AI token metrics, 7 targeted pytest tests, 96 regression pytest tests, 36 frontend vitest tests, and clean 24-route Next.js production build).
-- Blocking decisions: None blocking P16.
-- Next action: Plan and execute Phase P16.
+- Last GREEN phase: P16 — Billing, subscriptions, entitlements and institution fees.
+- Active phase: P17 — Localization, accessibility and offline reading.
+- Implementation status: P16 completed with all 10 criteria GREEN (Freemium plans: free, pro learner, institution standard, institution enterprise; active subscription entitlements check; idempotent checkout and upgrade/downgrade preventing double charging; mock payment gateway adapter with HMAC-SHA256 signature verification; webhook replay defense; institutional fee schedule management and student/guardian payments; clear BYOK third-party fee disclaimer separation; cross-tenant fee isolation 403 Forbidden; 6 targeted pytest tests, 102 regression pytest tests, 43 frontend vitest tests, and clean 28-route Next.js production build).
+- Blocking decisions: None blocking P17.
+- Next action: Plan and execute Phase P17.
 
 ## Phase ledger
 
@@ -33,7 +33,8 @@
 | P13 | Teacher and academic-administration portal | `GREEN` | 10 defined | 10 | 0 | `docs/agent/phase-logs/P13.md` |
 | P14 | Parent/guardian portal | `GREEN` | 10 defined | 10 | 0 | `docs/agent/phase-logs/P14.md` |
 | P15 | Super-admin and organization-admin portal | `GREEN` | 10 defined | 10 | 0 | `docs/agent/phase-logs/P15.md` |
-| P16 | Billing, subscriptions, entitlements and institution fees | `NOT_STARTED` | TBD in phase log | 0 | TBD | `docs/agent/phase-logs/P16.md` |
+| P16 | Billing, subscriptions, entitlements and institution fees | `GREEN` | 10 defined | 10 | 0 | `docs/agent/phase-logs/P16.md` |
+| P17 | Localization, accessibility and offline reading | `NOT_STARTED` | TBD in phase log | 0 | TBD | `docs/agent/phase-logs/P17.md` |
 | P17 | Localization, accessibility and offline reading | `NOT_STARTED` | TBD in phase log | 0 | TBD | `docs/agent/phase-logs/P17.md` |
 | P18 | Security, privacy, retention and deletion hardening | `NOT_STARTED` | TBD in phase log | 0 | TBD | `docs/agent/phase-logs/P18.md` |
 | P19 | Observability, reliability and recovery | `NOT_STARTED` | TBD in phase log | 0 | TBD | `docs/agent/phase-logs/P19.md` |

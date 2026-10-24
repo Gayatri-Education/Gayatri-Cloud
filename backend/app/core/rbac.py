@@ -32,14 +32,31 @@ class TenantContext:
     """Resolved tenant context for the active request."""
 
     user: UserAccount
-    organization_id: str
-    roles: list[str]
+    organization_id: str | None = None
+    roles: list[str] = None  # type: ignore
 
     def has_role(self, *role_names: str) -> bool:
         """Check if active context holds at least one of the specified roles."""
         if self.user.is_super_admin:
             return True
-        return any(role in self.roles for role in role_names)
+        return any(role in (self.roles or []) for role in role_names)
+
+
+async def resolve_optional_tenant_context(
+    x_organization_id: Annotated[str | None, Header(alias="X-Organization-ID")] = None,
+    current_user: UserAccount = Depends(get_current_user),
+    session: AsyncSession = Depends(get_db),
+) -> TenantContext:
+    """Resolve tenant context if X-Organization-ID header is present, else personal context."""
+    if not x_organization_id:
+        return TenantContext(
+            user=current_user,
+            organization_id=None,
+            roles=[RoleEnum.SUPER_ADMIN.value]
+            if current_user.is_super_admin
+            else [RoleEnum.STUDENT.value],
+        )
+    return await resolve_tenant_context(x_organization_id, current_user, session)
 
 
 async def resolve_tenant_context(

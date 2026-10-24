@@ -33,7 +33,7 @@
 | RQ-025 | Parent view uses school policy; no universal raw transcript exposure | P14, P18 | Privacy tier matrix tests | Verified: raw tutoring dialogue strictly excluded from parent progress payload (`backend/tests/test_parent.py`, `frontend/tests/parent-portal.test.ts`) |
 | RQ-026 | Teacher transcript access limited to assigned learners and audit logged | P13, P18 | Access-control and audit tests | Verified for teacher roster and offerings tenant boundaries (`backend/tests/test_teacher.py`) |
 | RQ-027 | Data ownership/export/deletion support with retention-aware workflow | P02, P15, P18 | Export, deletion propagation and retention tests | Planned; periods open |
-| RQ-028 | Fee/accounting features and subscriptions | P16 | Invoice, payment, reconciliation and entitlement tests | Planned; payment provider open |
+| RQ-028 | Fee/accounting features and subscriptions | P16 | Invoice, payment, reconciliation and entitlement tests | Verified for P16: freemium plans, idempotent checkout, HMAC-SHA256 webhooks, institutional fees, student payments, and immutable receipts (`backend/tests/test_billing.py`, `frontend/tests/billing-portal.test.ts`) |
 | RQ-029 | Eight UI languages | P17 | Translation key completeness and language journey tests | Planned |
 | RQ-030 | Offline reading of previously cached course content | P17 | Network-loss/cache/sync tests | Planned |
 | RQ-031 | Observability with redacted diagnostics, correlation IDs and no swallowed failures | P01, P19 | Error contract/log correlation tests | Verified for P01 baseline (`backend/tests/test_health.py`) |
