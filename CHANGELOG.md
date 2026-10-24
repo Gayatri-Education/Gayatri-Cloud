@@ -2,6 +2,50 @@
 
 All notable project changes should be recorded here. This file starts as a planning baseline; it must not imply code has been implemented.
 
+## [P10] — Assessment, Evaluation and Grading — 2026-10-24
+
+### Added
+- Anti-Answer-Leakage Sanitizer in `backend/app/domain/assessment/sanitizer.py`:
+  - `AssessmentSanitizer`: strips answer keys, correct option indices, rubrics, solutions, and internal teacher notes from student examination payloads.
+  - Recursive `verify_no_leakage` auditing ensuring zero unearned answer exposure.
+- Deterministic Evaluation Engine in `backend/app/domain/assessment/deterministic.py`:
+  - `DeterministicGrader`:
+    - `grade_mcq`: exact matching, letter wrapper patterns (`(b)`, `Option C`, `[d]`), numeric option indices.
+    - `grade_boolean`: normalized boolean truth value evaluation (`true`, `yes`, `1`, `0`, `false`).
+    - `grade_numerical`: extracts magnitude excluding unit exponents (`^2`, `m2`), evaluates relative tolerance (±2%), verifies required units, rejects NaN/Infinity injection.
+- Multi-Criterion Rubric Engine in `backend/app/domain/assessment/rubrics.py`:
+  - `RubricEngine`: multi-criterion scoring, level descriptors, Bloom's taxonomy calculation, and standard rubric presets.
+- Domain Evaluators in `backend/app/domain/assessment/evaluators.py`:
+  - `SubjectiveEvaluator`: evaluates open responses against rubrics, detects misconception patterns (e.g. `MISCON_HEAT_WORK`), and outputs calibrated confidence scores.
+  - `CodingEvaluator`: verifies Python syntax AST and evaluates execution against structured test cases in a sandbox.
+  - `AdaptiveEngine`: dynamic difficulty progression (advancing on success, scaffolding on failure).
+- Assessment Coordination Service in `backend/app/domain/assessment/service.py`:
+  - Assessment authoring & publishing by authorized staff.
+  - Sanitized retrieval for enrolled students.
+  - Attempt initiation with timer limits, draft autosave/resume, and deadline verification.
+  - Idempotent submission preventing duplicate score commits.
+  - Automated canonical mastery progression via `CanonicalMasteryService.record_evidence` logging `LearningEvent` audit trails.
+  - Teacher manual score override and comment adjustment.
+- Assessment REST API in `backend/app/api/v1/assessments.py`:
+  - `POST /api/v1/assessments`
+  - `GET /api/v1/assessments/{assessment_id}`
+  - `POST /api/v1/assessments/{assessment_id}/publish`
+  - `POST /api/v1/assessments/{assessment_id}/attempts`
+  - `GET /api/v1/assessments/attempts/{attempt_id}`
+  - `PUT /api/v1/assessments/attempts/{attempt_id}/autosave`
+  - `POST /api/v1/assessments/attempts/{attempt_id}/submit`
+  - `POST /api/v1/assessments/attempts/{attempt_id}/override`
+  - Strict tenant boundary isolation preventing cross-organization attempt inspection.
+- Comprehensive test suite in `backend/tests/test_assessments.py` verifying all 6 assessment types, anti-leakage protection, timed exam autosave/resume, idempotency, canonical mastery progression, teacher manual override, and cross-tenant isolation.
+
+### Verification
+- Phase: `P10` — status: `GREEN`
+- Acceptance criteria: 10/10 passed.
+- Tests: `Push-Location backend; python -m pytest; Pop-Location` (68 passed in 11.69s).
+- Linter: `ruff check` and `ruff format --check` (100% clean across 69 files).
+- Frontend: `npm run lint` and `npm run test` (3/3 passing).
+- Zero secrets committed.
+
 ## [P09] — Tutor Orchestration and Adaptive Learning Engine — 2026-10-24
 
 ### Added

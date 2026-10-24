@@ -2,16 +2,16 @@
 
 **Last updated:** 2026-10-24  
 **Truth source:** repository state + phase logs + verified test evidence, not chat memory.  
-**Current phase:** P10 — Assessment, evaluation and grading  
+**Current phase:** P11 — Event capture, archive and training dataset pipeline  
 **Overall status:** `IN_PROGRESS`
 
 ## Current checkpoint
 
-- Last GREEN phase: P09 — Tutor orchestration and adaptive learning engine.
-- Active phase: P10 — Assessment, evaluation and grading.
-- Implementation status: P09 completed with all 8 criteria GREEN (Teacher Instruction cascade with 5-tier precedence and expiry filtering, 4 pedagogical prompt builder modes with XML document delimiters, deterministic canonical mastery state machine with stability formula, append-only learning events, misconception detection and remediation, learner and tenant isolation, 60 passing tests). Ready for P10 Assessment, evaluation and grading.
-- Blocking decisions: None blocking P10.
-- Next action: Plan and execute Phase P10.
+- Last GREEN phase: P10 — Assessment, evaluation and grading.
+- Active phase: P11 — Event capture, archive and training dataset pipeline.
+- Implementation status: P10 completed with all 10 criteria GREEN (Deterministic grading for MCQ/Boolean/Numerical with unit and tolerance verification, rubric-based subjective evaluator with misconception detection, AST and test-case coding evaluator, anti-leakage sanitizer, timed exam timer with autosave/resume, idempotent submit, automated canonical mastery progression, teacher manual override, cross-tenant isolation, 68 passing tests). Ready for P11 Event capture, archive and training dataset pipeline.
+- Blocking decisions: None blocking P11.
+- Next action: Plan and execute Phase P11.
 
 ## Phase ledger
 
@@ -27,7 +27,7 @@
 | P07 | AI provider gateway, API credentials and model discovery | `GREEN` | 8 defined | 8 | 0 | `docs/agent/phase-logs/P07.md` |
 | P08 | Tutoring benchmark, model eligibility and routing | `GREEN` | 8 defined | 8 | 0 | `docs/agent/phase-logs/P08.md` |
 | P09 | Tutor orchestration and adaptive learning engine | `GREEN` | 8 defined | 8 | 0 | `docs/agent/phase-logs/P09.md` |
-| P10 | Assessment, evaluation and grading | `NOT_STARTED` | TBD in phase log | 0 | TBD | `docs/agent/phase-logs/P10.md` |
+| P10 | Assessment, evaluation and grading | `GREEN` | 10 defined | 10 | 0 | `docs/agent/phase-logs/P10.md` |
 | P11 | Event capture, archive and training dataset pipeline | `NOT_STARTED` | TBD in phase log | 0 | TBD | `docs/agent/phase-logs/P11.md` |
 | P12 | Student portal | `NOT_STARTED` | TBD in phase log | 0 | TBD | `docs/agent/phase-logs/P12.md` |
 | P13 | Teacher and academic-administration portal | `NOT_STARTED` | TBD in phase log | 0 | TBD | `docs/agent/phase-logs/P13.md` |

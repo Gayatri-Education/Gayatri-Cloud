@@ -87,6 +87,8 @@ class Assessment(Base, TimestampMixin):
     total_points: Mapped[float] = mapped_column(Float, default=100.0, nullable=False)
     time_limit_minutes: Mapped[int | None] = mapped_column(Integer, nullable=True)
     is_published: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
+    passing_score: Mapped[float] = mapped_column(Float, default=70.0, nullable=False)
+    content_json: Mapped[str | None] = mapped_column(Text, nullable=True)
 
     attempts: Mapped[list[AssessmentAttempt]] = relationship(
         "AssessmentAttempt", back_populates="assessment", cascade="all, delete-orphan"
@@ -109,7 +111,12 @@ class AssessmentAttempt(Base, TimestampMixin):
         String(50), default="in_progress", nullable=False
     )  # in_progress, submitted, graded
     total_score: Mapped[float | None] = mapped_column(Float, nullable=True)
+    started_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
     submitted_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    draft_answers_json: Mapped[str | None] = mapped_column(Text, nullable=True)
+    idempotency_key: Mapped[str | None] = mapped_column(String(100), nullable=True, index=True)
+    grading_summary_json: Mapped[str | None] = mapped_column(Text, nullable=True)
+    time_limit_minutes: Mapped[int | None] = mapped_column(Integer, nullable=True)
 
     assessment: Mapped[Assessment] = relationship("Assessment", back_populates="attempts")
     responses: Mapped[list[AssessmentResponse]] = relationship(
@@ -132,10 +139,15 @@ class AssessmentResponse(Base, TimestampMixin):
     question_id: Mapped[str] = mapped_column(String(100), nullable=False)
     student_response: Mapped[str] = mapped_column(Text, nullable=False)
     score: Mapped[float | None] = mapped_column(Float, nullable=True)
+    max_score: Mapped[float] = mapped_column(Float, default=1.0, nullable=False)
+    is_correct: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
     feedback_text: Mapped[str | None] = mapped_column(Text, nullable=True)
     evaluated_by: Mapped[str] = mapped_column(
         String(50), default="deterministic", nullable=False
     )  # deterministic, ai_evaluator, teacher
+    criterion_scores_json: Mapped[str | None] = mapped_column(Text, nullable=True)
+    teacher_override_score: Mapped[float | None] = mapped_column(Float, nullable=True)
+    teacher_override_comment: Mapped[str | None] = mapped_column(Text, nullable=True)
 
     attempt: Mapped[AssessmentAttempt] = relationship(
         "AssessmentAttempt", back_populates="responses"
