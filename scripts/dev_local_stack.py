@@ -9,6 +9,7 @@ and provides clickable URLs for browser verification.
 from __future__ import annotations
 
 import asyncio
+import json
 import os
 import subprocess
 import sys
@@ -40,7 +41,7 @@ async def seed_local_database() -> None:
 
     from app.core.rbac import RoleEnum
     from app.core.security import hash_password
-    from app.db.base import Base
+    from app.db.models import Base
     from app.db.models.billing import InstitutionFee, SubscriptionPlan
     from app.db.models.course import (
         ContentChunk,
@@ -242,10 +243,10 @@ async def seed_local_database() -> None:
         free_plan = SubscriptionPlan(
             name="Freemium Learner",
             code="free",
-            tier="FREE",
+            description="Default free plan with standard tutoring limits",
             price_cents=0,
             currency="USD",
-            features_json={"tutoring_turns_per_month": 100, "byok_enabled": True},
+            features_json=json.dumps({"tutoring_turns_per_month": 100, "byok_enabled": True}),
             is_active=True,
         )
         session.add(free_plan)
@@ -313,6 +314,7 @@ def main():
         "DEFAULT_AI_PROVIDER": "mock",
         "SECRET_KEY": "dev-insecure-secret-key-change-in-production-min-32-chars-long",
         "PORT": "8000",
+        "PYTHONPATH": str(BACKEND_DIR),
     }
 
     frontend_env = {
@@ -325,20 +327,20 @@ def main():
         f"{Colors.CYAN}[*] Starting Backend API Server on http://127.0.0.1:8000...{Colors.RESET}"
     )
     backend_proc = subprocess.Popen(
-        ["uvicorn", "app.main:app", "--host", "127.0.0.1", "--port", "8000"],
+        [sys.executable, "-m", "uvicorn", "app.main:app", "--host", "127.0.0.1", "--port", "8000"],
         cwd=BACKEND_DIR,
         env=backend_env,
-        shell=sys.platform == "win32",
+        shell=False,
     )
 
     print(
         f"{Colors.CYAN}[*] Starting Frontend Web Server on http://localhost:3000...{Colors.RESET}"
     )
     frontend_proc = subprocess.Popen(
-        ["npm", "run", "dev"],
+        ["npm.cmd" if sys.platform == "win32" else "npm", "run", "dev"],
         cwd=FRONTEND_DIR,
         env=frontend_env,
-        shell=sys.platform == "win32",
+        shell=False,
     )
 
     time.sleep(3)
